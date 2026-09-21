@@ -51,13 +51,12 @@ const navLabels = copy.nav as Record<string, string>;
         <a
           class="hdr__lang"
           href={path(other, route)}
-          lang={other}
           hreflang={other}
-          aria-label={copy.nav.switchLabel}
           data-lang-switch
           data-lang={other}
         >
-          {copy.nav.switchTo}
+          <span lang={other}>{copy.nav.switchTo}</span>
+          <span class="visually-hidden">{copy.nav.switchLabel}</span>
         </a>
         <a class="btn btn--primary hdr__cta" href={path(lang, 'contact')}>{copy.nav.cta}</a>
       </div>

@@ -9,7 +9,6 @@ interface Props {
   title?: string;
   variant?: 'colour' | 'on-dark' | 'mono-light' | 'mono-dark';
   class?: string;
-  animate?: boolean;
   id?: string;
 }
 
@@ -60,7 +59,7 @@ const fill = fills[variant];
   <path class="sf-mark__blue" data-band="blue" d={BLUE} fill={fill.blue}></path>
 </svg>
 
-<style define:vars={{ animate: animate ? '1' : '0' }}>
+<style>
   /* Astro scopes styles per component, so a parent's `.hero__mark { block-size }`
      never reaches this element. Size is taken from inherited custom properties
      instead: the parent sets --mark-block / --mark-inline on its wrapper. */

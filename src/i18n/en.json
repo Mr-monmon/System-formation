@@ -16,7 +16,7 @@
     "contact": "Contact",
     "cta": "Talk to our team",
     "switchTo": "العربية",
-    "switchLabel": "Switch to Arabic",
+    "switchLabel": "Switch the site to Arabic",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "primaryLabel": "Primary"
@@ -324,45 +324,105 @@
         "regulator": "National Cybersecurity Authority (NCA)",
         "note": "The national baseline and its extensions.",
         "items": [
-          { "code": "ECC-2:2024", "name": "Essential Cybersecurity Controls", "text": "The national baseline every in-scope entity is measured against." },
-          { "code": "CCC-2:2024", "name": "Cloud Cybersecurity Controls", "text": "Obligations split between the cloud provider and the tenant using it." },
-          { "code": "DCC-1:2022", "name": "Data Cybersecurity Controls", "text": "Classification-driven protection across the data lifecycle; extends the ECC." },
-          { "code": "CSCC-1:2019", "name": "Critical Systems Cybersecurity Controls", "text": "Additional controls over systems designated as critical." },
-          { "code": "OTCC-1:2022", "name": "Operational Technology Cybersecurity Controls", "text": "Controls for industrial and operational technology environments." }
+          {
+            "code": "ECC-2:2024",
+            "name": "Essential Cybersecurity Controls",
+            "text": "The national baseline every in-scope entity is measured against."
+          },
+          {
+            "code": "CCC-2:2024",
+            "name": "Cloud Cybersecurity Controls",
+            "text": "Obligations split between the cloud provider and the tenant using it."
+          },
+          {
+            "code": "DCC-1:2022",
+            "name": "Data Cybersecurity Controls",
+            "text": "Classification-driven protection across the data lifecycle; extends the ECC."
+          },
+          {
+            "code": "CSCC-1:2019",
+            "name": "Critical Systems Cybersecurity Controls",
+            "text": "Additional controls over systems designated as critical."
+          },
+          {
+            "code": "OTCC-1:2022",
+            "name": "Operational Technology Cybersecurity Controls",
+            "text": "Controls for industrial and operational technology environments."
+          }
         ]
       },
       {
         "regulator": "Saudi Central Bank (SAMA)",
         "note": "For institutions SAMA supervises.",
         "items": [
-          { "code": "CSF", "name": "Cyber Security Framework", "text": "The cybersecurity expectations placed on SAMA-supervised financial institutions." },
-          { "code": "BCM", "name": "Business Continuity Framework", "text": "Continuity and recovery obligations that sit alongside the cyber framework." }
+          {
+            "code": "CSF",
+            "name": "Cyber Security Framework",
+            "text": "The cybersecurity expectations placed on SAMA-supervised financial institutions."
+          },
+          {
+            "code": "BCM",
+            "name": "Business Continuity Framework",
+            "text": "Continuity and recovery obligations that sit alongside the cyber framework."
+          }
         ]
       },
       {
         "regulator": "Saudi Data and AI Authority (SDAIA)",
         "note": "Personal data, wherever it is processed in the Kingdom.",
         "items": [
-          { "code": "PDPL", "name": "Personal Data Protection Law", "text": "Lawful basis, data subject rights and breach notification for personal data." },
-          { "code": "Implementing Regulations", "name": "PDPL Implementing Regulations", "text": "The operational detail behind the law, including transfer conditions." }
+          {
+            "code": "PDPL",
+            "name": "Personal Data Protection Law",
+            "text": "Lawful basis, data subject rights and breach notification for personal data."
+          },
+          {
+            "code": "Implementing Regulations",
+            "name": "PDPL Implementing Regulations",
+            "text": "The operational detail behind the law, including transfer conditions."
+          }
         ]
       },
       {
         "regulator": "Communications, Space and Technology Commission (CST)",
         "note": "For licensed telecom, cloud and ICT providers.",
         "items": [
-          { "code": "CCRF", "name": "Cloud Computing Regulatory Framework", "text": "Licensing classes and customer protection duties for cloud services." },
-          { "code": "CRF (RT08)", "name": "Cybersecurity Regulatory Framework for ICT Service Providers", "text": "Cybersecurity obligations for CST-licensed and registered ICT providers." }
+          {
+            "code": "CCRF",
+            "name": "Cloud Computing Regulatory Framework",
+            "text": "Licensing classes and customer protection duties for cloud services."
+          },
+          {
+            "code": "CRF (RT08)",
+            "name": "Cybersecurity Regulatory Framework for ICT Service Providers",
+            "text": "Cybersecurity obligations for CST-licensed and registered ICT providers."
+          }
         ]
       },
       {
         "regulator": "International standards",
         "note": "Where a client, parent company or tender asks for them.",
         "items": [
-          { "code": "ISO/IEC 27001", "name": "Information security management", "text": "The management system most international clients recognise." },
-          { "code": "ISO 22301", "name": "Business continuity management", "text": "Continuity planning that holds up under audit." },
-          { "code": "PCI DSS", "name": "Payment card data security", "text": "Applies wherever cardholder data is stored, processed or transmitted." },
-          { "code": "NIST CSF", "name": "Cybersecurity Framework", "text": "A common language for mapping controls across several regimes at once." }
+          {
+            "code": "ISO/IEC 27001",
+            "name": "Information security management",
+            "text": "The management system most international clients recognise."
+          },
+          {
+            "code": "ISO 22301",
+            "name": "Business continuity management",
+            "text": "Continuity planning that holds up under audit."
+          },
+          {
+            "code": "PCI DSS",
+            "name": "Payment card data security",
+            "text": "Applies wherever cardholder data is stored, processed or transmitted."
+          },
+          {
+            "code": "NIST CSF",
+            "name": "Cybersecurity Framework",
+            "text": "A common language for mapping controls across several regimes at once."
+          }
         ]
       }
     ],
@@ -387,11 +447,26 @@
     "mission": "To make high-quality security operations affordable to deliver, by pooling licences, talent and platforms under clear service level agreements.",
     "valuesTitle": "What we hold to",
     "values": [
-      { "name": "Reliability", "text": "The commitment in the SLA is the commitment we operate to." },
-      { "name": "Partnership", "text": "Your client relationship stays yours. We do not compete with the partners we carry." },
-      { "name": "Local expertise", "text": "Saudi delivery, Saudi regulatory context, in Arabic and English." },
-      { "name": "Efficiency", "text": "Shared capacity exists to remove cost, not to add a layer." },
-      { "name": "Confidentiality", "text": "Partner and client information is segregated and stays that way." }
+      {
+        "name": "Reliability",
+        "text": "The commitment in the SLA is the commitment we operate to."
+      },
+      {
+        "name": "Partnership",
+        "text": "Your client relationship stays yours. We do not compete with the partners we carry."
+      },
+      {
+        "name": "Local expertise",
+        "text": "Saudi delivery, Saudi regulatory context, in Arabic and English."
+      },
+      {
+        "name": "Efficiency",
+        "text": "Shared capacity exists to remove cost, not to add a layer."
+      },
+      {
+        "name": "Confidentiality",
+        "text": "Partner and client information is segregated and stays that way."
+      }
     ],
     "visionTwentyThirtyTitle": "Vision 2030",
     "visionTwentyThirty": "A secure digital economy needs more than technology — it needs enough qualified people to run it. By concentrating licences, platforms and training into a shared foundation, we help local providers take on work that would otherwise go abroad, and we build cybersecurity careers inside the Kingdom.",
@@ -418,7 +493,11 @@
       "email": "Email",
       "phone": "Phone",
       "role": "I am a…",
-      "roleOptions": ["Service provider", "Organisation", "Other"],
+      "roleOptions": [
+        "Service provider",
+        "Organisation",
+        "Other"
+      ],
       "interest": "Interest",
       "interestOptions": [
         "Partner model / white-label delivery",
@@ -477,35 +556,55 @@
     "sections": [
       {
         "h": "Who we are",
-        "p": ["System Formation Co. Ltd (\"System Formation\", \"we\") is a company registered in the Kingdom of Saudi Arabia, commercial registration [CR NUMBER], with its registered address at [CITY / ADDRESS]. We are the controller of the personal data described in this policy."]
+        "p": [
+          "System Formation Co. Ltd (\"System Formation\", \"we\") is a company registered in the Kingdom of Saudi Arabia, commercial registration [CR NUMBER], with its registered address at [CITY / ADDRESS]. We are the controller of the personal data described in this policy."
+        ]
       },
       {
         "h": "What we collect",
-        "p": ["When you submit the contact form we collect the name, company, email address, phone number, the audience and interest you select, and the content of your message.", "Our hosting provider processes technical information needed to deliver the site securely, including IP address and request metadata. We do not use advertising or behavioural tracking cookies, and we do not embed third-party trackers."]
+        "p": [
+          "When you submit the contact form we collect the name, company, email address, phone number, the audience and interest you select, and the content of your message.",
+          "Our hosting provider processes technical information needed to deliver the site securely, including IP address and request metadata. We do not use advertising or behavioural tracking cookies, and we do not embed third-party trackers."
+        ]
       },
       {
         "h": "Why we use it",
-        "p": ["We use contact form submissions for one purpose: to respond to your enquiry and, where you ask us to, to prepare a commercial proposal. We rely on your consent, given by submitting the form, and on our legitimate interest in responding to business enquiries.", "We do not sell personal data, and we do not use it for marketing unrelated to your enquiry."]
+        "p": [
+          "We use contact form submissions for one purpose: to respond to your enquiry and, where you ask us to, to prepare a commercial proposal. We rely on your consent, given by submitting the form, and on our legitimate interest in responding to business enquiries.",
+          "We do not sell personal data, and we do not use it for marketing unrelated to your enquiry."
+        ]
       },
       {
         "h": "A security check on the form",
-        "p": ["The contact form is protected by a bot-detection service to stop automated abuse. It receives technical signals about the request. It does not receive the content of your message."]
+        "p": [
+          "The contact form is protected by a bot-detection service to stop automated abuse. It receives technical signals about the request. It does not receive the content of your message."
+        ]
       },
       {
         "h": "How long we keep it",
-        "p": ["Enquiries are retained for [RETENTION PERIOD] from the last contact, after which they are deleted or anonymised. Where an enquiry becomes a contract, the related records are retained under the retention period required by Saudi commercial and tax law."]
+        "p": [
+          "Enquiries are retained for [RETENTION PERIOD] from the last contact, after which they are deleted or anonymised. Where an enquiry becomes a contract, the related records are retained under the retention period required by Saudi commercial and tax law."
+        ]
       },
       {
         "h": "Who else sees it",
-        "p": ["Personal data is available to System Formation staff who need it to answer you, and to the service providers that operate our website infrastructure and email under contract. We do not disclose it to anyone else except where the law requires it.", "Where personal data is transferred outside the Kingdom, we apply the conditions set out in the Personal Data Protection Law and its implementing regulations."]
+        "p": [
+          "Personal data is available to System Formation staff who need it to answer you, and to the service providers that operate our website infrastructure and email under contract. We do not disclose it to anyone else except where the law requires it.",
+          "Where personal data is transferred outside the Kingdom, we apply the conditions set out in the Personal Data Protection Law and its implementing regulations."
+        ]
       },
       {
         "h": "Your rights",
-        "p": ["Under the Personal Data Protection Law you may ask to access your personal data, correct it, request its destruction, withdraw consent, and be informed of how it is used. Write to info@systemformation.com and we will respond within the period the law allows.", "If you believe we have not handled your data correctly, you may complain to the Saudi Data and AI Authority (SDAIA)."]
+        "p": [
+          "Under the Personal Data Protection Law you may ask to access your personal data, correct it, request its destruction, withdraw consent, and be informed of how it is used. Write to info@systemformation.com and we will respond within the period the law allows.",
+          "If you believe we have not handled your data correctly, you may complain to the Saudi Data and AI Authority (SDAIA)."
+        ]
       },
       {
         "h": "Changes to this policy",
-        "p": ["We will update this page when our practices change, and will change the date above when we do."]
+        "p": [
+          "We will update this page when our practices change, and will change the date above when we do."
+        ]
       }
     ]
   },
@@ -520,35 +619,52 @@
     "sections": [
       {
         "h": "About these terms",
-        "p": ["These terms apply to your use of systemformation.com, operated by System Formation Co. Ltd. By using the site you accept them. If you do not accept them, please do not use the site."]
+        "p": [
+          "These terms apply to your use of systemformation.com, operated by System Formation Co. Ltd. By using the site you accept them. If you do not accept them, please do not use the site."
+        ]
       },
       {
         "h": "What the site is for",
-        "p": ["This website describes our services. Nothing on it is an offer capable of acceptance, a quotation, or professional advice for your specific circumstances. Any figures shown, including indicative savings, are illustrative and are not a commitment. Services are provided only under a signed agreement."]
+        "p": [
+          "This website describes our services. Nothing on it is an offer capable of acceptance, a quotation, or professional advice for your specific circumstances. Any figures shown, including indicative savings, are illustrative and are not a commitment. Services are provided only under a signed agreement."
+        ]
       },
       {
         "h": "Acceptable use",
-        "p": ["Do not use this site to attempt unauthorised access, disrupt its availability, submit unlawful or harmful content, or extract data by automated means beyond ordinary search engine indexing. We may restrict access where we reasonably believe this has happened.", "If you believe you have found a security issue in this website, please report it to info@systemformation.com rather than testing further."]
+        "p": [
+          "Do not use this site to attempt unauthorised access, disrupt its availability, submit unlawful or harmful content, or extract data by automated means beyond ordinary search engine indexing. We may restrict access where we reasonably believe this has happened.",
+          "If you believe you have found a security issue in this website, please report it to info@systemformation.com rather than testing further."
+        ]
       },
       {
         "h": "Intellectual property",
-        "p": ["The content, design, logos and marks on this site belong to System Formation Co. Ltd or its licensors. You may read and share pages for your own business evaluation. Any other reproduction requires our written permission. Third-party names and framework titles are the property of their respective owners and appear for identification only."]
+        "p": [
+          "The content, design, logos and marks on this site belong to System Formation Co. Ltd or its licensors. You may read and share pages for your own business evaluation. Any other reproduction requires our written permission. Third-party names and framework titles are the property of their respective owners and appear for identification only."
+        ]
       },
       {
         "h": "Liability",
-        "p": ["We take care to keep the site accurate and available, but we do not warrant that it will be uninterrupted or error-free. To the extent permitted by law, we are not liable for loss arising from reliance on the site's contents. Nothing in these terms limits liability that cannot lawfully be limited."]
+        "p": [
+          "We take care to keep the site accurate and available, but we do not warrant that it will be uninterrupted or error-free. To the extent permitted by law, we are not liable for loss arising from reliance on the site's contents. Nothing in these terms limits liability that cannot lawfully be limited."
+        ]
       },
       {
         "h": "Links",
-        "p": ["Where this site links to another organisation, we are not responsible for that organisation's content or its handling of your data."]
+        "p": [
+          "Where this site links to another organisation, we are not responsible for that organisation's content or its handling of your data."
+        ]
       },
       {
         "h": "Governing law",
-        "p": ["These terms are governed by the laws of the Kingdom of Saudi Arabia, and the courts of the Kingdom have jurisdiction over any dispute."]
+        "p": [
+          "These terms are governed by the laws of the Kingdom of Saudi Arabia, and the courts of the Kingdom have jurisdiction over any dispute."
+        ]
       },
       {
         "h": "Contact",
-        "p": ["Questions about these terms: info@systemformation.com."]
+        "p": [
+          "Questions about these terms: info@systemformation.com."
+        ]
       }
     ]
   },

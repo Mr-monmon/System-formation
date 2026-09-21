@@ -12,7 +12,7 @@ const hero = copy.home.hero;
 ---
 
 <section class="hero slide--dark" data-hero aria-labelledby="hero-title">
-  <StructureGrid class="hero__grid" rows={16} cols={28} />
+  <StructureGrid class="hero__grid" rows={11} cols={19} />
   <div class="container hero__inner">
     <div class="hero__copy">
       <span class="hero__mask">
@@ -38,22 +38,28 @@ const hero = copy.home.hero;
     background: var(--sf-navy-900);
     color: var(--sf-on-dark);
     padding-block: clamp(var(--sp-8), 10vh, var(--sp-10));
+    /* Reserved height, so swapping in the webfont cannot reflow the section
+       (and with it the glow behind the mark) once it arrives. */
+    min-block-size: 78svh;
+    display: grid;
+    align-content: center;
   }
   @media (min-width: 900px) {
     .hero {
       min-block-size: min(92vh, 56rem);
-      display: grid;
-      align-content: center;
     }
   }
   .hero::after {
-    /* one restrained glow behind the mark, not a decorative blob field */
+    /* One restrained glow behind the mark, not a decorative blob field.
+       Sized in viewport units rather than percentages of the hero: as a
+       percentage it resized whenever the hero reflowed, and being large it
+       then dominated the page's layout-shift score. */
     content: '';
     position: absolute;
-    inset-inline-end: -10%;
-    inset-block-start: -20%;
-    inline-size: 60%;
-    block-size: 90%;
+    inset-inline-end: -14vw;
+    inset-block-start: -18vh;
+    inline-size: 68vw;
+    block-size: 76vh;
     background: radial-gradient(circle at 60% 40%, rgba(18, 163, 253, 0.16), transparent 62%);
     pointer-events: none;
   }

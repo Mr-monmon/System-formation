@@ -66,13 +66,14 @@ const organisation = {
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
-    <link
-      rel="preload"
-      as="font"
-      type="font/woff2"
-      href={lang === 'ar' ? '/fonts/ibm-plex-sans-arabic-700.woff2' : '/fonts/plus-jakarta-sans-latin-var.woff2'}
-      crossorigin
-    />
+    {
+      lang === 'ar' && (
+        <>
+          <link rel="preload" as="font" type="font/woff2" href="/fonts/ibm-plex-sans-arabic-700.woff2" crossorigin />
+          <link rel="preload" as="font" type="font/woff2" href="/fonts/ibm-plex-sans-arabic-400.woff2" crossorigin />
+        </>
+      )
+    }
     <link rel="preload" as="font" type="font/woff2" href="/fonts/plus-jakarta-sans-latin-var.woff2" crossorigin />
 
     <script is:inline>

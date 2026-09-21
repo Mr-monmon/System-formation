@@ -17,9 +17,16 @@ export default defineConfig({
   integrations: [
     sitemap({
       i18n: { defaultLocale: 'ar', locales: { ar: 'ar-SA', en: 'en' } },
-      filter: (page) => !page.includes('/404'),
+      // Exclude the 404s and the bare "/" fallback: the root is a noindex
+      // redirect that the Worker owns, not a page to be indexed.
+      filter: (page) =>
+        !page.includes('/404') && new URL(page).pathname !== '/',
     }),
   ],
-  build: { assets: '_assets', inlineStylesheets: 'never' },
+  // One stylesheet for the whole site, inlined into the document: on a slow
+  // connection the render-blocking round trip costs more than the ~6 KB the
+  // inline copy adds. scripts/build-headers.mjs hashes it for the CSP.
+  build: { assets: '_assets', inlineStylesheets: 'always' },
+  vite: { build: { cssCodeSplit: false } },
   devToolbar: { enabled: false },
 });

@@ -65,14 +65,21 @@ export async function initMotion(): Promise<void> {
 /* Smooth scroll                                                       */
 /* ------------------------------------------------------------------ */
 async function initSmoothScroll(ScrollTrigger: typeof import('gsap/ScrollTrigger').ScrollTrigger) {
-  const { default: LenisCtor } = await import('lenis');
-  lenis = new LenisCtor({ duration: 1.05, smoothWheel: true, touchMultiplier: 1.6 });
-  lenis.on('scroll', ScrollTrigger.update);
-  const raf = (time: number) => {
-    lenis?.raf(time);
+  // Only on pointer-driven devices. On touch, smooth scroll costs about a
+  // second of main-thread time and overrides scrolling the platform already
+  // does better.
+  const pointerDriven = window.matchMedia('(pointer: fine)').matches;
+
+  if (pointerDriven) {
+    const { default: LenisCtor } = await import('lenis');
+    lenis = new LenisCtor({ duration: 1.05, smoothWheel: true, syncTouch: false });
+    lenis.on('scroll', ScrollTrigger.update);
+    const raf = (time: number) => {
+      lenis?.raf(time);
+      requestAnimationFrame(raf);
+    };
     requestAnimationFrame(raf);
-  };
-  requestAnimationFrame(raf);
+  }
 
   // Keep in-page anchors working through Lenis, including the slide dots.
   document.addEventListener('click', (event) => {
@@ -82,7 +89,12 @@ async function initSmoothScroll(ScrollTrigger: typeof import('gsap/ScrollTrigger
     const target = id && document.getElementById(id);
     if (!target) return;
     event.preventDefault();
-    lenis?.scrollTo(target, { offset: -72 });
+    if (lenis) {
+      lenis.scrollTo(target, { offset: -72 });
+    } else {
+      const top = target.getBoundingClientRect().top + window.scrollY - 72;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
     target.setAttribute('tabindex', '-1');
     target.focus({ preventScroll: true });
   });
@@ -134,52 +146,65 @@ function revealOnScroll(
   gsap: typeof import('gsap').gsap,
   ScrollTrigger: typeof import('gsap/ScrollTrigger').ScrollTrigger,
 ) {
-  document.querySelectorAll<HTMLElement>('[data-animate]').forEach((el) => {
-    if (el.closest('[data-hero]') || el.dataset.revealBound !== undefined) return;
+  // One ScrollTrigger per element is the bulk of the setup cost on a page with
+  // this many reveals; batch() shares a single observer across them.
+  const pending = [...document.querySelectorAll<HTMLElement>('[data-animate]')].filter(
+    (el) => !el.closest('[data-hero]') && el.dataset.revealBound === undefined,
+  );
+  pending.forEach((el) => {
     el.dataset.revealBound = '';
-
-    const mode = el.dataset.animate || 'up';
-    const from: gsap.TweenVars = { opacity: 0 };
-    if (mode === 'up') from.y = 26;
-    if (mode === 'start') from.x = 40 * flow();
-    if (mode === 'scale') from.scale = 0.96;
-
-    // fromTo, not from: the stylesheet already sets opacity 0 on these (so the
-    // start state is correct before this module loads), which would make a
-    // `.from()` tween animate 0 -> 0. The end state has to be stated.
-    gsap.fromTo(
-      el,
-      from,
-      {
-        opacity: 1,
-        y: 0,
-        x: 0,
-        scale: 1,
-        duration: 0.7,
-        ease: 'power3.out',
-        delay: Number(el.dataset.animateDelay || 0),
-        scrollTrigger: { trigger: el, start: 'top 88%', once: true },
-      },
-    );
   });
+
+  if (pending.length) {
+    ScrollTrigger.batch(pending, {
+      start: 'top 88%',
+      once: true,
+      onEnter: (batch) =>
+        batch.forEach((el) => {
+          const node = el as HTMLElement;
+          const mode = node.dataset.animate || 'up';
+          // fromTo, not from: the stylesheet already sets opacity 0 on these
+          // (so the start state is right before this module loads), which
+          // would make a `.from()` tween animate 0 -> 0.
+          const from: gsap.TweenVars = { opacity: 0 };
+          if (mode === 'up') from.y = 26;
+          if (mode === 'start') from.x = 40 * flow();
+          if (mode === 'scale') from.scale = 0.96;
+          gsap.fromTo(node, from, {
+            opacity: 1,
+            y: 0,
+            x: 0,
+            scale: 1,
+            duration: 0.7,
+            ease: 'power3.out',
+            delay: Number(node.dataset.animateDelay || 0),
+          });
+        }),
+    });
+  }
 
   // Staggered children (fact lists, pillar blocks, value lists).
-  document.querySelectorAll<HTMLElement>('[data-stagger]').forEach((group) => {
-    if (group.dataset.revealBound !== undefined) return;
+  const groups = [...document.querySelectorAll<HTMLElement>('[data-stagger]')].filter(
+    (group) => group.dataset.revealBound === undefined,
+  );
+  groups.forEach((group) => {
     group.dataset.revealBound = '';
-    gsap.fromTo(
-      group.querySelectorAll(':scope > *'),
-      { opacity: 0, y: 22 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.62,
-        ease: 'power3.out',
-        stagger: 0.08,
-        scrollTrigger: { trigger: group, start: 'top 85%', once: true },
-      },
-    );
   });
+
+  if (groups.length) {
+    ScrollTrigger.batch(groups, {
+      start: 'top 85%',
+      once: true,
+      onEnter: (batch) =>
+        batch.forEach((group) =>
+          gsap.fromTo(
+            group.querySelectorAll(':scope > *'),
+            { opacity: 0, y: 22 },
+            { opacity: 1, y: 0, duration: 0.62, ease: 'power3.out', stagger: 0.08 },
+          ),
+        ),
+    });
+  }
 
   ScrollTrigger.refresh();
 
@@ -202,21 +227,33 @@ function structureGrid(
   gsap: typeof import('gsap').gsap,
   _ScrollTrigger: typeof import('gsap/ScrollTrigger').ScrollTrigger,
 ) {
+  const cheapDevice = !window.matchMedia('(min-width: 900px) and (pointer: fine)').matches;
+
   document.querySelectorAll<SVGSVGElement>('[data-structure]').forEach((svg) => {
+    const group = svg.querySelector('[data-cells]');
     const cells = svg.querySelectorAll('[data-cell]');
-    if (!cells.length) return;
+    if (!cells.length || !group) return;
+    const trigger = { trigger: svg.closest('section') || svg, start: 'top 78%', once: true };
+
+    if (cheapDevice) {
+      // One tween, one element: the motif still arrives, at no measurable cost.
+      gsap.from(group, { opacity: 0, duration: 0.9, ease: 'power2.out', scrollTrigger: trigger });
+      return;
+    }
+
+    // Opacity only — transforming each polygon invalidates SVG layout and was
+    // the single biggest main-thread cost on the page.
     gsap.fromTo(
       cells,
-      { opacity: 0, scale: 0.82, transformOrigin: '50% 50%' },
+      { opacity: 0 },
       {
         opacity: 1,
-        scale: 1,
         duration: 0.7,
         ease: 'power2.out',
-        // `amount` spreads the whole stagger over a fixed window, so a grid of
-        // 400 cells still assembles in about a second rather than 15.
+        // `amount` spreads the whole stagger over a fixed window, so a large
+        // grid assembles in about a second rather than fifteen.
         stagger: { amount: 1.1, from: 'random' },
-        scrollTrigger: { trigger: svg.closest('section') || svg, start: 'top 75%', once: true },
+        scrollTrigger: trigger,
       },
     );
   });

@@ -34,7 +34,7 @@ const hex = (cx: number, cy: number) =>
   aria-hidden="true"
   data-structure
 >
-  <g class="structure__cells">
+  <g class="structure__cells" data-cells>
     {cells.map((cell) => (
       <polygon data-cell points={hex(cell.x + W / 2, cell.y + H / 2)} vector-effect="non-scaling-stroke" />
     ))}
