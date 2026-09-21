@@ -150,6 +150,16 @@ git push origin main
 Pages builds `main` and promotes it to the production domain automatically.
 Nothing needs to be attached or pointed — the custom domain is already Active.
 
+> `main` originally held only two directly-uploaded logo files and shared no
+> history with this branch, so that merge would have failed with *"refusing to
+> merge unrelated histories"*. That is already handled: `main` has been merged
+> into this branch, so the command above is now an ordinary fast-forward with
+> no flags. The two root files were byte-identical to the copies in
+> `brand/source/` and were removed in favour of those.
+
+Prefer a pull request? Open one from `claude/ecstatic-hypatia-ybljot` into
+`main` — it will merge cleanly for the same reason.
+
 **Before merging**, open the preview URL and check:
 
 - `/` redirects to `/ar/` (or `/en/` if your browser prefers English)
