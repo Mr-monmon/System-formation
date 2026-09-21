@@ -1,0 +1,66 @@
+---
+import Slide from '../ui/Slide.astro';
+import StructureGrid from '../ui/StructureGrid.astro';
+import FormationPath from '../sections/FormationPath.astro';
+import { t, path, type Locale } from '../../i18n';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const copy = t(lang);
+const p = copy.partner;
+---
+
+<Slide tone="dark" labelledBy="partner-title" class="phero">
+  <StructureGrid rows={4} cols={12} />
+  <div class="phero__inner">
+    <h1 id="partner-title" data-animate>{p.hero.h1}</h1>
+    <p class="lead" data-animate data-animate-delay="0.06">{p.hero.sub}</p>
+  </div>
+</Slide>
+
+<Slide labelledBy="benefits-title">
+  <h2 id="benefits-title" data-animate>{p.benefits.title}</h2>
+  <ul class="benefits" data-stagger>
+    {p.benefits.items.map((item) => (
+      <li class="benefit">
+        <h3>{item.name}</h3>
+        <p>{item.text}</p>
+      </li>
+    ))}
+  </ul>
+</Slide>
+
+<Slide tone="mist" labelledBy="steps-title">
+  <h2 id="steps-title" data-animate>{p.steps.title}</h2>
+  <p class="lead" data-animate data-animate-delay="0.05">{p.steps.intro}</p>
+  <FormationPath lang={lang} />
+</Slide>
+
+<Slide labelledBy="pcta-title">
+  <h2 id="pcta-title" data-animate>{p.cta.title}</h2>
+  <p class="lead" data-animate data-animate-delay="0.05">{p.cta.body}</p>
+  <p data-animate data-animate-delay="0.1">
+    <a class="btn btn--primary" href={path(lang, 'contact')}>{p.cta.button}</a>
+  </p>
+</Slide>
+
+<style>
+  .phero__inner { position: relative; z-index: 1; }
+  .phero h1 { max-inline-size: 20ch; }
+  .benefits {
+    list-style: none;
+    margin: var(--sp-7) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--sp-6);
+  }
+  @media (min-width: 760px) {
+    .benefits { grid-template-columns: 1fr 1fr; column-gap: var(--sp-8); }
+  }
+  .benefit {
+    padding-inline-start: var(--sp-5);
+    border-inline-start: 2px solid var(--sf-blue-500);
+  }
+  .benefit h3 { font-size: var(--fs-h3); }
+  .benefit p { margin-block-start: var(--sp-2); color: var(--sf-grey-600); }
+</style>

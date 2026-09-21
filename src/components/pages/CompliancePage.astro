@@ -1,0 +1,88 @@
+---
+import Slide from '../ui/Slide.astro';
+import { t, path, type Locale } from '../../i18n';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const copy = t(lang);
+const c = copy.compliance;
+---
+
+<Slide tone="dark" labelledBy="compliance-title">
+  <h1 id="compliance-title" data-animate>{c.hero.h1}</h1>
+  <p class="lead" data-animate data-animate-delay="0.06">{c.hero.sub}</p>
+</Slide>
+
+<Slide>
+  <div class="cgroups">
+    {c.groups.map((group) => (
+      <section class="cgroup" data-animate>
+        <header class="cgroup__head">
+          <h2 class="cgroup__reg">{group.regulator}</h2>
+          <p class="cgroup__note">{group.note}</p>
+        </header>
+        <ul class="cgroup__list">
+          {group.items.map((item) => (
+            <li class="citem">
+              <p class="citem__code lat">{item.code}</p>
+              <h3 class="citem__name">{item.name}</h3>
+              <p class="citem__text">{item.text}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </div>
+
+  <p class="cdisclaimer">{c.disclaimer}</p>
+</Slide>
+
+<Slide tone="mist" labelledBy="ccta-title">
+  <h2 id="ccta-title" data-animate>{c.cta.title}</h2>
+  <p class="lead" data-animate data-animate-delay="0.05">{c.cta.body}</p>
+  <p data-animate data-animate-delay="0.1">
+    <a class="btn btn--primary" href={path(lang, 'contact')}>{c.cta.button}</a>
+  </p>
+</Slide>
+
+<style>
+  .cgroups { display: grid; gap: var(--sp-8); }
+  .cgroup__head { max-inline-size: var(--measure); }
+  .cgroup__reg { font-size: var(--fs-h3); font-weight: var(--fw-black); }
+  .cgroup__note { margin-block-start: var(--sp-2); color: var(--sf-grey-600); font-size: var(--fs-small); }
+  .cgroup__list {
+    list-style: none;
+    margin: var(--sp-5) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--sp-5);
+  }
+  @media (min-width: 760px) {
+    .cgroup__list { grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
+  }
+  .citem {
+    padding: var(--sp-5);
+    background: var(--sf-mist);
+    border-inline-start: 3px solid var(--sf-blue-500);
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
+  :global([dir='rtl']) .citem { border-radius: var(--radius) 0 0 var(--radius); }
+  .citem__code {
+    margin: 0;
+    font-size: var(--fs-meta);
+    font-weight: var(--fw-bold);
+    color: var(--sf-blue-700);
+    letter-spacing: 0.01em;
+  }
+  .citem__name { margin-block-start: var(--sp-2); font-size: var(--fs-body); }
+  .citem__text { margin-block-start: var(--sp-2); font-size: var(--fs-small); color: var(--sf-grey-600); }
+  .cdisclaimer {
+    margin-block-start: var(--sp-8);
+    padding: var(--sp-5);
+    border: 1px solid var(--sf-line);
+    border-radius: var(--radius);
+    font-size: var(--fs-small);
+    color: var(--sf-grey-600);
+    max-inline-size: none;
+  }
+</style>

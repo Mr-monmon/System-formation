@@ -1,0 +1,118 @@
+---
+import Mark from '../ui/Mark.astro';
+import StructureGrid from '../ui/StructureGrid.astro';
+import { t, path, type Locale } from '../../i18n';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const copy = t(lang);
+const hero = copy.home.hero;
+---
+
+<section class="hero slide--dark" data-hero aria-labelledby="hero-title">
+  <StructureGrid class="hero__grid" rows={6} cols={14} />
+  <div class="container hero__inner">
+    <div class="hero__copy">
+      <span class="hero__mask">
+        <h1 id="hero-title" data-hero-line>{hero.h1}</h1>
+      </span>
+      <p class="lead hero__sub" data-hero-fade>{hero.sub}</p>
+      <div class="hero__ctas" data-hero-fade>
+        <a class="btn btn--primary" href={path(lang, 'partner')}>{hero.ctaPrimary}</a>
+        <a class="btn btn--ghost" href="#savings">{hero.ctaSecondary}</a>
+      </div>
+    </div>
+
+    <div class="hero__markwrap" data-hero-mark>
+      <Mark variant="on-dark" class="hero__mark" title={hero.markAlt} />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: var(--sf-navy-900);
+    color: var(--sf-on-dark);
+    padding-block: clamp(var(--sp-8), 10vh, var(--sp-10));
+  }
+  @media (min-width: 900px) {
+    .hero {
+      min-block-size: min(92vh, 56rem);
+      display: grid;
+      align-content: center;
+    }
+  }
+  .hero::after {
+    /* one restrained glow behind the mark, not a decorative blob field */
+    content: '';
+    position: absolute;
+    inset-inline-end: -10%;
+    inset-block-start: -20%;
+    inline-size: 60%;
+    block-size: 90%;
+    background: radial-gradient(circle at 60% 40%, rgba(18, 163, 253, 0.16), transparent 62%);
+    pointer-events: none;
+  }
+  .hero__grid {
+    opacity: 0.5;
+  }
+  .hero__inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: var(--sp-8);
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .hero__inner {
+      grid-template-columns: 1.35fr 1fr;
+      gap: var(--sp-9);
+    }
+  }
+  .hero__mask {
+    display: block;
+    overflow: hidden;
+    padding-block-end: 0.12em;
+  }
+  .hero h1 {
+    font-size: var(--fs-display);
+    line-height: var(--lh-display);
+    letter-spacing: var(--ls-display);
+    color: var(--sf-on-dark);
+    max-inline-size: 18ch;
+  }
+  :global([lang='ar']) .hero h1 {
+    max-inline-size: 20ch;
+  }
+  .hero__sub {
+    margin-block-start: var(--sp-5);
+    color: var(--sf-on-dark-muted);
+    max-inline-size: 54ch;
+  }
+  .hero__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-3);
+    margin-block-start: var(--sp-6);
+  }
+  .hero__markwrap {
+    justify-self: center;
+    inline-size: min(100%, 22rem);
+  }
+  .hero__mark {
+    inline-size: 100%;
+    block-size: auto;
+    filter: drop-shadow(0 30px 60px rgba(4, 12, 28, 0.55));
+  }
+  @media (max-width: 899px) {
+    .hero__markwrap {
+      order: -1;
+      inline-size: min(58%, 14rem);
+      justify-self: start;
+    }
+  }
+</style>

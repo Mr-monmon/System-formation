@@ -1,0 +1,288 @@
+---
+import Logo from './ui/Logo.astro';
+import { t, path, navRoutes, otherLocale, routes, type Locale, type RouteKey } from '../i18n';
+
+interface Props {
+  lang: Locale;
+  route: RouteKey;
+}
+const { lang, route } = Astro.props;
+const copy = t(lang);
+const other = otherLocale(lang);
+const navLabels = copy.nav as Record<string, string>;
+---
+
+<header class="hdr" data-header>
+  <div class="container container--wide hdr__inner">
+    <a class="hdr__brand" href={path(lang, 'home')} aria-current={route === 'home' ? 'page' : undefined}>
+      <Logo lang={lang} />
+    </a>
+
+    <button
+      class="hdr__toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="primary-nav"
+      data-menu-toggle
+      data-label-open={copy.nav.openMenu}
+      data-label-close={copy.nav.closeMenu}
+    >
+      <span class="visually-hidden" data-menu-label>{copy.nav.openMenu}</span>
+      <span class="hdr__bars" aria-hidden="true"><i></i><i></i></span>
+    </button>
+
+    <nav class="hdr__nav" id="primary-nav" aria-label={copy.nav.primaryLabel} data-menu-panel>
+      <ul class="hdr__list">
+        {
+          navRoutes.map((key) => (
+            <li>
+              <a
+                class="hdr__link"
+                href={path(lang, key)}
+                aria-current={route === key ? 'page' : undefined}
+              >
+                {navLabels[key]}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="hdr__actions">
+        <a
+          class="hdr__lang"
+          href={path(other, route)}
+          lang={other}
+          hreflang={other}
+          aria-label={copy.nav.switchLabel}
+          data-lang-switch
+          data-lang={other}
+        >
+          {copy.nav.switchTo}
+        </a>
+        <a class="btn btn--primary hdr__cta" href={path(lang, 'contact')}>{copy.nav.cta}</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const panel = document.querySelector<HTMLElement>('[data-menu-panel]');
+  const label = document.querySelector<HTMLElement>('[data-menu-label]');
+  const header = document.querySelector<HTMLElement>('[data-header]');
+
+  if (toggle && panel && label) {
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      document.documentElement.classList.toggle('menu-open', open);
+      label.textContent = open ? toggle.dataset.labelClose! : toggle.dataset.labelOpen!;
+    };
+    toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+    panel.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('a')) setOpen(false);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+  }
+
+  // Remember an explicit language choice for one year; the Worker reads this
+  // cookie at "/" before falling back to Accept-Language.
+  document.querySelector<HTMLAnchorElement>('[data-lang-switch]')?.addEventListener('click', (event) => {
+    const lang = (event.currentTarget as HTMLAnchorElement).dataset.lang;
+    if (lang) document.cookie = `sf-lang=${lang};path=/;max-age=31536000;samesite=lax`;
+  });
+
+  // Condense the header once the page has scrolled past the first screen edge.
+  if (header) {
+    const onScroll = () => header.classList.toggle('hdr--scrolled', window.scrollY > 12);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+</script>
+
+<style>
+  .hdr {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.86);
+    backdrop-filter: saturate(150%) blur(12px);
+    border-block-end: 1px solid transparent;
+    transition:
+      border-color var(--dur) var(--ease-out),
+      background-color var(--dur) var(--ease-out);
+  }
+  .hdr--scrolled {
+    border-block-end-color: var(--sf-line);
+    background: rgba(255, 255, 255, 0.94);
+  }
+  .hdr__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-5);
+    min-block-size: 4.5rem;
+  }
+  .hdr__brand {
+    text-decoration: none;
+    color: inherit;
+    flex: none;
+  }
+  .hdr__nav {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-6);
+    flex: 1;
+    justify-content: flex-end;
+  }
+  .hdr__list {
+    display: flex;
+    align-items: center;
+    gap: clamp(var(--sp-3), 1.6vw, var(--sp-5));
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .hdr__link {
+    position: relative;
+    display: inline-block;
+    padding-block: var(--sp-2);
+    font-size: var(--fs-small);
+    font-weight: var(--fw-medium);
+    color: var(--sf-grey-700);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  /* Underline grows from the inline start, so it runs right-to-left in Arabic. */
+  .hdr__link::after {
+    content: '';
+    position: absolute;
+    inset-block-end: 0;
+    inset-inline-start: 0;
+    inline-size: 100%;
+    block-size: 2px;
+    background: var(--sf-blue-500);
+    transform: scaleX(0);
+    transform-origin: inline-start;
+    transition: transform var(--dur) var(--ease-out);
+  }
+  .hdr__link:hover {
+    color: var(--sf-ink);
+  }
+  .hdr__link:hover::after,
+  .hdr__link[aria-current='page']::after {
+    transform: scaleX(1);
+  }
+  .hdr__link[aria-current='page'] {
+    color: var(--sf-ink);
+    font-weight: var(--fw-semibold);
+  }
+  .hdr__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-4);
+  }
+  .hdr__lang {
+    font-size: var(--fs-small);
+    font-weight: var(--fw-semibold);
+    color: var(--sf-grey-700);
+    text-decoration: none;
+    padding: var(--sp-2) var(--sp-3);
+    border-radius: var(--radius-sm);
+    transition: background-color var(--dur-fast) var(--ease-out);
+  }
+  .hdr__lang:hover {
+    background: var(--sf-blue-050);
+    color: var(--sf-blue-600);
+  }
+  .hdr__toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    padding: 0;
+    background: none;
+    border: 1px solid var(--sf-line);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+  .hdr__bars {
+    display: grid;
+    gap: 5px;
+  }
+  .hdr__bars i {
+    display: block;
+    inline-size: 20px;
+    block-size: 2px;
+    background: var(--sf-ink);
+    transition: transform var(--dur) var(--ease-out);
+  }
+
+  @media (max-width: 899px) {
+    .hdr__toggle {
+      display: inline-flex;
+    }
+    .hdr__nav {
+      position: fixed;
+      inset-block-start: 4.5rem;
+      inset-inline: 0;
+      inset-block-end: 0;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: stretch;
+      gap: var(--sp-5);
+      padding: var(--sp-6) var(--gutter) var(--sp-8);
+      background: var(--sf-paper);
+      overflow-y: auto;
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition:
+        opacity var(--dur) var(--ease-out),
+        transform var(--dur) var(--ease-out),
+        visibility var(--dur);
+    }
+    :global(html.menu-open) .hdr__nav {
+      visibility: visible;
+      opacity: 1;
+      transform: none;
+    }
+    :global(html.menu-open) {
+      overflow: hidden;
+    }
+    .hdr__list {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+    }
+    .hdr__list li + li {
+      border-block-start: 1px solid var(--sf-line);
+    }
+    .hdr__link {
+      display: block;
+      padding-block: var(--sp-4);
+      font-size: var(--fs-lead);
+    }
+    .hdr__link::after {
+      display: none;
+    }
+    .hdr__actions {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--sp-3);
+    }
+    .hdr__lang {
+      text-align: center;
+      border: 1px solid var(--sf-line);
+      padding-block: var(--sp-3);
+    }
+    .hdr__cta {
+      justify-content: center;
+    }
+  }
+</style>

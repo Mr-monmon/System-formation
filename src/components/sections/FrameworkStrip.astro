@@ -1,0 +1,122 @@
+---
+/** Pausable marquee of framework names; static under reduced motion. */
+interface Props {
+  items: string[];
+  label: string;
+  pauseLabel: string;
+  playLabel: string;
+}
+const { items, label, pauseLabel, playLabel } = Astro.props;
+const loop = [...items, ...items];
+---
+
+<div class="strip" data-strip>
+  <h3 class="visually-hidden">{label}</h3>
+  <div class="strip__viewport">
+    <ul class="strip__track" data-strip-track>
+      {loop.map((item, i) => (
+        <li class="strip__item lat" aria-hidden={i >= items.length ? 'true' : undefined}>{item}</li>
+      ))}
+    </ul>
+  </div>
+  <button
+    class="strip__toggle"
+    type="button"
+    data-strip-toggle
+    data-pause={pauseLabel}
+    data-play={playLabel}
+    aria-pressed="false"
+  >
+    {pauseLabel}
+  </button>
+</div>
+
+<script>
+  const strip = document.querySelector<HTMLElement>('[data-strip]');
+  const toggle = strip?.querySelector<HTMLButtonElement>('[data-strip-toggle]');
+  const track = strip?.querySelector<HTMLElement>('[data-strip-track]');
+  if (strip && toggle && track) {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const applyReduced = () => {
+      if (reduced.matches) {
+        track.style.animationPlayState = 'paused';
+        toggle.hidden = true;
+      } else {
+        toggle.hidden = false;
+      }
+    };
+    applyReduced();
+    reduced.addEventListener('change', applyReduced);
+
+    toggle.addEventListener('click', () => {
+      const paused = toggle.getAttribute('aria-pressed') === 'true';
+      toggle.setAttribute('aria-pressed', String(!paused));
+      track.style.animationPlayState = paused ? 'running' : 'paused';
+      toggle.textContent = paused ? toggle.dataset.pause! : toggle.dataset.play!;
+    });
+  }
+</script>
+
+<style>
+  .strip {
+    position: relative;
+    margin-block-start: var(--sp-6);
+  }
+  .strip__viewport {
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  }
+  .strip__track {
+    display: flex;
+    gap: var(--sp-5);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    inline-size: max-content;
+    animation: strip-scroll 46s linear infinite;
+  }
+  /* The marquee always travels the same visual direction; it is decorative,
+     and the framework names themselves are Latin-script. */
+  @keyframes strip-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  .strip__item {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--sf-line-on-dark);
+    border-radius: 999px;
+    font-size: var(--fs-small);
+    font-weight: var(--fw-medium);
+    color: var(--sf-on-dark-muted);
+    white-space: nowrap;
+  }
+  .strip__toggle {
+    margin-block-start: var(--sp-4);
+    padding: 0.35rem 0.9rem;
+    font: inherit;
+    font-size: var(--fs-meta);
+    color: var(--sf-on-dark-muted);
+    background: transparent;
+    border: 1px solid var(--sf-line-on-dark);
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  .strip__toggle:hover {
+    color: var(--sf-blue-300);
+    border-color: var(--sf-blue-300);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .strip__track {
+      animation: none;
+      flex-wrap: wrap;
+      inline-size: 100%;
+    }
+    .strip__viewport {
+      mask-image: none;
+    }
+  }
+</style>

@@ -1,0 +1,117 @@
+---
+import Slide from '../ui/Slide.astro';
+import { t, path, type Locale } from '../../i18n';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const copy = t(lang);
+const s = copy.services;
+const groups = [
+  { key: 'providers', data: s.providers },
+  { key: 'organisations', data: s.organisations },
+] as const;
+---
+
+<Slide tone="dark" labelledBy="services-title">
+  <h1 id="services-title" data-animate>{s.hero.h1}</h1>
+  <p class="lead" data-animate data-animate-delay="0.06">{s.hero.sub}</p>
+</Slide>
+
+<Slide labelledBy="services-tabs-label">
+  <h2 id="services-tabs-label" class="visually-hidden">{s.tabs.label}</h2>
+  <div class="tabs" role="tablist" aria-label={s.tabs.label} data-tabs>
+    {groups.map((group, i) => (
+      <button
+        class="tabs__tab"
+        role="tab"
+        id={`tab-${group.key}`}
+        aria-controls={`panel-${group.key}`}
+        aria-selected={i === 0 ? 'true' : 'false'}
+        tabindex={i === 0 ? 0 : -1}
+        type="button"
+      >
+        {s.tabs[group.key]}
+      </button>
+    ))}
+  </div>
+
+  {groups.map((group, i) => (
+    <div
+      class="panel"
+      role="tabpanel"
+      id={`panel-${group.key}`}
+      aria-labelledby={`tab-${group.key}`}
+      hidden={i !== 0}
+      tabindex="0"
+    >
+      <h3 class="panel__title">{group.data.title}</h3>
+      <p class="lead">{group.data.intro}</p>
+      <div class="svc">
+        {group.data.items.map((item) => (
+          <article class="svc__item" id={item.id}>
+            <h4 class="svc__name">{item.name}</h4>
+            <p class="svc__text">{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  ))}
+</Slide>
+
+<Slide tone="mist" labelledBy="scta-title">
+  <h2 id="scta-title" data-animate>{s.cta.title}</h2>
+  <p class="lead" data-animate data-animate-delay="0.05">{s.cta.body}</p>
+  <p data-animate data-animate-delay="0.1">
+    <a class="btn btn--primary" href={path(lang, 'contact')}>{s.cta.button}</a>
+  </p>
+</Slide>
+
+<style>
+  .tabs {
+    display: inline-flex;
+    gap: 0;
+    padding: 4px;
+    border: 1px solid var(--sf-line);
+    border-radius: var(--radius);
+    background: var(--sf-mist);
+    margin-block-end: var(--sp-7);
+  }
+  .tabs__tab {
+    font: inherit;
+    font-size: var(--fs-small);
+    font-weight: var(--fw-semibold);
+    padding: 0.6rem 1.1rem;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--sf-grey-700);
+    cursor: pointer;
+    transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+  }
+  .tabs__tab[aria-selected='true'] {
+    background: var(--sf-paper);
+    color: var(--sf-ink);
+    box-shadow: var(--shadow-key);
+  }
+  .panel:focus { outline: none; }
+  .panel__title { font-size: var(--fs-h2); font-weight: var(--fw-black); }
+  .panel .lead { margin-block-start: var(--sp-3); }
+  .svc {
+    display: grid;
+    gap: var(--sp-7);
+    margin-block-start: var(--sp-7);
+  }
+  @media (min-width: 860px) {
+    .svc { grid-template-columns: 1fr 1fr; column-gap: var(--sp-8); }
+  }
+  .svc__item {
+    padding-block-start: var(--sp-4);
+    border-block-start: 2px solid var(--sf-navy-900);
+    scroll-margin-block-start: 6rem;
+  }
+  .svc__item:target {
+    border-block-start-color: var(--sf-blue-500);
+  }
+  .svc__name { font-size: var(--fs-h3); }
+  .svc__text { margin-block-start: var(--sp-3); color: var(--sf-grey-600); }
+</style>

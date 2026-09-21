@@ -1,0 +1,222 @@
+---
+import { t, path, type Locale } from '../../i18n';
+import { ASSUMPTIONS } from '../../scripts/estimator';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const copy = t(lang);
+const e = copy.home.estimator;
+const assumption = e.assumption.replace(
+  lang === 'ar' ? '[تكلفة المحلّل]' : '[ANALYST COST]',
+  new Intl.NumberFormat('en-GB').format(ASSUMPTIONS.ANALYST_MONTHLY_COST),
+);
+---
+
+<form class="est" data-estimator novalidate>
+  <p class="est__badge">{e.badge}</p>
+
+  <div class="est__grid">
+    <div class="est__field">
+      <label for="est-analysts">{e.analysts}</label>
+      <div class="est__row">
+        <input
+          id="est-analysts"
+          name="analysts"
+          type="range"
+          min="0"
+          max="60"
+          step="1"
+          value="8"
+          aria-describedby="est-analysts-hint"
+        />
+        <output class="est__value lat" data-out="analysts" for="est-analysts">8</output>
+      </div>
+      <p id="est-analysts-hint" class="est__hint">{e.analystsHint}</p>
+    </div>
+
+    <div class="est__field">
+      <label for="est-licence">{e.licence} <span class="lat">({e.licenceUnit})</span></label>
+      <div class="est__row">
+        <input
+          id="est-licence"
+          name="licence"
+          type="range"
+          min="0"
+          max="500000"
+          step="5000"
+          value="120000"
+          aria-describedby="est-licence-hint"
+        />
+        <output class="est__value lat" data-out="licence" for="est-licence">120,000</output>
+      </div>
+      <p id="est-licence-hint" class="est__hint">{e.licenceHint}</p>
+    </div>
+
+    <fieldset class="est__field est__field--radios">
+      <legend>{e.coverage}</legend>
+      <div class="est__choices">
+        <label class="est__choice">
+          <input type="radio" name="coverage" value="business" checked />
+          <span>{e.coverageBusiness}</span>
+        </label>
+        <label class="est__choice">
+          <input type="radio" name="coverage" value="247" />
+          <span>{e.coverage247}</span>
+        </label>
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="est__result" aria-live="polite">
+    <p class="est__resultlabel">{e.resultLabel}</p>
+    <p class="est__figure">
+      <span class="lat" data-out="range">—</span>
+      <span class="est__unit lat">{e.licenceUnit}</span>
+    </p>
+    <p class="est__meta">
+      <span class="lat" data-out="rate">—</span>
+      {' '}{e.ofLabel}{' '}
+      <span class="lat" data-out="baseline">—</span>
+      {' '}<span class="lat">{e.licenceUnit}</span> {e.baselineLabel}
+    </p>
+  </div>
+
+  <p class="est__assumption">{assumption}</p>
+  <p class="est__disclaimer">{e.disclaimer}</p>
+  <a class="btn btn--primary est__cta" href={path(lang, 'contact')}>{e.cta}</a>
+</form>
+
+<style>
+  .est {
+    margin-block-start: var(--sp-6);
+    padding: clamp(var(--sp-5), 3vw, var(--sp-7));
+    border: 1px solid var(--sf-line);
+    border-radius: var(--radius-lg);
+    background: var(--sf-paper);
+    box-shadow: var(--shadow-key);
+  }
+  .est__badge {
+    display: inline-block;
+    margin: 0 0 var(--sp-5);
+    padding: 0.2rem 0.6rem;
+    font-size: var(--fs-meta);
+    font-weight: var(--fw-semibold);
+    color: var(--sf-blue-700);
+    background: var(--sf-blue-050);
+    border-radius: 999px;
+  }
+  .est__grid {
+    display: grid;
+    gap: var(--sp-5);
+  }
+  @media (min-width: 760px) {
+    .est__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .est__field--radios {
+      grid-column: 1 / -1;
+    }
+  }
+  .est__field {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    min-inline-size: 0;
+  }
+  .est__field label,
+  .est__field legend {
+    display: block;
+    font-size: var(--fs-small);
+    font-weight: var(--fw-semibold);
+    margin-block-end: var(--sp-3);
+    padding: 0;
+  }
+  .est__row {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-4);
+  }
+  .est__row input[type='range'] {
+    flex: 1;
+    min-inline-size: 0;
+    accent-color: var(--sf-blue-500);
+  }
+  .est__value {
+    min-inline-size: 5.5ch;
+    text-align: end;
+    font-weight: var(--fw-bold);
+    font-variant-numeric: tabular-nums;
+  }
+  .est__hint {
+    margin-block-start: var(--sp-2);
+    font-size: var(--fs-meta);
+    color: var(--sf-grey-600);
+  }
+  .est__choices {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-3);
+  }
+  .est__choice {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    padding: 0.55rem 1rem;
+    border: 1px solid var(--sf-line-strong);
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-weight: var(--fw-medium);
+    margin: 0;
+  }
+  .est__choice:has(input:checked) {
+    border-color: var(--sf-blue-500);
+    background: var(--sf-blue-050);
+    color: var(--sf-blue-800);
+  }
+  .est__choice input {
+    accent-color: var(--sf-blue-500);
+  }
+  .est__result {
+    margin-block-start: var(--sp-6);
+    padding-block-start: var(--sp-5);
+    border-block-start: 1px solid var(--sf-line);
+  }
+  .est__resultlabel {
+    margin: 0;
+    font-size: var(--fs-small);
+    color: var(--sf-grey-600);
+  }
+  .est__figure {
+    margin: var(--sp-2) 0 0;
+    font-size: clamp(1.75rem, 1.1rem + 2.4vw, 2.6rem);
+    font-weight: var(--fw-black);
+    letter-spacing: -0.02em;
+    color: var(--sf-ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .est__unit {
+    font-size: 0.45em;
+    font-weight: var(--fw-semibold);
+    color: var(--sf-grey-600);
+  }
+  .est__meta {
+    margin: var(--sp-2) 0 0;
+    font-size: var(--fs-small);
+    color: var(--sf-grey-600);
+  }
+  .est__assumption,
+  .est__disclaimer {
+    font-size: var(--fs-meta);
+    color: var(--sf-grey-600);
+    margin-block-start: var(--sp-4);
+  }
+  .est__disclaimer {
+    font-weight: var(--fw-semibold);
+    color: var(--sf-grey-700);
+  }
+  .est__cta {
+    margin-block-start: var(--sp-5);
+  }
+</style>

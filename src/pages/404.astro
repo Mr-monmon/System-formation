@@ -1,0 +1,90 @@
+---
+/**
+ * Root 404. Cloudflare serves the nearest 404.html, so a request to an unknown
+ * path outside /ar/ or /en/ lands here. It carries both languages because we do
+ * not know which one the visitor wanted.
+ */
+import { t, path } from '../i18n';
+import '../styles/global.css';
+import Mark from '../components/ui/Mark.astro';
+
+const ar = t('ar');
+const en = t('en');
+---
+
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{ar.notFound.seo.title} · {en.notFound.seo.title}</title>
+    <meta name="description" content={en.notFound.seo.description} />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#0F1E32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body class="nf404">
+    <main class="nf404__inner">
+      <Mark variant="on-dark" class="nf404__mark" />
+      <p class="nf404__code">404</p>
+
+      <section lang="ar" dir="rtl" class="nf404__pane">
+        <h1>{ar.notFound.h1}</h1>
+        <p>{ar.notFound.body}</p>
+        <a class="btn btn--primary" href={path('ar', 'home')}>{ar.notFound.home}</a>
+      </section>
+
+      <hr class="nf404__rule" />
+
+      <section lang="en" dir="ltr" class="nf404__pane">
+        <h1>{en.notFound.h1}</h1>
+        <p>{en.notFound.body}</p>
+        <a class="btn btn--primary" href={path('en', 'home')}>{en.notFound.home}</a>
+      </section>
+    </main>
+
+    <style is:global>
+      .nf404 {
+        min-block-size: 100svh;
+        display: grid;
+        place-items: center;
+        background: var(--sf-navy-900);
+        color: var(--sf-on-dark);
+        padding: var(--sp-6);
+      }
+      .nf404__inner {
+        inline-size: min(100%, 44rem);
+        text-align: center;
+      }
+      .nf404__mark {
+        block-size: 4.5rem;
+        margin-inline: auto;
+      }
+      .nf404__code {
+        margin-block: var(--sp-5) 0;
+        font-family: var(--sf-font-latin);
+        font-size: 3rem;
+        font-weight: 800;
+        color: var(--sf-blue-300);
+        opacity: 0.4;
+      }
+      .nf404__pane {
+        margin-block-start: var(--sp-6);
+        font-family: var(--sf-font);
+      }
+      .nf404__pane h1 {
+        font-size: var(--fs-h2);
+        color: var(--sf-on-dark);
+      }
+      .nf404__pane p {
+        margin: var(--sp-3) auto var(--sp-5);
+        color: var(--sf-on-dark-muted);
+      }
+      .nf404__rule {
+        margin-block-start: var(--sp-7);
+        border: 0;
+        border-block-start: 1px solid var(--sf-line-on-dark);
+      }
+    </style>
+  </body>
+</html>

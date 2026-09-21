@@ -1,0 +1,92 @@
+---
+/** Slim progress rail on the inline-end edge; mirrored automatically in RTL. */
+interface Props {
+  items: { id: string; label: string }[];
+  navLabel: string;
+  goLabel: string;
+}
+const { items, navLabel, goLabel } = Astro.props;
+---
+
+<nav class="slidenav" aria-label={navLabel} data-slidenav>
+  <ul>
+    {
+      items.map((item, i) => (
+        <li>
+          <a href={`#${item.id}`} aria-current="false">
+            <span class="slidenav__dot" aria-hidden="true" />
+            <span class="slidenav__tip">{item.label}</span>
+            <span class="visually-hidden">{goLabel}: {item.label}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<style>
+  .slidenav {
+    position: fixed;
+    inset-inline-end: clamp(0.5rem, 1.6vw, 1.5rem);
+    inset-block-start: 50%;
+    transform: translateY(-50%);
+    z-index: 40;
+    display: none;
+  }
+  @media (min-width: 1100px) {
+    .slidenav {
+      display: block;
+    }
+  }
+  .slidenav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+  .slidenav a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    padding: 0.25rem;
+    text-decoration: none;
+  }
+  .slidenav__dot {
+    inline-size: 8px;
+    block-size: 8px;
+    border-radius: 50%;
+    background: var(--sf-grey-300);
+    transition:
+      background-color var(--dur) var(--ease-out),
+      transform var(--dur) var(--ease-out);
+  }
+  .slidenav a[aria-current='true'] .slidenav__dot {
+    background: var(--sf-blue-500);
+    transform: scale(1.6);
+  }
+  .slidenav__tip {
+    font-size: var(--fs-meta);
+    color: var(--sf-grey-600);
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid var(--sf-line);
+    border-radius: var(--radius-sm);
+    padding: 0.2rem 0.5rem;
+    opacity: 0;
+    transform: translateX(6px);
+    pointer-events: none;
+    white-space: nowrap;
+    transition:
+      opacity var(--dur) var(--ease-out),
+      transform var(--dur) var(--ease-out);
+  }
+  :global([dir='rtl']) .slidenav__tip {
+    transform: translateX(-6px);
+  }
+  .slidenav a:hover .slidenav__tip,
+  .slidenav a:focus-visible .slidenav__tip {
+    opacity: 1;
+    transform: none;
+  }
+</style>

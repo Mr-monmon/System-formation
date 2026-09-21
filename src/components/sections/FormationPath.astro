@@ -1,0 +1,101 @@
+---
+/**
+ * The onboarding sequence — the one place on the site where numbered markers
+ * are earned, because these really are ordered steps. The connecting line
+ * draws as you scroll and each step locks into the structure.
+ */
+import { t, type Locale } from '../../i18n';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const copy = t(lang);
+const steps = copy.partner.steps.items;
+---
+
+<ol class="fpath" data-path>
+  <span class="fpath__line" data-path-line aria-hidden="true"></span>
+  {
+    steps.map((step, i) => (
+      <li class="fpath__step" data-path-node>
+        <span class="fpath__num lat" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+        <h3 class="fpath__name">{step.name}</h3>
+        <p class="fpath__text">{step.text}</p>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .fpath {
+    position: relative;
+    list-style: none;
+    margin: var(--sp-7) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--sp-6);
+    counter-reset: step;
+  }
+  .fpath__line {
+    position: absolute;
+    inset-inline-start: 1.05rem;
+    inset-block: 0.6rem 2rem;
+    inline-size: 2px;
+    background: linear-gradient(to bottom, var(--sf-blue-500), var(--sf-blue-800));
+    transform-origin: top;
+    z-index: 0;
+  }
+  .fpath__step {
+    position: relative;
+    z-index: 1;
+    padding-inline-start: 3.25rem;
+  }
+  .fpath__num {
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block-start: 0;
+    inline-size: 2.15rem;
+    block-size: 2.15rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--sf-blue-500);
+    color: #fff;
+    font-size: var(--fs-meta);
+    font-weight: var(--fw-bold);
+    font-variant-numeric: tabular-nums;
+  }
+  .fpath__name {
+    font-size: var(--fs-h3);
+    margin-block-end: var(--sp-2);
+  }
+  .fpath__text {
+    color: var(--sf-grey-600);
+  }
+
+  /* Desktop: the path runs horizontally and the line draws inline-wise. */
+  @media (min-width: 1000px) {
+    .fpath {
+      grid-template-columns: repeat(5, 1fr);
+      gap: var(--sp-5);
+      padding-block-start: var(--sp-6);
+    }
+    .fpath__line {
+      inset-block-start: 1.05rem;
+      inset-block-end: auto;
+      inset-inline: 1rem 1rem;
+      inline-size: auto;
+      block-size: 2px;
+      background: linear-gradient(to right, var(--sf-blue-500), var(--sf-blue-800));
+      transform-origin: inline-start;
+    }
+    .fpath__step {
+      padding-inline-start: 0;
+      padding-block-start: 3.25rem;
+    }
+    .fpath__num {
+      inset-block-start: 0;
+    }
+  }
+</style>

@@ -1,0 +1,191 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { t, dir, path, locales, defaultLocale, type Locale, type RouteKey } from '../i18n';
+import '../styles/global.css';
+
+interface Props {
+  lang: Locale;
+  route: RouteKey;
+  title: string;
+  description: string;
+  /** Home uses a dark hero, so the page starts flush under the header. */
+  flush?: boolean;
+}
+const { lang, route, title, description, flush = false } = Astro.props;
+const copy = t(lang);
+const site = Astro.site ?? new URL('https://systemformation.com');
+const canonical = new URL(path(lang, route), site).href;
+const ogImage = new URL(`/og/og-${lang}.png`, site).href;
+const direction = dir(lang);
+
+const organisation = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'System Formation Co. Ltd',
+  alternateName: 'شركة تشكيل النظم المحدودة',
+  url: site.href,
+  logo: new URL('/brand/logo-full.png', site).href,
+  email: copy.common.email,
+  telephone: copy.common.phoneDial,
+  description: copy.footer.description,
+  address: { '@type': 'PostalAddress', addressCountry: 'SA' },
+  sameAs: [] as string[],
+};
+---
+
+<!doctype html>
+<html lang={copy.meta.htmlLang} dir={direction}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    {locales.map((l) => (
+      <link rel="alternate" hreflang={l === 'ar' ? 'ar-SA' : 'en'} href={new URL(path(l, route), site).href} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={new URL(path(defaultLocale, route), site).href} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={copy.meta.siteName} />
+    <meta property="og:locale" content={lang === 'ar' ? 'ar_SA' : 'en_GB'} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta name="theme-color" content="#0F1E32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href={lang === 'ar' ? '/fonts/ibm-plex-sans-arabic-700.woff2' : '/fonts/plus-jakarta-sans-latin-var.woff2'}
+      crossorigin
+    />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/plus-jakarta-sans-latin-var.woff2" crossorigin />
+
+    <script is:inline>
+      // Set before first paint so entrance animations never flash their start state
+      // on machines that ask for reduced motion, and so no-JS users see finished copy.
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('js');
+        try {
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            root.classList.add('reduced-motion');
+          }
+        } catch (e) {}
+      })();
+    </script>
+
+    <script type="application/ld+json" set:html={JSON.stringify(organisation)} />
+    <ClientRouter />
+  </head>
+
+  <body class={flush ? 'is-flush' : ''}>
+    <a class="skip-link" href="#main">{copy.common.skipToContent}</a>
+    <Header lang={lang} route={route} />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+
+    <!-- The band wipe that plays between routes, echoing the two logo bands. -->
+    <div class="route-wipe" aria-hidden="true" data-wipe>
+      <span class="route-wipe__band route-wipe__band--navy"></span>
+      <span class="route-wipe__band route-wipe__band--blue"></span>
+    </div>
+
+    <script>
+      import { initMotion } from '../scripts/motion';
+      // astro:page-load fires on the initial load as well as after every
+      // client-side navigation, so this is the only call needed.
+      document.addEventListener('astro:page-load', () => initMotion());
+    </script>
+
+    <style is:global>
+      body {
+        min-block-size: 100svh;
+        display: flex;
+        flex-direction: column;
+      }
+      main {
+        flex: 1;
+      }
+      main:focus {
+        outline: none;
+      }
+
+      /* ---- Route transition: two bands sweep across, then lift ---- */
+      .route-wipe {
+        position: fixed;
+        inset: 0;
+        z-index: 90;
+        pointer-events: none;
+        display: grid;
+      }
+      .route-wipe__band {
+        grid-area: 1 / 1;
+        display: block;
+        transform: scaleX(0);
+        transform-origin: inline-start;
+      }
+      .route-wipe__band--navy {
+        background: var(--sf-navy-900);
+      }
+      .route-wipe__band--blue {
+        background: linear-gradient(120deg, var(--sf-blue-300), var(--sf-blue-700));
+      }
+      html.is-wiping .route-wipe__band {
+        animation: wipe-in 620ms var(--ease-expo) forwards;
+      }
+      html.is-wiping .route-wipe__band--navy {
+        animation-delay: 60ms;
+      }
+      @keyframes wipe-in {
+        0% {
+          transform: scaleX(0);
+        }
+        45% {
+          transform: scaleX(1);
+        }
+        55% {
+          transform: scaleX(1);
+          transform-origin: inline-end;
+        }
+        100% {
+          transform: scaleX(0);
+          transform-origin: inline-end;
+        }
+      }
+
+      /* Astro's own cross-document fade is replaced by the band wipe. */
+      ::view-transition-old(root),
+      ::view-transition-new(root) {
+        animation-duration: 320ms;
+        animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .route-wipe {
+          display: none;
+        }
+        ::view-transition-old(root),
+        ::view-transition-new(root) {
+          animation: none;
+        }
+      }
+    </style>
+  </body>
+</html>

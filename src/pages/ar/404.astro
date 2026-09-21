@@ -1,0 +1,12 @@
+---
+import Base from '../../layouts/Base.astro';
+import NotFoundPage from '../../components/pages/NotFoundPage.astro';
+import { t } from '../../i18n';
+
+const lang = 'ar' as const;
+const copy = t(lang);
+---
+
+<Base lang={lang} route="home" title={copy.notFound.seo.title} description={copy.notFound.seo.description}>
+  <NotFoundPage lang={lang} />
+</Base>
