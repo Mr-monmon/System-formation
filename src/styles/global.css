@@ -197,7 +197,10 @@ a:hover {
 .slide--dark p {
   color: var(--sf-on-dark-muted);
 }
-.slide--dark a {
+/* Links on dark sections lift to the light brand blue — but a button already
+   carries its own foreground, and :not() here stops the link rule from
+   winning on specificity and putting blue text on a blue button. */
+.slide--dark a:not([class*='btn']) {
   color: var(--sf-blue-300);
 }
 .slide--mist {

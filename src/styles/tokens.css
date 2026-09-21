@@ -55,7 +55,7 @@
 
   /* Fluid scale. Arabic overrides below raise size and leading per the
      brand rules: ~+9% size, ~1.8 body leading, never letter-spaced. */
-  --fs-display: clamp(2.5rem, 1.6rem + 4.2vw, 4.75rem);
+  --fs-display: clamp(2.25rem, 1.5rem + 3.4vw, 4.125rem);
   --fs-h1: clamp(2.125rem, 1.45rem + 3vw, 3.5rem);
   --fs-h2: clamp(1.75rem, 1.3rem + 2vw, 2.625rem);
   --fs-h3: clamp(1.25rem, 1.1rem + 0.8vw, 1.5rem);
@@ -115,7 +115,7 @@
 :root:lang(ar),
 [lang='ar'] {
   --sf-font: var(--sf-font-arabic);
-  --fs-display: clamp(2.5rem, 1.6rem + 4.1vw, 4.5rem);
+  --fs-display: clamp(2.125rem, 1.45rem + 3vw, 3.625rem);
   --fs-h1: clamp(2.125rem, 1.5rem + 2.9vw, 3.4rem);
   --fs-h2: clamp(1.8125rem, 1.4rem + 2vw, 2.75rem);
   --fs-h3: clamp(1.375rem, 1.2rem + 0.85vw, 1.625rem);

@@ -61,10 +61,12 @@ const fill = fills[variant];
 </svg>
 
 <style define:vars={{ animate: animate ? '1' : '0' }}>
-  /* :where() keeps specificity at zero so any consumer class wins. */
+  /* Astro scopes styles per component, so a parent's `.hero__mark { block-size }`
+     never reaches this element. Size is taken from inherited custom properties
+     instead: the parent sets --mark-block / --mark-inline on its wrapper. */
   :where(.sf-mark) {
-    inline-size: auto;
-    block-size: 1em;
+    inline-size: var(--mark-inline, auto);
+    block-size: var(--mark-block, 1em);
     overflow: visible;
   }
 </style>

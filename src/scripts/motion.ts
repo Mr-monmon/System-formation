@@ -27,10 +27,20 @@ export async function initMotion(): Promise<void> {
     return;
   }
 
-  const [{ gsap }, { ScrollTrigger }] = await Promise.all([
-    import('gsap'),
-    import('gsap/ScrollTrigger'),
-  ]);
+  let gsap: typeof import('gsap').gsap;
+  let ScrollTrigger: typeof import('gsap/ScrollTrigger').ScrollTrigger;
+  try {
+    const modules = await Promise.all([import('gsap'), import('gsap/ScrollTrigger')]);
+    gsap = modules[0].gsap;
+    ScrollTrigger = modules[1].ScrollTrigger;
+  } catch {
+    // Offline, blocked, or a failed chunk: show the finished page.
+    revealEverything();
+    initSlideNav();
+    initEstimator();
+    initServiceTabs();
+    return;
+  }
   gsap.registerPlugin(ScrollTrigger);
 
   if (!started) {
@@ -129,46 +139,60 @@ function revealOnScroll(
     el.dataset.revealBound = '';
 
     const mode = el.dataset.animate || 'up';
-    const from: gsap.TweenVars = {
-      opacity: 0,
-      duration: 0.7,
-      ease: 'power3.out',
-      delay: Number(el.dataset.animateDelay || 0),
-    };
+    const from: gsap.TweenVars = { opacity: 0 };
     if (mode === 'up') from.y = 26;
     if (mode === 'start') from.x = 40 * flow();
     if (mode === 'scale') from.scale = 0.96;
 
-    // ScrollTrigger holds the from-state until the element is in view, and
-    // fires straight away for anything already scrolled past.
-    gsap.from(el, { ...from, scrollTrigger: { trigger: el, start: 'top 88%', once: true } });
+    // fromTo, not from: the stylesheet already sets opacity 0 on these (so the
+    // start state is correct before this module loads), which would make a
+    // `.from()` tween animate 0 -> 0. The end state has to be stated.
+    gsap.fromTo(
+      el,
+      from,
+      {
+        opacity: 1,
+        y: 0,
+        x: 0,
+        scale: 1,
+        duration: 0.7,
+        ease: 'power3.out',
+        delay: Number(el.dataset.animateDelay || 0),
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+      },
+    );
   });
 
   // Staggered children (fact lists, pillar blocks, value lists).
   document.querySelectorAll<HTMLElement>('[data-stagger]').forEach((group) => {
     if (group.dataset.revealBound !== undefined) return;
     group.dataset.revealBound = '';
-    gsap.from(group.querySelectorAll(':scope > *'), {
-      opacity: 0,
-      y: 22,
-      duration: 0.62,
-      ease: 'power3.out',
-      stagger: 0.08,
-      scrollTrigger: { trigger: group, start: 'top 85%', once: true },
-    });
+    gsap.fromTo(
+      group.querySelectorAll(':scope > *'),
+      { opacity: 0, y: 22 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.62,
+        ease: 'power3.out',
+        stagger: 0.08,
+        scrollTrigger: { trigger: group, start: 'top 85%', once: true },
+      },
+    );
   });
 
   ScrollTrigger.refresh();
 
-  // Safety net: if ScrollTrigger somehow never fires for an element (a broken
-  // layout, an interrupted scroll container), the copy must still be readable.
+  // Safety net: copy must never stay invisible because a trigger did not fire.
   window.setTimeout(() => {
     document.querySelectorAll<HTMLElement>('[data-animate]').forEach((el) => {
-      if (Number(getComputedStyle(el).opacity) === 0 && el.getBoundingClientRect().top < 0) {
+      const rect = el.getBoundingClientRect();
+      const onScreen = rect.top < window.innerHeight && rect.bottom > 0;
+      if ((onScreen || rect.bottom < 0) && Number(getComputedStyle(el).opacity) === 0) {
         gsap.set(el, { opacity: 1, y: 0, x: 0, scale: 1 });
       }
     });
-  }, 4000);
+  }, 3000);
 }
 
 /* ------------------------------------------------------------------ */
@@ -189,7 +213,9 @@ function structureGrid(
         scale: 1,
         duration: 0.7,
         ease: 'power2.out',
-        stagger: { each: 0.035, from: 'random' },
+        // `amount` spreads the whole stagger over a fixed window, so a grid of
+        // 400 cells still assembles in about a second rather than 15.
+        stagger: { amount: 1.1, from: 'random' },
         scrollTrigger: { trigger: svg.closest('section') || svg, start: 'top 75%', once: true },
       },
     );

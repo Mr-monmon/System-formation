@@ -8,19 +8,16 @@ interface Props {
   cols?: number;
   class?: string;
 }
-const { rows = 5, cols = 12, class: className = '' } = Astro.props;
+const { rows = 12, cols = 22, class: className = '' } = Astro.props;
 
 const W = 34;
 const H = 30;
-const cells: { x: number; y: number; o: number }[] = [];
+// A complete, connected honeycomb. The "assembling" is the animation — at rest
+// this has to read as one continuous structure, not a scatter of fragments.
+const cells: { x: number; y: number }[] = [];
 for (let r = 0; r < rows; r++) {
   for (let c = 0; c < cols; c++) {
-    cells.push({
-      x: c * (W * 0.75),
-      y: r * H + (c % 2 ? H / 2 : 0),
-      // A deterministic scatter keeps the build reproducible.
-      o: 0.25 + (((r * 7 + c * 13) % 9) / 9) * 0.75,
-    });
+    cells.push({ x: c * (W * 0.75), y: r * H + (c % 2 ? H / 2 : 0) });
   }
 }
 const hex = (cx: number, cy: number) =>
@@ -37,9 +34,11 @@ const hex = (cx: number, cy: number) =>
   aria-hidden="true"
   data-structure
 >
-  {cells.map((cell) => (
-    <polygon data-cell points={hex(cell.x + W / 2, cell.y + H / 2)} opacity={cell.o} />
-  ))}
+  <g class="structure__cells">
+    {cells.map((cell) => (
+      <polygon data-cell points={hex(cell.x + W / 2, cell.y + H / 2)} vector-effect="non-scaling-stroke" />
+    ))}
+  </g>
 </svg>
 
 <style>
@@ -51,11 +50,17 @@ const hex = (cx: number, cy: number) =>
     pointer-events: none;
     z-index: 0;
   }
+  /* The faint level lives on the group, because the assemble animation drives
+     each polygon's own opacity from 0 to 1 and would otherwise overwrite it. */
+  .structure__cells {
+    opacity: 0.13;
+  }
+  /* non-scaling-stroke keeps these at a hairline however far the slice scales,
+     which is what stops the motif shouting over the headline. */
   .structure polygon {
     fill: none;
     stroke: var(--sf-blue-300);
-    stroke-width: 0.6;
-    opacity: 0.18;
+    stroke-width: 1;
   }
   :global(.slide--dark) .structure polygon {
     stroke: var(--sf-blue-300);

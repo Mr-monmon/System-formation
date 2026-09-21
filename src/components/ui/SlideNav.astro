@@ -46,18 +46,20 @@ const { items, navLabel, goLabel } = Astro.props;
     gap: 0.75rem;
   }
   .slidenav a {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 0.5rem;
-    padding: 0.25rem;
+    padding: 0.35rem;
     text-decoration: none;
   }
   .slidenav__dot {
     inline-size: 8px;
     block-size: 8px;
     border-radius: 50%;
-    background: var(--sf-grey-300);
+    /* The rail floats over light and dark sections alike, so the resting
+       colour has to work on both. */
+    background: rgba(125, 138, 158, 0.55);
     transition:
       background-color var(--dur) var(--ease-out),
       transform var(--dur) var(--ease-out);
@@ -66,7 +68,15 @@ const { items, navLabel, goLabel } = Astro.props;
     background: var(--sf-blue-500);
     transform: scale(1.6);
   }
+  /* Absolutely positioned: a hidden label must not push the dot around. */
   .slidenav__tip {
+    position: absolute;
+    inset-inline-end: calc(100% + 0.5rem);
+    inset-block-start: 50%;
+    margin-block-start: -1em;
+    max-inline-size: 15rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-size: var(--fs-meta);
     color: var(--sf-grey-600);
     background: rgba(255, 255, 255, 0.92);

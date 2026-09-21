@@ -12,7 +12,7 @@ const hero = copy.home.hero;
 ---
 
 <section class="hero slide--dark" data-hero aria-labelledby="hero-title">
-  <StructureGrid class="hero__grid" rows={6} cols={14} />
+  <StructureGrid class="hero__grid" rows={16} cols={28} />
   <div class="container hero__inner">
     <div class="hero__copy">
       <span class="hero__mask">
@@ -58,7 +58,7 @@ const hero = copy.home.hero;
     pointer-events: none;
   }
   .hero__grid {
-    opacity: 0.5;
+    opacity: 0.85;
   }
   .hero__inner {
     position: relative;
@@ -83,10 +83,10 @@ const hero = copy.home.hero;
     line-height: var(--lh-display);
     letter-spacing: var(--ls-display);
     color: var(--sf-on-dark);
-    max-inline-size: 18ch;
+    max-inline-size: 16ch;
   }
   :global([lang='ar']) .hero h1 {
-    max-inline-size: 20ch;
+    max-inline-size: 17ch;
   }
   .hero__sub {
     margin-block-start: var(--sp-5);
@@ -100,18 +100,16 @@ const hero = copy.home.hero;
     margin-block-start: var(--sp-6);
   }
   .hero__markwrap {
+    --mark-inline: 100%;
+    --mark-block: auto;
     justify-self: center;
-    inline-size: min(100%, 22rem);
-  }
-  .hero__mark {
-    inline-size: 100%;
-    block-size: auto;
+    inline-size: min(100%, 20rem);
     filter: drop-shadow(0 30px 60px rgba(4, 12, 28, 0.55));
   }
   @media (max-width: 899px) {
     .hero__markwrap {
       order: -1;
-      inline-size: min(58%, 14rem);
+      inline-size: min(48%, 11rem);
       justify-self: start;
     }
   }
