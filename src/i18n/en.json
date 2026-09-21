@@ -99,7 +99,8 @@
       ],
       "mergeLabelBefore": "Carried alone",
       "mergeLabelAfter": "Carried once, shared",
-      "footnote": "Savings vary by scope, volumes and current setup. We model your numbers during the assessment."
+      "footnote": "Savings vary by scope, volumes and current setup. We model your numbers during the assessment.",
+      "cap": "up to 60%"
     },
     "estimator": {
       "title": "Put rough numbers on it.",

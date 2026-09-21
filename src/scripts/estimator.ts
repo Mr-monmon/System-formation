@@ -68,10 +68,9 @@ export function mountEstimator(): void {
   const money = new Intl.NumberFormat(lang === 'ar' ? 'ar-SA-u-nu-latn' : 'en-GB', {
     maximumFractionDigits: 0,
   });
-  const percent = new Intl.NumberFormat(lang === 'ar' ? 'ar-SA-u-nu-latn' : 'en-GB', {
-    style: 'percent',
-    maximumFractionDigits: 0,
-  });
+  // Not style: 'percent' — that renders the Arabic "٪", while the written copy
+  // on the page uses "%". One sign in both languages.
+  const percent = (value: number) => `${money.format(Math.round(value * 100))}%`;
 
   const analysts = root.querySelector<HTMLInputElement>('[name="analysts"]')!;
   const licence = root.querySelector<HTMLInputElement>('[name="licence"]')!;
@@ -98,7 +97,7 @@ export function mountEstimator(): void {
     rangeOut.textContent = `${money.format(Math.round(result.low / 500) * 500)} – ${money.format(
       Math.round(result.high / 500) * 500,
     )}`;
-    rateOut.textContent = `${percent.format(result.lowRate)} – ${percent.format(result.highRate)}`;
+    rateOut.textContent = `${percent(result.lowRate)} – ${percent(result.highRate)}`;
     baselineOut.textContent = money.format(Math.round(result.baseline / 500) * 500);
   };
 

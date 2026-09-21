@@ -37,7 +37,7 @@ const assumption = e.assumption.replace(
     </div>
 
     <div class="est__field">
-      <label for="est-licence">{e.licence} <span class="lat">({e.licenceUnit})</span></label>
+      <label for="est-licence">{e.licence} <span>({e.licenceUnit})</span></label>
       <div class="est__row">
         <input
           id="est-licence"
@@ -73,13 +73,13 @@ const assumption = e.assumption.replace(
     <p class="est__resultlabel">{e.resultLabel}</p>
     <p class="est__figure">
       <span class="lat" data-out="range">—</span>
-      <span class="est__unit lat">{e.licenceUnit}</span>
+      <span class="est__unit">{e.licenceUnit}</span>
     </p>
     <p class="est__meta">
       <span class="lat" data-out="rate">—</span>
       {' '}{e.ofLabel}{' '}
       <span class="lat" data-out="baseline">—</span>
-      {' '}<span class="lat">{e.licenceUnit}</span> {e.baselineLabel}
+      {' '}<span>{e.licenceUnit}</span> {e.baselineLabel}
     </p>
   </div>
 
@@ -197,6 +197,7 @@ const assumption = e.assumption.replace(
     font-variant-numeric: tabular-nums;
   }
   .est__unit {
+    margin-inline-start: 0.35em;
     font-size: 0.45em;
     font-weight: var(--fw-semibold);
     color: var(--sf-grey-600);

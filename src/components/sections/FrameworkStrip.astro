@@ -118,5 +118,10 @@ const loop = [...items, ...items];
     .strip__viewport {
       mask-image: none;
     }
+    /* The second copy of the list only exists to make the loop seamless; with
+       the animation off it would just read as duplicated content. */
+    .strip__item[aria-hidden='true'] {
+      display: none;
+    }
   }
 </style>

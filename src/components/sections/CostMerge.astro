@@ -38,7 +38,7 @@ const blocks = s.items;
         <span class="merge__sharedlabel">{s.mergeLabelAfter}</span>
       </div>
       <p class="merge__saved" data-cost-saved>
-        <span class="merge__savedfig lat">≤ 60%</span>
+        <span class="merge__savedfig">{s.cap}</span>
       </p>
     </div>
   </div>
@@ -90,11 +90,9 @@ const blocks = s.items;
     /* percentage of its own grid track, so the row can never exceed the line */
     inline-size: calc((100% - var(--i) * 9%) * (1 - var(--merge) * 0.25));
     border-radius: 3px;
-    background: linear-gradient(
-      to inline-end,
-      var(--sf-blue-700),
-      color-mix(in oklab, var(--sf-blue-300), var(--sf-blue-700) calc(var(--i) * 18%))
-    );
+    /* Each row is tinted a step lighter than the last, set from --i. */
+    background: linear-gradient(to right, var(--sf-blue-700), var(--sf-blue-400));
+    filter: saturate(calc(1 + var(--i) * 0.12)) brightness(calc(1 + var(--i) * 0.06));
     opacity: calc(1 - var(--merge) * 0.35);
   }
   .merge__name {

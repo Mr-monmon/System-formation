@@ -176,20 +176,25 @@ async function handleContact(request: Request, env: Env, ctx: ExecutionContext):
   const email = clean(body.email);
   const message = clean(body.message);
 
-  if (name.length < 2) return json({ ok: false, error: 'name', field: 'name' }, 422);
-  if (!isEmail(email)) return json({ ok: false, error: 'email', field: 'email' }, 422);
-  if (message.length < 10) return json({ ok: false, error: 'message', field: 'message' }, 422);
+  const locale = clean(body.locale) === 'en' ? 'en' : 'ar';
+  const wantsHtml = prefersHtml(request);
+  const fail = (error: string, status: number, field?: string) =>
+    wantsHtml ? htmlResult(false, locale, status) : json({ ok: false, error, field }, status);
+
+  if (name.length < 2) return fail('name', 422, 'name');
+  if (!isEmail(email)) return fail('email', 422, 'email');
+  if (message.length < 10) return fail('message', 422, 'message');
 
   for (const [field, max] of Object.entries(LIMITS) as [keyof typeof LIMITS, number][]) {
     if (clean(body[field]).length > max) {
-      return json({ ok: false, error: 'tooLong', field }, 422);
+      return fail('tooLong', 422, field);
     }
   }
 
   if (env.TURNSTILE_SECRET_KEY) {
     const token = typeof body['cf-turnstile-response'] === 'string' ? body['cf-turnstile-response'] : '';
     const passed = await verifyTurnstile(token, ip, env.TURNSTILE_SECRET_KEY);
-    if (!passed) return json({ ok: false, error: 'captcha' }, 403);
+    if (!passed) return fail('captcha', 403);
   }
 
   const submission = {
@@ -200,7 +205,7 @@ async function handleContact(request: Request, env: Env, ctx: ExecutionContext):
     role: clean(body.role),
     interest: clean(body.interest),
     message,
-    locale: clean(body.locale) === 'en' ? 'en' : 'ar',
+    locale,
     receivedAt: new Date().toISOString(),
     ip,
   };
@@ -214,10 +219,72 @@ async function handleContact(request: Request, env: Env, ctx: ExecutionContext):
       from: submission.email,
       at: submission.receivedAt,
     });
-    return json({ ok: false, error: 'server' }, 502);
+    return fail('server', 502);
   }
 
-  return json({ ok: true });
+  return wantsHtml ? htmlResult(true, locale, 200) : json({ ok: true });
+}
+
+/** A browser posting the form directly (no JavaScript) asks for HTML. */
+function prefersHtml(request: Request): boolean {
+  const accept = request.headers.get('accept') ?? '';
+  if (accept.includes('application/json')) return false;
+  return accept.includes('text/html');
+}
+
+/**
+ * Without JavaScript the form posts straight here, so the answer has to be a
+ * readable page rather than a JSON body. Kept deliberately small and inline —
+ * it is a fallback, not a route of the site.
+ */
+function htmlResult(ok: boolean, locale: string, status: number): Response {
+  const ar = locale === 'ar';
+  const copy = ok
+    ? {
+        title: ar ? 'تم إرسال رسالتك.' : 'Message sent.',
+        body: ar ? 'نرد خلال يوم عمل واحد.' : 'We reply within one business day.',
+      }
+    : {
+        title: ar ? 'لم تُرسل الرسالة.' : 'The message did not send.',
+        body: ar
+          ? 'راسلنا مباشرة على info@systemformation.com أو عبر واتساب، ولن تضيع رسالتك.'
+          : 'Email info@systemformation.com or message us on WhatsApp instead — your message is not lost.',
+      };
+  const back = ar ? 'العودة إلى الموقع' : 'Back to the site';
+
+  const page = `<!doctype html>
+<html lang="${ar ? 'ar' : 'en'}" dir="${ar ? 'rtl' : 'ltr'}">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex"><title>${copy.title}</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+ body{margin:0;min-height:100svh;display:grid;place-items:center;padding:2rem;
+      background:#0F1E32;color:#fff;font:400 1rem/1.7 system-ui,sans-serif;text-align:center}
+ main{max-width:34rem}
+ h1{font-size:1.75rem;margin:0 0 .75rem}
+ p{color:#A9BBD6;margin:0 0 2rem}
+ a{display:inline-block;padding:.85rem 1.6rem;border-radius:10px;
+   background:#0054DE;color:#fff;text-decoration:none;font-weight:600}
+ a:hover{background:#0047BE}
+</style>
+</head>
+<body><main>
+<h1>${copy.title}</h1>
+<p>${copy.body}</p>
+<a href="/${ar ? 'ar' : 'en'}/contact/">${back}</a>
+</main></body></html>`;
+
+  return new Response(page, {
+    status,
+    headers: {
+      'content-type': 'text/html; charset=utf-8',
+      'cache-control': 'no-store',
+      // _headers does not reach Worker responses, so this page carries its own.
+      'content-security-policy':
+        "default-src 'none'; style-src 'unsafe-inline'; img-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'",
+    },
+  });
 }
 
 async function readBody(request: Request): Promise<Partial<ContactPayload>> {
