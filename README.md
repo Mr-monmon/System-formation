@@ -1,8 +1,9 @@
 # System Formation — systemformation.com
 
 Bilingual (Arabic RTL / English LTR) marketing site for **System Formation Co. Ltd**
-(شركة تشكيل النظم المحدودة), built with Astro and deployed to Cloudflare Workers
-with static assets.
+(شركة تشكيل النظم المحدودة), built with Astro and deployed to **Cloudflare Pages**.
+
+**Deploying or configuring it? See [DEPLOY.md](./DEPLOY.md).**
 
 - **Arabic is the default language.** `/` negotiates and redirects to `/ar/` or `/en/`.
 - **No third-party requests** in the page: fonts are self-hosted, there are no
@@ -21,12 +22,11 @@ npm install
 npm run dev          # http://localhost:4321 — Astro dev server, no Worker
 ```
 
-The Astro dev server does not run `worker/index.ts`, so `/` will not redirect
-and `/api/contact` will 404. To exercise the whole thing, including the Worker:
+The Astro dev server does not run the Functions, so `/` will not redirect and
+`/api/contact` will 404. To exercise the whole thing:
 
 ```bash
-npm run build
-npm run cf:dev       # wrangler dev — serves dist/ plus the Worker
+npm run pages:dev    # builds, then serves dist/ + functions/ exactly as Pages does
 ```
 
 Other scripts:
@@ -39,7 +39,8 @@ Other scripts:
 | `npm run shots` | Screenshots every page × both languages × 4 widths into `.review/` |
 | `npm run lh` | Lighthouse for `/ar/` and `/en/`, mobile and desktop |
 | `npm run check` | Astro type check |
-| `npm run cf:deploy` | Build and deploy to Cloudflare |
+| `npm run pages:dev` | Serve the built site plus Functions, as Pages runs them |
+| `npm run cf:deploy` | Deploy as a Worker instead of Pages (the alternative path) |
 
 Measure performance against `npm run serve`, not `astro preview` or a plain
 static server: without compression the HTML is ~145 KB instead of ~26 KB and
@@ -113,79 +114,39 @@ replace the two path strings in `Mark.astro` and rerun `npm run og`.
 
 ## Deploying
 
-```bash
-npx wrangler login        # once, on a machine with a browser
-npm run cf:deploy
+Cloudflare Pages builds from git: push to `main` and the production site
+updates. Every other branch gets a preview URL.
+
+**[DEPLOY.md](./DEPLOY.md) has the full runbook** — build settings, the
+build-time vs runtime environment variables, Resend and Turnstile setup, the
+rate-limiting rule, and what to check before merging.
+
+Two entry points, one set of logic:
+
+```
+functions/index.ts        Pages Function for "/"          -> shared/lang.ts
+functions/api/contact.ts  Pages Function for the form     -> shared/contact.ts
+worker/index.ts           the Workers alternative         -> the same modules
 ```
 
-`wrangler.jsonc` configures:
-
-- `assets.directory: ./dist` with `not_found_handling: "404-page"`
-- `assets.run_worker_first: ["/", "/api/*"]` — everything else is served
-  straight from the edge and never invokes (or bills for) the Worker
-- a `ratelimits` binding, 5 contact submissions per minute per IP
-
-### Custom domains
-
-**Not attached yet, on purpose.** `routes` is commented out in
-`wrangler.jsonc` because attaching a custom domain rewrites DNS on the zone.
-Before uncommenting it, check what is already on the zone:
-
-```bash
-npx wrangler dns records list systemformation.com   # or check the dashboard
-```
-
-Then uncomment the `routes` block and deploy. Cloudflare creates the proxied
-records for `systemformation.com` and `www.systemformation.com`. Add a
-redirect rule (Rules → Redirect Rules) to send `www` → apex with a 301;
-HTTP → HTTPS is handled by the zone's "Always Use HTTPS" setting.
-
-### Secrets
-
-Never commit these. Set them with `wrangler secret put`:
-
-| Secret | Needed for | If missing |
-|---|---|---|
-| `TURNSTILE_SECRET_KEY` | Verifying the contact form's Turnstile token | The check is skipped — set it before launch |
-| `RESEND_API_KEY` | Sending the contact email | The endpoint returns a 502 and the form shows the email address and WhatsApp link instead of silently dropping the message |
-
-The **public** Turnstile site key goes in `.env` as
-`PUBLIC_TURNSTILE_SITE_KEY=...` (it is embedded in the page, so it is not a
-secret). Without it the widget simply does not mount.
-
-For local testing, put the same values in `.dev.vars` (git-ignored).
-
-### Email delivery — the choice that is still open
-
-The Worker currently implements **Resend** (`worker/index.ts` → `deliver()`).
-The alternative is Cloudflare's own `send_email` binding:
-
-| | Resend (implemented) | Cloudflare `send_email` |
-|---|---|---|
-| Status | GA, stable | Beta at the time of writing |
-| Plan | Free tier, then paid | Workers Paid |
-| Setup | API key + verified domain | Binding + onboarded sending domain |
-| Auth records | You add SPF/DKIM | Handled for domains on Cloudflare DNS |
-| Failure mode | HTTP call can fail | In-process binding |
-
-To switch, add a `send_email` binding to `wrangler.jsonc` and replace the body
-of `deliver()`. The rest of the endpoint — validation, rate limiting, Turnstile,
-the honeypot and the fallback — is delivery-agnostic.
-
----
+`shared/` holds everything real, so the two targets cannot drift apart. There
+is deliberately **no `functions/_middleware.ts`**: a root middleware on Pages
+runs in front of every static asset too, which would put a Function invocation
+on the critical path of every page, font and image.
 
 ## Security
 
 - `dist/_headers` is generated at build time by `scripts/build-headers.mjs`,
   which hashes every inline script so the CSP needs no `'unsafe-inline'` for
   `script-src`.
-- **`_headers` only covers static asset responses.** Responses the Worker
-  generates itself (the `/` redirect and `/api/contact`) set their own headers
-  in `worker/index.ts` — if you change one, change both.
+- **`_headers` only covers static asset responses.** On both Pages and Workers
+  it is explicitly not applied to responses generated by Functions or Worker
+  code, so those set their own headers in `shared/security.ts`.
 - `/.well-known/security.txt` points at info@systemformation.com. Its `Expires`
   date needs bumping annually.
-- The contact endpoint enforces: same-origin check, per-IP rate limit, a
-  honeypot field, server-side length and format validation, and Turnstile.
+- The contact endpoint enforces: a same-origin check, a honeypot field,
+  server-side length and format validation, and Turnstile. Rate limiting is a
+  binding on Workers and a WAF rule on Pages — see DEPLOY.md §5.
 
 ---
 
@@ -206,6 +167,8 @@ the honeypot and the fallback — is delivery-agnostic.
 
 ```
 brand/source/        supplied logo files (the colour source of truth)
+functions/           Cloudflare Pages Functions: "/" and /api/contact
+shared/              runtime logic both deployment targets import
 public/              static assets served as-is: fonts, icons, OG cards, robots, security.txt
 scripts/             mark geometry, header generation, OG rendering, screenshot review
 src/components/      ui/ primitives, sections/ set pieces, pages/ page compositions
@@ -214,5 +177,5 @@ src/layouts/         Base.astro — head, SEO, JSON-LD, transitions
 src/pages/{ar,en}/   thin route files, one per page per language
 src/scripts/         motion, estimator and contact-form client code
 src/styles/          tokens.css, global.css
-worker/              the Cloudflare Worker
+worker/              the Workers entry point (the alternative to Pages)
 ```

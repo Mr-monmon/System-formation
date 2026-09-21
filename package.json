@@ -3,18 +3,19 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "System Formation Co. Ltd — bilingual (AR/EN) marketing site on Cloudflare Workers",
+  "description": "System Formation Co. Ltd \u2014 bilingual (AR/EN) marketing site on Cloudflare Workers",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build && node scripts/build-headers.mjs",
     "preview": "astro preview",
     "check": "astro check",
-    "cf:dev": "wrangler dev",
-    "cf:deploy": "npm run build && wrangler deploy",
+    "cf:dev": "wrangler dev -c wrangler.workers.jsonc",
+    "cf:deploy": "npm run build && wrangler deploy -c wrangler.workers.jsonc",
     "og": "node scripts/build-og.mjs",
     "shots": "node scripts/screenshots.mjs",
     "serve": "node scripts/serve.mjs",
-    "lh": "node scripts/lighthouse.mjs"
+    "lh": "node scripts/lighthouse.mjs",
+    "pages:dev": "npm run build && wrangler pages dev dist"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

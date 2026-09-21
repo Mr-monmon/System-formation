@@ -34,52 +34,54 @@ not publish a cost-per-analyst assumption at all, the alternative is to drop
 the analyst input and ask only for current monthly spend — say the word and I
 will switch it.
 
-## 3. Email delivery — decision needed
+## 3. Email delivery — Resend (decided)
 
-The contact endpoint is written, validated, rate-limited and Turnstile-ready.
-**No email is sent until a delivery route is configured**; until then it fails
-loudly, logs the submission, and shows the visitor the email address and
-WhatsApp link rather than silently dropping the message.
+Resend is implemented and the outbound payload has been verified end to end
+against a local mock: correct endpoint, bearer auth, and a body carrying
+`from`, `to`, `reply_to`, `subject` and `text`, with Arabic field labels when
+the enquiry came from the Arabic form. Replying to the notification replies to
+the enquirer.
 
-| | Resend (implemented) | Cloudflare `send_email` |
+**What is left is account setup**, in [DEPLOY.md](./DEPLOY.md) §3: verify
+`systemformation.com` in Resend, add its DNS records to the Cloudflare zone,
+and set `RESEND_API_KEY`.
+
+> ⚠️ **One thing to watch.** If the domain already sends mail (Google
+> Workspace, Microsoft 365, anything), a domain may have only **one SPF
+> record**. Adding Resend's as a second `v=spf1` TXT record breaks
+> authentication for all your mail. Send me the current SPF record and I will
+> give you the merged value.
+
+Until the key is set the form does not fail silently: it returns an error, logs
+the submission, and shows the visitor the email address and WhatsApp link.
+
+## 4. Secrets to set
+
+All of them go in **Pages → Settings → Environment variables**, for Production
+and Preview both. The build-time vs runtime distinction matters — see
+[DEPLOY.md](./DEPLOY.md) §2.
+
+| Variable | Kind | Notes |
 |---|---|---|
-| Status | GA, stable | Beta at the time of writing |
-| Plan | Free tier, then paid | Workers Paid |
-| Setup | API key + verified domain | Binding + onboarded sending domain |
-| SPF/DKIM/DMARC | You add them | Handled for domains on Cloudflare DNS |
-| Failure mode | An HTTP call that can fail | In-process binding |
+| `PUBLIC_TURNSTILE_SITE_KEY` | build-time, plaintext | Baked into the HTML; needs a redeploy to take effect |
+| `TURNSTILE_SECRET_KEY` | runtime, encrypted | Without it the bot check is skipped |
+| `RESEND_API_KEY` | runtime, encrypted | Without it no email is sent |
+| `CONTACT_TO` / `CONTACT_FROM` | runtime, plaintext | `CONTACT_FROM` must be on the Resend-verified domain |
 
-I implemented Resend because it is GA and Cloudflare's own tutorial recommends
-it. Switching means replacing the body of `deliver()` in `worker/index.ts`;
-everything around it is delivery-agnostic.
+## 5. Deployment — already most of the way there
 
-## 4. Secrets to set before launch
+`systemformation.com` is attached to the Pages project and Active with SSL, so
+there is no DNS work for the site itself.
 
-```bash
-npx wrangler secret put TURNSTILE_SECRET_KEY
-npx wrangler secret put RESEND_API_KEY        # or whichever provider you pick
-```
+What remains: confirm the Pages **build settings** (build command `npm run
+build`, output directory `dist` — the project was created when this repository
+was still empty, so it may have been set up with neither), set the variables
+above, and merge this branch into `main`. Full runbook in
+[DEPLOY.md](./DEPLOY.md).
 
-And the **public** Turnstile site key in `.env`:
-
-```
-PUBLIC_TURNSTILE_SITE_KEY=...
-```
-
-Without the secret key the Turnstile check is skipped, so set it before launch.
-
-## 5. Cloudflare account and deployment
-
-This work was built in a sandboxed environment with **no Cloudflare
-credentials**, so nothing has been deployed and no DNS has been touched.
-
-1. Confirm which Cloudflare account owns `systemformation.com`.
-2. `npx wrangler login`, then `npm run cf:deploy`.
-3. **Before attaching custom domains**, check the zone's existing DNS records —
-   attaching a custom domain rewrites them. `routes` is deliberately commented
-   out in `wrangler.jsonc` for this reason. Tell me what is on the zone and I
-   will tell you what would conflict.
-4. Add a redirect rule for `www` → apex, and confirm "Always Use HTTPS" is on.
+Rate limiting needs a **WAF rate-limiting rule** on the zone, because Pages has
+no rate-limiting binding — DEPLOY.md §5 has the exact values, including what
+the Free plan allows.
 
 ## 6. Checks that need the live domain
 
