@@ -1,0 +1,59 @@
+---
+import Slide from '../ui/Slide.astro';
+import { t, type Locale } from '../../i18n';
+
+interface Props {
+  lang: Locale;
+  doc: 'privacy' | 'terms';
+}
+const { lang, doc } = Astro.props;
+const copy = t(lang);
+const page = copy[doc];
+/** Bumped by hand whenever the text changes; shown so visitors can date it. */
+const updated = '2026-09-21';
+const formatted = new Intl.DateTimeFormat(lang === 'ar' ? 'ar-SA-u-nu-latn-ca-gregory' : 'en-GB', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+}).format(new Date(updated));
+---
+
+<Slide>
+  <article class="legal">
+    <h1>{page.h1}</h1>
+    <p class="legal__draft">{page.draftNotice}</p>
+    <p class="legal__updated">{page.updated}: <time datetime={updated}>{formatted}</time></p>
+
+    {page.sections.map((section) => (
+      <section class="legal__section">
+        <h2>{section.h}</h2>
+        {section.p.map((para) => <p>{para}</p>)}
+      </section>
+    ))}
+  </article>
+</Slide>
+
+<style>
+  .legal { max-inline-size: 46rem; }
+  .legal h1 { font-size: var(--fs-h1); }
+  .legal__draft {
+    margin-block-start: var(--sp-5);
+    padding: var(--sp-4) var(--sp-5);
+    background: var(--sf-blue-050);
+    border-inline-start: 3px solid var(--sf-blue-500);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    font-size: var(--fs-small);
+    font-weight: var(--fw-medium);
+    color: var(--sf-blue-800);
+    max-inline-size: none;
+  }
+  :global([dir='rtl']) .legal__draft { border-radius: var(--radius) 0 0 var(--radius); }
+  .legal__updated {
+    margin-block-start: var(--sp-4);
+    font-size: var(--fs-meta);
+    color: var(--sf-grey-600);
+  }
+  .legal__section { margin-block-start: var(--sp-7); }
+  .legal__section h2 { font-size: var(--fs-h3); }
+  .legal__section p { margin-block-start: var(--sp-4); color: var(--sf-grey-700); }
+</style>

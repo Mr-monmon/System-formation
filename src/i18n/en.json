@@ -1,0 +1,683 @@
+{
+  "meta": {
+    "locale": "en",
+    "htmlLang": "en",
+    "dir": "ltr",
+    "siteName": "System Formation Co. Ltd",
+    "siteNameLegal": "System Formation Co. Ltd",
+    "tagline": "The security operations backbone behind service providers."
+  },
+  "nav": {
+    "home": "Home",
+    "partner": "Partner model",
+    "services": "Services",
+    "compliance": "Compliance",
+    "about": "About",
+    "contact": "Contact",
+    "cta": "Talk to our team",
+    "switchTo": "العربية",
+    "switchLabel": "Switch the site to Arabic",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "primaryLabel": "Primary"
+  },
+  "common": {
+    "skipToContent": "Skip to content",
+    "email": "info@systemformation.com",
+    "phoneDial": "+966567888365",
+    "phoneDisplay": "+966 56 788 8365",
+    "whatsapp": "https://wa.me/966567888365",
+    "whatsappLabel": "Message us on WhatsApp",
+    "addressLabel": "Address",
+    "emailLabel": "Email",
+    "phoneLabel": "Phone",
+    "address": "[CITY / ADDRESS]",
+    "slideNavLabel": "Sections on this page",
+    "goToSlide": "Go to section"
+  },
+  "home": {
+    "seo": {
+      "title": "System Formation — the security operations backbone behind service providers",
+      "description": "A Master Security Service Provider in Saudi Arabia. We supply the licences, certified analysts and platforms that managed security providers run on — delivered under your brand."
+    },
+    "hero": {
+      "h1": "The security operations backbone behind service providers.",
+      "sub": "We supply the licences, certified analysts and platforms that managed security providers run on — so you deliver more, under your own brand, for up to 60% less operating cost.",
+      "ctaPrimary": "Become a partner",
+      "ctaSecondary": "See how the savings work",
+      "markAlt": "The System Formation mark: two interlocking bands forming an S"
+    },
+    "problem": {
+      "title": "Running a SOC is expensive before it earns anything.",
+      "body": "Every managed security provider pays the same fixed costs: enterprise tool licences with minimum commitments, analysts who are hard to hire and harder to keep, round-the-clock shift coverage, training and certification, and the infrastructure underneath it all. Those costs arrive long before the contracts that pay for them.",
+      "facts": [
+        "Licence minimums you pay for whether you use them or not",
+        "Night and weekend shifts that need full teams, not individuals",
+        "Senior talent that competitors keep poaching",
+        "Tooling that has to be integrated, tuned and maintained"
+      ]
+    },
+    "model": {
+      "title": "One shared foundation. Many providers on top of it.",
+      "body": "We aggregate licences, people and platforms across partners, so each provider pays only for the capacity it actually uses. You keep the client relationship and the brand. We run the heavy machinery behind you.",
+      "pillarsLabel": "What the foundation carries",
+      "pillars": [
+        {
+          "name": "Licences",
+          "text": "Enterprise security tooling held once, on multi-tenant terms, and drawn on by every partner."
+        },
+        {
+          "name": "People",
+          "text": "Certified analysts, engineers and consultants allocated where the work is, not idle between projects."
+        },
+        {
+          "name": "Platforms",
+          "text": "Detection, response, ticketing and reporting already integrated, tuned and maintained."
+        }
+      ]
+    },
+    "savings": {
+      "title": "Where the savings come from.",
+      "intro": "Four fixed costs stop being yours alone.",
+      "items": [
+        {
+          "name": "Pooled licensing",
+          "text": "Enterprise security tools on shared, multi-tenant licensing instead of individual minimum commitments."
+        },
+        {
+          "name": "Shared talent",
+          "text": "Certified analysts and engineers allocated across partners, so you are not carrying idle headcount between projects."
+        },
+        {
+          "name": "No hiring overhead",
+          "text": "Recruitment, onboarding, training and attrition replacement are on us."
+        },
+        {
+          "name": "Ready platforms",
+          "text": "SIEM, SOAR, ticketing and reporting already integrated and tuned."
+        }
+      ],
+      "mergeLabelBefore": "Carried alone",
+      "mergeLabelAfter": "Carried once, shared",
+      "footnote": "Savings vary by scope, volumes and current setup. We model your numbers during the assessment.",
+      "cap": "up to 60%"
+    },
+    "estimator": {
+      "title": "Put rough numbers on it.",
+      "intro": "Three inputs, an indicative range. It is a conversation starter, not a quote.",
+      "badge": "Indicative",
+      "analysts": "Analysts you run today",
+      "analystsHint": "Security staff on your payroll, all levels",
+      "licence": "Monthly licence spend",
+      "licenceUnit": "SAR",
+      "licenceHint": "What you commit to security tooling each month",
+      "coverage": "Coverage you provide",
+      "coverageBusiness": "Business hours",
+      "coverage247": "24/7",
+      "resultLabel": "Indicative monthly saving",
+      "rangeJoin": "to",
+      "ofLabel": "of an estimated",
+      "baselineLabel": "current monthly run cost",
+      "assumption": "Assumes SAR [ANALYST COST] fully loaded per analyst per month — we replace this with your real figures during the assessment.",
+      "disclaimer": "Indicative only — book an assessment for a real model.",
+      "cta": "Book an assessment"
+    },
+    "audience": {
+      "title": "Built for the people who deliver security.",
+      "items": [
+        {
+          "name": "Managed security service providers",
+          "text": "Scale delivery without adding fixed cost ahead of the contracts."
+        },
+        {
+          "name": "System integrators",
+          "text": "Add security services to the portfolio without building a SOC first."
+        },
+        {
+          "name": "Cybersecurity consultancies",
+          "text": "Delivery capacity on demand, for the engagements you have already won."
+        },
+        {
+          "name": "Organisations",
+          "text": "Managed security and compliance taken on directly, for your own environment."
+        }
+      ]
+    },
+    "servicesOverview": {
+      "title": "What you can draw on.",
+      "body": "Six capabilities for service providers, four for organisations running their own security.",
+      "link": "See all services"
+    },
+    "compliance": {
+      "title": "Delivered to Saudi requirements.",
+      "body": "Everything we operate is designed around the frameworks your clients answer to — with Arabic and English evidence, and delivery from inside the Kingdom.",
+      "link": "See the frameworks",
+      "marqueeLabel": "Regulatory frameworks we work to",
+      "pauseLabel": "Pause",
+      "playLabel": "Play"
+    },
+    "closing": {
+      "title": "Let's work out what you could stop paying for.",
+      "body": "A short call and a look at your current setup is enough to model the savings.",
+      "cta": "Book a partner call"
+    }
+  },
+  "partner": {
+    "seo": {
+      "title": "Partner model — white-label security delivery | System Formation",
+      "description": "You own the client, the contract and the brand. We provide the licences, the certified team and the platforms — white-labelled, under SLA, delivered from Saudi Arabia."
+    },
+    "hero": {
+      "h1": "Your brand in front. Our capacity behind.",
+      "sub": "You own the client, the contract and the brand. We provide the licences, the team and the platforms — white-labelled, under SLA."
+    },
+    "benefits": {
+      "title": "What the partnership gives you.",
+      "items": [
+        {
+          "name": "White-label delivery",
+          "text": "Reports, portals and client communications carry your brand, not ours."
+        },
+        {
+          "name": "Pay for what you use",
+          "text": "Capacity scales with your contracts, not ahead of them."
+        },
+        {
+          "name": "Defined SLAs",
+          "text": "Response and escalation times agreed up front, measured and reported."
+        },
+        {
+          "name": "Local delivery",
+          "text": "Saudi-based operations, working in Arabic and English."
+        },
+        {
+          "name": "Data stays governed",
+          "text": "Data handling aligned to PDPL and the NCA data cybersecurity controls."
+        }
+      ]
+    },
+    "steps": {
+      "title": "How onboarding works.",
+      "intro": "Five stages, and you can stop after the second if the numbers do not work.",
+      "items": [
+        {
+          "name": "Discovery",
+          "text": "We review your current stack, contracts and team, and agree what is in scope."
+        },
+        {
+          "name": "Model",
+          "text": "We design the shared-capacity mix and show the cost difference in numbers."
+        },
+        {
+          "name": "Onboard",
+          "text": "Licences, tenants, playbooks and people go live under your brand."
+        },
+        {
+          "name": "Operate",
+          "text": "We run operations under SLA, with you in control of the client relationship."
+        },
+        {
+          "name": "Optimise",
+          "text": "Quarterly reviews to right-size capacity and cost as your book changes."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Start with the discovery call.",
+      "body": "Tell us what you run today and we will come back with a model.",
+      "button": "Become a partner"
+    }
+  },
+  "services": {
+    "seo": {
+      "title": "Services — licensing, talent, white-label SOC | System Formation",
+      "description": "Licensing as a service, security talent on demand, white-label SOC, shared platforms, surge capacity and compliance delivery kits — plus managed security for organisations."
+    },
+    "hero": {
+      "h1": "Capacity you can draw on.",
+      "sub": "Two ways to work with us: as the engine behind your own security practice, or as the provider running security for your organisation."
+    },
+    "tabs": {
+      "providers": "For service providers",
+      "organisations": "For organisations",
+      "label": "Choose an audience"
+    },
+    "providers": {
+      "title": "For service providers",
+      "intro": "The fixed costs of a security practice, carried once and shared.",
+      "items": [
+        {
+          "id": "licensing",
+          "name": "Licensing as a service",
+          "text": "Access enterprise-grade SIEM, EDR/XDR, SOAR, vulnerability management, email security and DLP through pooled, multi-tenant licensing. You draw on the capacity your contracts need, without signing individual minimum commitments. Entitlements move with your book of business rather than your renewal dates."
+        },
+        {
+          "id": "talent",
+          "name": "Security talent on demand",
+          "text": "Certified L1–L3 SOC analysts, threat hunters, incident responders, GRC consultants and penetration testers, allocated to your projects when you need them. They work to your playbooks and report under your brand. You get the seniority a client expects without carrying it between engagements."
+        },
+        {
+          "id": "soc",
+          "name": "White-label SOC",
+          "text": "Monitoring, detection and response around the clock, delivered under your brand. Alerts are triaged, escalated and closed against the SLA you have promised your client. You stay the single point of contact; we stay invisible."
+        },
+        {
+          "id": "platforms",
+          "name": "Shared platforms and tooling",
+          "text": "Integrated SIEM and SOAR, response playbooks, ticketing and client reporting portals, already tuned and maintained. Onboarding a new client means provisioning a tenant, not building a stack. Platform upkeep, tuning and version currency are ours to carry."
+        },
+        {
+          "id": "surge",
+          "name": "Surge and overflow capacity",
+          "text": "Extra hands for large tenders, audit seasons, penetration testing windows and live incidents, without permanent hires. Capacity is agreed in advance and released when the peak passes. It lets you bid for work that your standing team could not absorb."
+        },
+        {
+          "id": "compliance-kits",
+          "name": "Compliance delivery kits",
+          "text": "Assessment toolkits, Arabic and English policy templates and evidence packs for NCA, SAMA and PDPL engagements. Your consultants start from a structured baseline instead of a blank document. Every artefact is written to be handed to an auditor."
+        }
+      ]
+    },
+    "organisations": {
+      "title": "For organisations",
+      "intro": "Security operations and compliance run for you, with accountability in writing.",
+      "items": [
+        {
+          "id": "managed-security",
+          "name": "Managed security services",
+          "text": "A 24/7 security operations centre, managed detection and response, SIEM and log management, and managed firewall, email and endpoint security, backed by threat intelligence. We watch the environment, investigate what matters and act inside agreed response times. You get one team accountable for the whole chain."
+        },
+        {
+          "id": "regulatory-compliance",
+          "name": "Regulatory compliance",
+          "text": "Gap assessments, roadmaps and implementation support for NCA, SAMA, PDPL and CST requirements. We translate control text into work your teams can actually schedule. Evidence is collected as you go, so audit season is a review rather than a scramble."
+        },
+        {
+          "id": "assessments",
+          "name": "Assessments and testing",
+          "text": "Vulnerability assessment, penetration testing, maturity and risk assessments, and audit readiness reviews. Findings come with exploitability, business impact and a fix that fits your environment. Retesting confirms the gap actually closed."
+        },
+        {
+          "id": "vciso",
+          "name": "Virtual CISO",
+          "text": "Security leadership on a defined commitment: strategy, risk decisions, board and management reporting, and programme governance. You get an experienced security executive without a full-time hire. The role scales up around audits, incidents and funding cycles."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Not sure which side you sit on?",
+      "body": "Many partners start as a client and add white-label delivery later. A short call is enough to work out the right shape.",
+      "button": "Talk to our team"
+    }
+  },
+  "compliance": {
+    "seo": {
+      "title": "Compliance — NCA, SAMA, PDPL and CST | System Formation",
+      "description": "The Saudi and international frameworks our delivery is built around: NCA ECC, CCC, DCC, CSCC and OTCC, SAMA CSF, PDPL, CST requirements, ISO/IEC 27001, ISO 22301, PCI DSS and NIST CSF."
+    },
+    "hero": {
+      "h1": "The frameworks your clients answer to.",
+      "sub": "We build delivery around the control sets that Saudi regulators actually audit, so the evidence your client needs is a by-product of the service rather than a separate project."
+    },
+    "disclaimer": "System Formation is not a regulator, and is not certified, accredited or endorsed by any authority named on this page. We deliver services designed to help our partners and clients meet these requirements.",
+    "groups": [
+      {
+        "regulator": "National Cybersecurity Authority (NCA)",
+        "note": "The national baseline and its extensions.",
+        "items": [
+          {
+            "code": "ECC-2:2024",
+            "name": "Essential Cybersecurity Controls",
+            "text": "The national baseline every in-scope entity is measured against."
+          },
+          {
+            "code": "CCC-2:2024",
+            "name": "Cloud Cybersecurity Controls",
+            "text": "Obligations split between the cloud provider and the tenant using it."
+          },
+          {
+            "code": "DCC-1:2022",
+            "name": "Data Cybersecurity Controls",
+            "text": "Classification-driven protection across the data lifecycle; extends the ECC."
+          },
+          {
+            "code": "CSCC-1:2019",
+            "name": "Critical Systems Cybersecurity Controls",
+            "text": "Additional controls over systems designated as critical."
+          },
+          {
+            "code": "OTCC-1:2022",
+            "name": "Operational Technology Cybersecurity Controls",
+            "text": "Controls for industrial and operational technology environments."
+          }
+        ]
+      },
+      {
+        "regulator": "Saudi Central Bank (SAMA)",
+        "note": "For institutions SAMA supervises.",
+        "items": [
+          {
+            "code": "CSF",
+            "name": "Cyber Security Framework",
+            "text": "The cybersecurity expectations placed on SAMA-supervised financial institutions."
+          },
+          {
+            "code": "BCM",
+            "name": "Business Continuity Framework",
+            "text": "Continuity and recovery obligations that sit alongside the cyber framework."
+          }
+        ]
+      },
+      {
+        "regulator": "Saudi Data and AI Authority (SDAIA)",
+        "note": "Personal data, wherever it is processed in the Kingdom.",
+        "items": [
+          {
+            "code": "PDPL",
+            "name": "Personal Data Protection Law",
+            "text": "Lawful basis, data subject rights and breach notification for personal data."
+          },
+          {
+            "code": "Implementing Regulations",
+            "name": "PDPL Implementing Regulations",
+            "text": "The operational detail behind the law, including transfer conditions."
+          }
+        ]
+      },
+      {
+        "regulator": "Communications, Space and Technology Commission (CST)",
+        "note": "For licensed telecom, cloud and ICT providers.",
+        "items": [
+          {
+            "code": "CCRF",
+            "name": "Cloud Computing Regulatory Framework",
+            "text": "Licensing classes and customer protection duties for cloud services."
+          },
+          {
+            "code": "CRF (RT08)",
+            "name": "Cybersecurity Regulatory Framework for ICT Service Providers",
+            "text": "Cybersecurity obligations for CST-licensed and registered ICT providers."
+          }
+        ]
+      },
+      {
+        "regulator": "International standards",
+        "note": "Where a client, parent company or tender asks for them.",
+        "items": [
+          {
+            "code": "ISO/IEC 27001",
+            "name": "Information security management",
+            "text": "The management system most international clients recognise."
+          },
+          {
+            "code": "ISO 22301",
+            "name": "Business continuity management",
+            "text": "Continuity planning that holds up under audit."
+          },
+          {
+            "code": "PCI DSS",
+            "name": "Payment card data security",
+            "text": "Applies wherever cardholder data is stored, processed or transmitted."
+          },
+          {
+            "code": "NIST CSF",
+            "name": "Cybersecurity Framework",
+            "text": "A common language for mapping controls across several regimes at once."
+          }
+        ]
+      }
+    ],
+    "cta": {
+      "title": "Bring us the framework your client is audited against.",
+      "body": "We will show you what delivery looks like against it, and where the evidence comes from.",
+      "button": "Talk to our team"
+    }
+  },
+  "about": {
+    "seo": {
+      "title": "About — a Saudi cybersecurity company | System Formation",
+      "description": "System Formation Co. Ltd builds the shared security foundation that service providers deliver on: pooled licences, certified people and ready platforms, under clear SLAs."
+    },
+    "hero": {
+      "h1": "We build the structure other providers run on.",
+      "sub": "System Formation Co. Ltd is a Saudi cybersecurity company built around one idea: the region needs more security delivered well, and the fixed cost of running security operations is what holds providers back. We carry that cost once, share it across partners, and let each provider focus on its clients."
+    },
+    "visionTitle": "Vision",
+    "vision": "To be the shared security foundation that the region's service providers build on.",
+    "missionTitle": "Mission",
+    "mission": "To make high-quality security operations affordable to deliver, by pooling licences, talent and platforms under clear service level agreements.",
+    "valuesTitle": "What we hold to",
+    "values": [
+      {
+        "name": "Reliability",
+        "text": "The commitment in the SLA is the commitment we operate to."
+      },
+      {
+        "name": "Partnership",
+        "text": "Your client relationship stays yours. We do not compete with the partners we carry."
+      },
+      {
+        "name": "Local expertise",
+        "text": "Saudi delivery, Saudi regulatory context, in Arabic and English."
+      },
+      {
+        "name": "Efficiency",
+        "text": "Shared capacity exists to remove cost, not to add a layer."
+      },
+      {
+        "name": "Confidentiality",
+        "text": "Partner and client information is segregated and stays that way."
+      }
+    ],
+    "visionTwentyThirtyTitle": "Vision 2030",
+    "visionTwentyThirty": "A secure digital economy needs more than technology — it needs enough qualified people to run it. By concentrating licences, platforms and training into a shared foundation, we help local providers take on work that would otherwise go abroad, and we build cybersecurity careers inside the Kingdom.",
+    "cta": {
+      "title": "Talk to the team behind the structure.",
+      "button": "Contact us"
+    }
+  },
+  "contact": {
+    "seo": {
+      "title": "Contact — talk to our team | System Formation",
+      "description": "Talk to System Formation about partner delivery, managed security or compliance. Email info@systemformation.com or call +966 56 788 8365."
+    },
+    "hero": {
+      "h1": "Talk to our team.",
+      "sub": "Tell us what you run today. We will come back with what shared capacity would change — and what it would cost."
+    },
+    "detailsTitle": "Direct lines",
+    "responseNote": "We reply within one business day.",
+    "form": {
+      "title": "Send a message",
+      "name": "Name",
+      "company": "Company",
+      "email": "Email",
+      "phone": "Phone",
+      "role": "I am a…",
+      "roleOptions": [
+        "Service provider",
+        "Organisation",
+        "Other"
+      ],
+      "interest": "Interest",
+      "interestOptions": [
+        "Partner model / white-label delivery",
+        "Licensing as a service",
+        "Security talent on demand",
+        "White-label SOC",
+        "Managed security services",
+        "Regulatory compliance",
+        "Assessments and testing",
+        "Virtual CISO",
+        "Something else"
+      ],
+      "message": "Message",
+      "required": "required",
+      "optional": "optional",
+      "submit": "Send message",
+      "sending": "Sending…",
+      "successTitle": "Message sent.",
+      "success": "Message sent. We reply within one business day.",
+      "errorTitle": "The message did not send.",
+      "errors": {
+        "name": "Enter your name.",
+        "email": "Enter an email address in the form name@company.com.",
+        "message": "Enter a message of at least 10 characters.",
+        "tooLong": "This field is too long.",
+        "captcha": "The security check did not complete. Reload the page and try again.",
+        "rate": "Too many messages from this connection. Try again in a few minutes.",
+        "server": "Something went wrong at our end. Email info@systemformation.com and we will pick it up.",
+        "network": "The message could not be sent. Check your connection, or email info@systemformation.com."
+      },
+      "fallback": "You can also email us directly at info@systemformation.com or message us on WhatsApp."
+    }
+  },
+  "footer": {
+    "description": "A Saudi Master Security Service Provider: pooled licences, certified people and ready platforms, delivered under your brand.",
+    "navTitle": "Site",
+    "servicesTitle": "Services",
+    "contactTitle": "Contact",
+    "legalTitle": "Legal",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use",
+    "cr": "CR No.",
+    "vat": "VAT No.",
+    "crValue": "[CR NUMBER]",
+    "vatValue": "[VAT NUMBER]",
+    "rights": "System Formation Co. Ltd — شركة تشكيل النظم المحدودة"
+  },
+  "privacy": {
+    "seo": {
+      "title": "Privacy Policy | System Formation",
+      "description": "How System Formation Co. Ltd collects, uses and protects personal data submitted through this website, aligned to the Saudi Personal Data Protection Law."
+    },
+    "h1": "Privacy Policy",
+    "draftNotice": "Draft for legal review. This policy has been prepared as a starting point and must be reviewed by qualified counsel before launch.",
+    "updated": "Last updated",
+    "sections": [
+      {
+        "h": "Who we are",
+        "p": [
+          "System Formation Co. Ltd (\"System Formation\", \"we\") is a company registered in the Kingdom of Saudi Arabia, commercial registration [CR NUMBER], with its registered address at [CITY / ADDRESS]. We are the controller of the personal data described in this policy."
+        ]
+      },
+      {
+        "h": "What we collect",
+        "p": [
+          "When you submit the contact form we collect the name, company, email address, phone number, the audience and interest you select, and the content of your message.",
+          "Our hosting provider processes technical information needed to deliver the site securely, including IP address and request metadata. We do not use advertising or behavioural tracking cookies, and we do not embed third-party trackers."
+        ]
+      },
+      {
+        "h": "Why we use it",
+        "p": [
+          "We use contact form submissions for one purpose: to respond to your enquiry and, where you ask us to, to prepare a commercial proposal. We rely on your consent, given by submitting the form, and on our legitimate interest in responding to business enquiries.",
+          "We do not sell personal data, and we do not use it for marketing unrelated to your enquiry."
+        ]
+      },
+      {
+        "h": "A security check on the form",
+        "p": [
+          "The contact form is protected by a bot-detection service to stop automated abuse. It receives technical signals about the request. It does not receive the content of your message."
+        ]
+      },
+      {
+        "h": "How long we keep it",
+        "p": [
+          "Enquiries are retained for [RETENTION PERIOD] from the last contact, after which they are deleted or anonymised. Where an enquiry becomes a contract, the related records are retained under the retention period required by Saudi commercial and tax law."
+        ]
+      },
+      {
+        "h": "Who else sees it",
+        "p": [
+          "Personal data is available to System Formation staff who need it to answer you, and to the service providers that operate our website infrastructure and email under contract. We do not disclose it to anyone else except where the law requires it.",
+          "Where personal data is transferred outside the Kingdom, we apply the conditions set out in the Personal Data Protection Law and its implementing regulations."
+        ]
+      },
+      {
+        "h": "Your rights",
+        "p": [
+          "Under the Personal Data Protection Law you may ask to access your personal data, correct it, request its destruction, withdraw consent, and be informed of how it is used. Write to info@systemformation.com and we will respond within the period the law allows.",
+          "If you believe we have not handled your data correctly, you may complain to the Saudi Data and AI Authority (SDAIA)."
+        ]
+      },
+      {
+        "h": "Changes to this policy",
+        "p": [
+          "We will update this page when our practices change, and will change the date above when we do."
+        ]
+      }
+    ]
+  },
+  "terms": {
+    "seo": {
+      "title": "Terms of Use | System Formation",
+      "description": "The terms that apply to your use of the System Formation Co. Ltd website."
+    },
+    "h1": "Terms of Use",
+    "draftNotice": "Draft for legal review. These terms have been prepared as a starting point and must be reviewed by qualified counsel before launch.",
+    "updated": "Last updated",
+    "sections": [
+      {
+        "h": "About these terms",
+        "p": [
+          "These terms apply to your use of systemformation.com, operated by System Formation Co. Ltd. By using the site you accept them. If you do not accept them, please do not use the site."
+        ]
+      },
+      {
+        "h": "What the site is for",
+        "p": [
+          "This website describes our services. Nothing on it is an offer capable of acceptance, a quotation, or professional advice for your specific circumstances. Any figures shown, including indicative savings, are illustrative and are not a commitment. Services are provided only under a signed agreement."
+        ]
+      },
+      {
+        "h": "Acceptable use",
+        "p": [
+          "Do not use this site to attempt unauthorised access, disrupt its availability, submit unlawful or harmful content, or extract data by automated means beyond ordinary search engine indexing. We may restrict access where we reasonably believe this has happened.",
+          "If you believe you have found a security issue in this website, please report it to info@systemformation.com rather than testing further."
+        ]
+      },
+      {
+        "h": "Intellectual property",
+        "p": [
+          "The content, design, logos and marks on this site belong to System Formation Co. Ltd or its licensors. You may read and share pages for your own business evaluation. Any other reproduction requires our written permission. Third-party names and framework titles are the property of their respective owners and appear for identification only."
+        ]
+      },
+      {
+        "h": "Liability",
+        "p": [
+          "We take care to keep the site accurate and available, but we do not warrant that it will be uninterrupted or error-free. To the extent permitted by law, we are not liable for loss arising from reliance on the site's contents. Nothing in these terms limits liability that cannot lawfully be limited."
+        ]
+      },
+      {
+        "h": "Links",
+        "p": [
+          "Where this site links to another organisation, we are not responsible for that organisation's content or its handling of your data."
+        ]
+      },
+      {
+        "h": "Governing law",
+        "p": [
+          "These terms are governed by the laws of the Kingdom of Saudi Arabia, and the courts of the Kingdom have jurisdiction over any dispute."
+        ]
+      },
+      {
+        "h": "Contact",
+        "p": [
+          "Questions about these terms: info@systemformation.com."
+        ]
+      }
+    ]
+  },
+  "notFound": {
+    "seo": {
+      "title": "Page not found | System Formation",
+      "description": "That page does not exist."
+    },
+    "code": "404",
+    "h1": "That page is not here.",
+    "body": "The link may be out of date, or the address may have a typo in it.",
+    "home": "Go to the home page",
+    "contact": "Contact us"
+  }
+}

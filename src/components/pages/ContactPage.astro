@@ -1,0 +1,69 @@
+---
+import Slide from '../ui/Slide.astro';
+import ContactForm from '../ContactForm.astro';
+import { t, type Locale } from '../../i18n';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const copy = t(lang);
+const c = copy.contact;
+---
+
+<Slide tone="dark" labelledBy="contact-title">
+  <h1 id="contact-title" data-animate>{c.hero.h1}</h1>
+  <p class="lead" data-animate data-animate-delay="0.06">{c.hero.sub}</p>
+</Slide>
+
+<Slide>
+  <div class="contact">
+    <aside class="contact__details" data-animate>
+      <h2 class="contact__h">{c.detailsTitle}</h2>
+      <dl class="contact__list">
+        <dt>{copy.common.emailLabel}</dt>
+        <dd><a href={`mailto:${copy.common.email}`}>{copy.common.email}</a></dd>
+
+        <dt>{copy.common.phoneLabel}</dt>
+        <dd>
+          <a href={`tel:${copy.common.phoneDial}`}><bdi dir="ltr">{copy.common.phoneDisplay}</bdi></a>
+        </dd>
+
+        <dt>WhatsApp</dt>
+        <dd>
+          <a href={copy.common.whatsapp} rel="noopener noreferrer" target="_blank">{copy.common.whatsappLabel}</a>
+        </dd>
+
+        <dt>{copy.common.addressLabel}</dt>
+        <dd>{copy.common.address}</dd>
+      </dl>
+      <p class="contact__note">{c.responseNote}</p>
+    </aside>
+
+    <div class="contact__form" data-animate data-animate-delay="0.06">
+      <ContactForm lang={lang} />
+    </div>
+  </div>
+</Slide>
+
+<style>
+  .contact { display: grid; gap: var(--sp-7); }
+  @media (min-width: 900px) {
+    .contact { grid-template-columns: 0.8fr 1.2fr; column-gap: var(--sp-8); align-items: start; }
+  }
+  .contact__h { font-size: var(--fs-h3); }
+  .contact__list { margin-block-start: var(--sp-5); display: grid; gap: var(--sp-4); }
+  .contact__list dt {
+    font-size: var(--fs-meta);
+    font-weight: var(--fw-semibold);
+    color: var(--sf-grey-600);
+  }
+  .contact__list dd { margin: var(--sp-1) 0 0; font-size: var(--fs-lead); }
+  .contact__list a { color: var(--sf-ink); text-decoration: none; border-block-end: 1px solid var(--sf-line-strong); }
+  .contact__list a:hover { color: var(--sf-blue-600); border-color: currentColor; }
+  .contact__note {
+    margin-block-start: var(--sp-6);
+    padding-block-start: var(--sp-4);
+    border-block-start: 1px solid var(--sf-line);
+    font-size: var(--fs-small);
+    color: var(--sf-grey-600);
+  }
+</style>

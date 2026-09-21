@@ -1,0 +1,12 @@
+---
+import Base from '../../layouts/Base.astro';
+import AboutPage from '../../components/pages/AboutPage.astro';
+import { t } from '../../i18n';
+
+const lang = 'ar' as const;
+const copy = t(lang);
+---
+
+<Base lang={lang} route="about" title={copy.about.seo.title} description={copy.about.seo.description}>
+  <AboutPage lang={lang} />
+</Base>

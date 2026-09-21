@@ -1,0 +1,22 @@
+---
+interface Props {
+  id?: string;
+  tone?: 'paper' | 'mist' | 'dark';
+  tall?: boolean;
+  class?: string;
+  labelledBy?: string;
+}
+const { id, tone = 'paper', tall = false, class: className = '', labelledBy } = Astro.props;
+const toneClass = tone === 'dark' ? 'slide--dark' : tone === 'mist' ? 'slide--mist' : '';
+---
+
+<section
+  id={id}
+  class={`slide ${toneClass} ${tall ? 'slide--tall' : ''} ${className}`}
+  aria-labelledby={labelledBy}
+  data-slide
+>
+  <div class="container">
+    <slot />
+  </div>
+</section>

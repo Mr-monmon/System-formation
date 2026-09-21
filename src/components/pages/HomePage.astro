@@ -1,0 +1,368 @@
+---
+import Hero from '../sections/Hero.astro';
+import Slide from '../ui/Slide.astro';
+import SlideNav from '../ui/SlideNav.astro';
+import StructureGrid from '../ui/StructureGrid.astro';
+import CostMerge from '../sections/CostMerge.astro';
+import Estimator from '../sections/Estimator.astro';
+import FrameworkStrip from '../sections/FrameworkStrip.astro';
+import { t, path, type Locale } from '../../i18n';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const copy = t(lang);
+const h = copy.home;
+
+const frameworks = [
+  'NCA ECC-2:2024',
+  'NCA CCC-2:2024',
+  'NCA DCC-1:2022',
+  'NCA CSCC-1:2019',
+  'NCA OTCC-1:2022',
+  'SAMA CSF',
+  'PDPL',
+  'CST CCRF',
+  'ISO/IEC 27001',
+  'ISO 22301',
+  'PCI DSS',
+  'NIST CSF',
+];
+
+const slideNav = [
+  { id: 'problem', label: h.problem.title },
+  { id: 'model', label: h.model.title },
+  { id: 'savings', label: h.savings.title },
+  { id: 'estimator', label: h.estimator.title },
+  { id: 'audience', label: h.audience.title },
+  { id: 'services', label: h.servicesOverview.title },
+  { id: 'compliance', label: h.compliance.title },
+  { id: 'contact', label: h.closing.title },
+];
+---
+
+<SlideNav items={slideNav} navLabel={copy.common.slideNavLabel} goLabel={copy.common.goToSlide} />
+
+<Hero lang={lang} />
+
+<!-- 2 — the problem every provider carries -->
+<Slide id="problem" tall labelledBy="problem-title">
+  <h2 id="problem-title" data-animate>{h.problem.title}</h2>
+  <p class="lead" data-animate data-animate-delay="0.05">{h.problem.body}</p>
+  <ul class="facts" data-stagger>
+    {h.problem.facts.map((fact) => <li class="facts__item">{fact}</li>)}
+  </ul>
+</Slide>
+
+<!-- 3 — the model -->
+<Slide id="model" tone="mist" tall labelledBy="model-title">
+  <h2 id="model-title" data-animate>{h.model.title}</h2>
+  <p class="lead" data-animate data-animate-delay="0.05">{h.model.body}</p>
+
+  <h3 class="pillars__label" data-animate>{h.model.pillarsLabel}</h3>
+  <div class="pillars" data-stagger>
+    {
+      h.model.pillars.map((pillar, i) => (
+        <div class="pillar" style={`--i:${i}`}>
+          <span class="pillar__rule" aria-hidden="true" />
+          <h4 class="pillar__name">{pillar.name}</h4>
+          <p class="pillar__text">{pillar.text}</p>
+        </div>
+      ))
+    }
+  </div>
+</Slide>
+
+<!-- 4 — where the savings come from (the diagram is the animation) -->
+<Slide id="savings" tone="dark" tall labelledBy="savings-title" class="savings">
+  <StructureGrid rows={9} cols={16} />
+  <div class="savings__inner">
+    <h2 id="savings-title" data-animate>{h.savings.title}</h2>
+    <p class="lead" data-animate data-animate-delay="0.05">{h.savings.intro}</p>
+
+    <CostMerge lang={lang} />
+
+    <ul class="savings__list" data-stagger>
+      {
+        h.savings.items.map((item) => (
+          <li>
+            <h3>{item.name}</h3>
+            <p>{item.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="savings__note">{h.savings.footnote}</p>
+  </div>
+</Slide>
+
+<!-- 5 — indicative estimator -->
+<Slide id="estimator" labelledBy="estimator-title">
+  <h2 id="estimator-title" data-animate>{h.estimator.title}</h2>
+  <p class="lead" data-animate data-animate-delay="0.05">{h.estimator.intro}</p>
+  <div data-animate="up">
+    <Estimator lang={lang} />
+  </div>
+</Slide>
+
+<!-- 6 — who we work with -->
+<Slide id="audience" tone="mist" labelledBy="audience-title">
+  <h2 id="audience-title" data-animate>{h.audience.title}</h2>
+  <ul class="audience" data-stagger>
+    {
+      h.audience.items.map((item) => (
+        <li class="audience__item">
+          <h3>{item.name}</h3>
+          <p>{item.text}</p>
+        </li>
+      ))
+    }
+  </ul>
+</Slide>
+
+<!-- 7 — services overview -->
+<Slide id="services" labelledBy="services-title">
+  <h2 id="services-title" data-animate>{h.servicesOverview.title}</h2>
+  <p class="lead" data-animate data-animate-delay="0.05">{h.servicesOverview.body}</p>
+  <div class="svc-overview" data-stagger>
+    <ul class="svc-overview__list">
+      {
+        copy.services.providers.items.map((item) => (
+          <li>
+            <a href={`${path(lang, 'services')}#${item.id}`}>{item.name}</a>
+          </li>
+        ))
+      }
+    </ul>
+    <ul class="svc-overview__list">
+      {
+        copy.services.organisations.items.map((item) => (
+          <li>
+            <a href={`${path(lang, 'services')}#${item.id}`}>{item.name}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+  <p data-animate>
+    <a class="link-quiet" href={path(lang, 'services')}>{h.servicesOverview.link}</a>
+  </p>
+</Slide>
+
+<!-- 8 — Saudi regulatory alignment -->
+<Slide id="compliance" tone="dark" labelledBy="compliance-title">
+  <h2 id="compliance-title" data-animate>{h.compliance.title}</h2>
+  <p class="lead" data-animate data-animate-delay="0.05">{h.compliance.body}</p>
+  <FrameworkStrip
+    items={frameworks}
+    label={h.compliance.marqueeLabel}
+    pauseLabel={h.compliance.pauseLabel}
+    playLabel={h.compliance.playLabel}
+  />
+  <p class="compliance__link" data-animate>
+    <a class="link-quiet" href={path(lang, 'compliance')}>{h.compliance.link}</a>
+  </p>
+</Slide>
+
+<!-- 9 — closing -->
+<Slide id="contact" tall labelledBy="closing-title">
+  <h2 id="closing-title" data-animate>{h.closing.title}</h2>
+  <p class="lead" data-animate data-animate-delay="0.05">{h.closing.body}</p>
+  <div class="closing__actions" data-animate data-animate-delay="0.1">
+    <a class="btn btn--primary" href={path(lang, 'contact')}>{h.closing.cta}</a>
+    <a class="closing__direct" href={`tel:${copy.common.phoneDial}`}>
+      <bdi dir="ltr">{copy.common.phoneDisplay}</bdi>
+    </a>
+    <a class="closing__direct" href={`mailto:${copy.common.email}`}>{copy.common.email}</a>
+  </div>
+</Slide>
+
+<style>
+  /* --- problem --- */
+  .facts {
+    list-style: none;
+    margin: var(--sp-7) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--sp-4);
+    max-inline-size: 46rem;
+  }
+  .facts__item {
+    position: relative;
+    padding-inline-start: 1.6rem;
+    padding-block: var(--sp-2);
+    border-block-end: 1px solid var(--sf-line);
+    font-size: var(--fs-lead);
+    line-height: var(--lh-lead);
+  }
+  .facts__item::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block-start: 0.85em;
+    inline-size: 0.55rem;
+    block-size: 0.55rem;
+    background: var(--sf-blue-500);
+    transform: rotate(45deg);
+  }
+
+  /* --- pillars: three linked blocks, not three identical cards --- */
+  .pillars__label {
+    margin-block-start: var(--sp-8);
+    font-size: var(--fs-meta);
+    font-weight: var(--fw-semibold);
+    color: var(--sf-grey-600);
+  }
+  .pillars {
+    display: grid;
+    gap: var(--sp-6);
+    margin-block-start: var(--sp-4);
+  }
+  @media (min-width: 820px) {
+    .pillars {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+    .pillar {
+      padding-inline: var(--sp-5);
+    }
+    .pillar:first-child {
+      padding-inline-start: 0;
+    }
+    .pillar + .pillar {
+      border-inline-start: 1px solid var(--sf-line-strong);
+    }
+  }
+  .pillar__rule {
+    display: block;
+    inline-size: 2.5rem;
+    block-size: 3px;
+    background: linear-gradient(to right, var(--sf-blue-300), var(--sf-blue-700));
+    margin-block-end: var(--sp-4);
+  }
+  .pillar__name {
+    font-size: var(--fs-h3);
+  }
+  .pillar__text {
+    margin-block-start: var(--sp-3);
+    color: var(--sf-grey-600);
+  }
+
+  /* --- savings --- */
+  .savings__inner {
+    position: relative;
+    z-index: 1;
+  }
+  .savings__list {
+    list-style: none;
+    margin: var(--sp-8) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--sp-6);
+  }
+  @media (min-width: 760px) {
+    .savings__list {
+      grid-template-columns: 1fr 1fr;
+      column-gap: var(--sp-8);
+    }
+  }
+  .savings__list h3 {
+    font-size: var(--fs-h3);
+    color: var(--sf-on-dark);
+  }
+  .savings__list p {
+    margin-block-start: var(--sp-2);
+    color: var(--sf-on-dark-muted);
+  }
+  .savings__note {
+    margin-block-start: var(--sp-7);
+    font-size: var(--fs-meta);
+    color: var(--sf-on-dark-faint);
+    max-inline-size: 48rem;
+  }
+
+  /* --- audience --- */
+  .audience {
+    list-style: none;
+    margin: var(--sp-7) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--sp-6);
+  }
+  @media (min-width: 760px) {
+    .audience {
+      grid-template-columns: 1fr 1fr;
+      column-gap: var(--sp-8);
+    }
+  }
+  .audience__item {
+    padding-block-start: var(--sp-4);
+    border-block-start: 2px solid var(--sf-navy-900);
+  }
+  .audience__item h3 {
+    font-size: var(--fs-h3);
+  }
+  .audience__item p {
+    margin-block-start: var(--sp-2);
+    color: var(--sf-grey-600);
+  }
+
+  /* --- services overview --- */
+  .svc-overview {
+    display: grid;
+    gap: var(--sp-6);
+    margin-block: var(--sp-6);
+  }
+  @media (min-width: 760px) {
+    .svc-overview {
+      grid-template-columns: 1fr 1fr;
+      column-gap: var(--sp-8);
+    }
+  }
+  .svc-overview__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+  }
+  .svc-overview__list li {
+    border-block-end: 1px solid var(--sf-line);
+  }
+  .svc-overview__list a {
+    display: block;
+    padding-block: var(--sp-4);
+    color: var(--sf-ink);
+    text-decoration: none;
+    font-weight: var(--fw-medium);
+    transition: padding-inline-start var(--dur) var(--ease-out), color var(--dur-fast) var(--ease-out);
+  }
+  .svc-overview__list a:hover {
+    color: var(--sf-blue-600);
+    padding-inline-start: var(--sp-3);
+  }
+
+  .compliance__link {
+    margin-block-start: var(--sp-6);
+  }
+
+  /* --- closing --- */
+  .closing__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--sp-5);
+    margin-block-start: var(--sp-6);
+  }
+  .closing__direct {
+    font-weight: var(--fw-semibold);
+    color: var(--sf-ink);
+    text-decoration: none;
+    border-block-end: 1px solid var(--sf-line-strong);
+    padding-block-end: 2px;
+  }
+  .closing__direct:hover {
+    color: var(--sf-blue-600);
+    border-color: currentColor;
+  }
+</style>

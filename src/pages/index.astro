@@ -1,0 +1,23 @@
+---
+/**
+ * Fallback only. In production the Worker owns "/" and negotiates the language
+ * from Accept-Language plus the sf-lang cookie (see worker/index.ts); this page
+ * exists so `astro preview` and any direct static hit still land somewhere.
+ */
+import { defaultLocale, path } from '../i18n';
+const target = path(defaultLocale, 'home');
+---
+
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={target} />
+    <meta name="robots" content="noindex" />
+    <title>System Formation</title>
+  </head>
+  <body>
+    <a href={target}>System Formation — شركة تشكيل النظم المحدودة</a>
+  </body>
+</html>

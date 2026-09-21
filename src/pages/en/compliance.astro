@@ -1,0 +1,12 @@
+---
+import Base from '../../layouts/Base.astro';
+import CompliancePage from '../../components/pages/CompliancePage.astro';
+import { t } from '../../i18n';
+
+const lang = 'en' as const;
+const copy = t(lang);
+---
+
+<Base lang={lang} route="compliance" title={copy.compliance.seo.title} description={copy.compliance.seo.description}>
+  <CompliancePage lang={lang} />
+</Base>

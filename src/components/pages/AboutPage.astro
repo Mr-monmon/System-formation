@@ -1,0 +1,72 @@
+---
+import Slide from '../ui/Slide.astro';
+import StructureGrid from '../ui/StructureGrid.astro';
+import { t, path, type Locale } from '../../i18n';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const copy = t(lang);
+const a = copy.about;
+---
+
+<Slide tone="dark" labelledBy="about-title" class="ahero">
+  <StructureGrid rows={9} cols={16} />
+  <div class="ahero__inner">
+    <h1 id="about-title" data-animate>{a.hero.h1}</h1>
+    <p class="lead" data-animate data-animate-delay="0.06">{a.hero.sub}</p>
+  </div>
+</Slide>
+
+<Slide>
+  <div class="vm">
+    <section data-animate>
+      <h2 class="vm__h">{a.visionTitle}</h2>
+      <p class="vm__p">{a.vision}</p>
+    </section>
+    <section data-animate data-animate-delay="0.06">
+      <h2 class="vm__h">{a.missionTitle}</h2>
+      <p class="vm__p">{a.mission}</p>
+    </section>
+  </div>
+</Slide>
+
+<Slide tone="mist" labelledBy="values-title">
+  <h2 id="values-title" data-animate>{a.valuesTitle}</h2>
+  <ul class="values" data-stagger>
+    {a.values.map((value) => (
+      <li class="value">
+        <h3>{value.name}</h3>
+        <p>{value.text}</p>
+      </li>
+    ))}
+  </ul>
+</Slide>
+
+<Slide labelledBy="v2030-title">
+  <h2 id="v2030-title" data-animate>{a.visionTwentyThirtyTitle}</h2>
+  <p class="lead" data-animate data-animate-delay="0.05">{a.visionTwentyThirty}</p>
+  <p data-animate data-animate-delay="0.1">
+    <a class="btn btn--primary" href={path(lang, 'contact')}>{a.cta.button}</a>
+  </p>
+</Slide>
+
+<style>
+  .ahero__inner { position: relative; z-index: 1; }
+  .vm { display: grid; gap: var(--sp-7); }
+  @media (min-width: 820px) { .vm { grid-template-columns: 1fr 1fr; column-gap: var(--sp-9); } }
+  .vm__h { font-size: var(--fs-h3); color: var(--sf-blue-700); }
+  .vm__p { margin-block-start: var(--sp-3); font-size: var(--fs-lead); line-height: var(--lh-lead); }
+  .values {
+    list-style: none;
+    margin: var(--sp-7) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--sp-5);
+  }
+  @media (min-width: 760px) {
+    .values { grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
+  }
+  .value { padding-block-start: var(--sp-3); border-block-start: 2px solid var(--sf-navy-900); }
+  .value h3 { font-size: var(--fs-body); }
+  .value p { margin-block-start: var(--sp-2); font-size: var(--fs-small); color: var(--sf-grey-600); }
+</style>

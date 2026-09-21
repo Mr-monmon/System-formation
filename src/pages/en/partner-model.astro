@@ -1,0 +1,12 @@
+---
+import Base from '../../layouts/Base.astro';
+import PartnerPage from '../../components/pages/PartnerPage.astro';
+import { t } from '../../i18n';
+
+const lang = 'en' as const;
+const copy = t(lang);
+---
+
+<Base lang={lang} route="partner" title={copy.partner.seo.title} description={copy.partner.seo.description}>
+  <PartnerPage lang={lang} />
+</Base>

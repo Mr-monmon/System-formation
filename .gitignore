@@ -1,0 +1,33 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# build output
+dist/
+.astro/
+
+# cloudflare / wrangler
+.wrangler/
+.dev.vars
+.dev.vars.*
+wrangler.local.jsonc
+
+# environment & secrets
+.env
+.env.*
+!.env.example
+
+# test & tooling artefacts
+test-results/
+playwright-report/
+.lighthouseci/
+*.log
+npm-debug.log*
+
+# os / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+.review/

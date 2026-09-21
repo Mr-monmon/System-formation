@@ -1,0 +1,86 @@
+---
+import Mark from './Mark.astro';
+import { t, type Locale } from '../../i18n';
+
+interface Props {
+  lang: Locale;
+  variant?: 'header' | 'footer';
+  onDark?: boolean;
+  class?: string;
+}
+const { lang, variant = 'header', onDark = false, class: className = '' } = Astro.props;
+const copy = t(lang);
+/** The accessible name is the company name in the reader's language. */
+const label = copy.meta.siteName;
+---
+
+<span class={`logo logo--${variant} ${onDark ? 'logo--on-dark' : ''} ${className}`}>
+  <Mark variant={onDark ? "on-dark" : "colour"} class="logo__mark" />
+  <span class="logo__text">
+    <span class="logo__word">System<br />Formation</span>
+    {variant === 'footer' && <span class="logo__sub">Co.&nbsp;Ltd</span>}
+    {variant === 'footer' && <span class="logo__ar" lang="ar" dir="rtl">شركة تشكيل النظم المحدودة</span>}
+  </span>
+  <span class="visually-hidden">{label}</span>
+</span>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+    color: var(--sf-ink);
+    text-decoration: none;
+    line-height: 1;
+  }
+  .logo {
+    --mark-block: 2.35em;
+  }
+  .logo__mark {
+    flex: none;
+  }
+  .logo__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15em;
+  }
+  /* The wordmark is always Latin — it is the mark, not translated copy. */
+  .logo__word {
+    font-family: var(--sf-font-latin);
+    font-weight: 800;
+    font-size: 0.95em;
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    text-transform: none;
+  }
+  .logo__sub {
+    font-family: var(--sf-font-latin);
+    font-weight: 600;
+    font-size: 0.62em;
+    letter-spacing: -0.01em;
+    color: var(--sf-grey-600);
+  }
+  .logo__ar {
+    font-family: var(--sf-font-arabic);
+    font-size: 0.6em;
+    line-height: 1.6;
+    color: var(--sf-grey-600);
+  }
+  .logo--on-dark {
+    color: var(--sf-on-dark);
+  }
+  .logo--on-dark .logo__sub,
+  .logo--on-dark .logo__ar {
+    color: var(--sf-on-dark-faint);
+  }
+  .logo--header {
+    font-size: 1rem;
+  }
+  .logo--footer {
+    font-size: 1.15rem;
+    align-items: flex-start;
+  }
+  .logo--footer {
+    --mark-block: 3.4em;
+  }
+</style>

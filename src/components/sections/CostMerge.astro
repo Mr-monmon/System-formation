@@ -1,0 +1,138 @@
+---
+/**
+ * "Where the savings come from" — the diagram is the animation: five separate
+ * cost blocks slide in, then merge into one shared structure with the saved
+ * share peeled off.
+ */
+import { t, type Locale } from '../../i18n';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const copy = t(lang);
+const s = copy.home.savings;
+const blocks = s.items;
+---
+
+<figure class="merge" data-costmerge>
+  <figcaption class="merge__cap">
+    <span class="merge__caplabel">{s.mergeLabelBefore}</span>
+    <span class="merge__caplabel merge__caplabel--after">{s.mergeLabelAfter}</span>
+  </figcaption>
+
+  <div class="merge__cols">
+    <ul class="merge__blocks">
+      {
+        blocks.map((b, i) => (
+          <li class="merge__block" data-cost-block style={`--i:${i}`}>
+            <span class="merge__bar" aria-hidden="true" />
+            <span class="merge__name">{b.name}</span>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="merge__out">
+      <div class="merge__shared" data-cost-shared>
+        <span class="merge__sharedlabel">{s.mergeLabelAfter}</span>
+      </div>
+      <p class="merge__saved" data-cost-saved>
+        <span class="merge__savedfig">{s.cap}</span>
+      </p>
+    </div>
+  </div>
+</figure>
+
+<style>
+  .merge {
+    margin: 0;
+    margin-block-start: var(--sp-7);
+  }
+  .merge__cap {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--sp-4);
+    font-size: var(--fs-meta);
+    color: var(--sf-on-dark-faint);
+    margin-block-end: var(--sp-4);
+  }
+  .merge__cols {
+    display: grid;
+    gap: var(--sp-6);
+    align-items: center;
+  }
+  @media (min-width: 720px) {
+    .merge__cols {
+      grid-template-columns: 1.2fr 0.8fr;
+    }
+  }
+  .merge__blocks {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--sp-3);
+  }
+  .merge__block {
+    --merge: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    align-items: center;
+    gap: var(--sp-3);
+    /* as --merge goes 0 -> 1 the separate blocks slide together and tighten */
+    transform: translateY(calc(var(--merge) * (2 - var(--i)) * 0.35rem));
+    transition: transform 0.6s var(--ease-out);
+  }
+  .merge__bar {
+    display: block;
+    block-size: 0.7rem;
+    /* percentage of its own grid track, so the row can never exceed the line */
+    inline-size: calc((100% - var(--i) * 9%) * (1 - var(--merge) * 0.25));
+    border-radius: 3px;
+    /* Each row is tinted a step lighter than the last, set from --i. */
+    background: linear-gradient(to right, var(--sf-blue-700), var(--sf-blue-400));
+    filter: saturate(calc(1 + var(--i) * 0.12)) brightness(calc(1 + var(--i) * 0.06));
+    opacity: calc(1 - var(--merge) * 0.35);
+  }
+  .merge__name {
+    font-size: var(--fs-meta);
+    color: var(--sf-on-dark-muted);
+    min-inline-size: 0;
+    overflow-wrap: break-word;
+  }
+  .merge__out {
+    display: grid;
+    gap: var(--sp-4);
+    justify-items: center;
+  }
+  .merge__shared {
+    inline-size: 100%;
+    min-block-size: 8.5rem;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(150deg, var(--sf-blue-500), var(--sf-blue-800));
+    border: 1px solid rgba(18, 163, 253, 0.35);
+    display: grid;
+    place-items: center;
+    padding: var(--sp-4);
+  }
+  .merge__sharedlabel {
+    font-weight: var(--fw-semibold);
+    color: #fff;
+    text-align: center;
+  }
+  .merge__saved {
+    margin: 0;
+    text-align: center;
+    color: var(--sf-on-dark);
+  }
+  .merge__savedfig {
+    font-size: clamp(1.75rem, 1.2rem + 2vw, 2.5rem);
+    font-weight: var(--fw-black);
+    letter-spacing: -0.02em;
+    color: var(--sf-blue-300);
+  }
+  .merge__caplabel--after {
+    text-align: end;
+  }
+</style>

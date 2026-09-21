@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 184 234" role="img" aria-label="System Formation">
+ <defs>
+  <linearGradient id="b" x1="0.9" y1="0" x2="0.15" y2="0.9">
+   <stop offset="0" stop-color="#16A6FE"/><stop offset=".45" stop-color="#0060EA"/><stop offset="1" stop-color="#0B4EB8"/>
+  </linearGradient>
+  <linearGradient id="n" x1="0.85" y1="0" x2="0.2" y2="1">
+   <stop offset="0" stop-color="#22355A"/><stop offset=".5" stop-color="#16263F"/><stop offset="1" stop-color="#0B1727"/>
+  </linearGradient>
+ </defs>
+ <path d="M1 157Q1 147 10.1 151.2L84.5 185.9Q93.6 190.1 102.7 185.9L174.9 152.2Q184 148 174.9 143.8L102.1 109.9Q93 105.7 101.5 100.5L125.5 85.9Q134 80.8 143.1 85L174.9 99.8Q184 104 184 114L184 182Q184 192 174.9 196.2L102.7 229.9Q93.6 234.1 84.5 229.9L10.1 195.2Q1 191 1 181Z" fill="url(#n)"/>
+ <path d="M132.4 4.9Q141.5 0.7 141.5 10.7L141.5 34.7Q141.5 44.7 132.4 48.9L57.4 83.8Q48.3 88 57.4 92.2L174.9 146.9Q184 151.1 184 161.1L184 185.1Q184 195.1 174.9 190.9L10.1 114.2Q1 110 1 100L1 76Q1 66 10.1 61.8Z" fill="url(#b)"/>
+</svg>

@@ -1,0 +1,50 @@
+// Workers deployment (the alternative path). The live site deploys through
+// Cloudflare Pages instead — see functions/ and the README — so this file is
+// deliberately NOT named wrangler.jsonc: a Pages build would otherwise try to
+// read it, and a Pages config needs different keys entirely.
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "systemformation",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-09-21",
+
+  // Static build output. The Worker runs first only for the root redirect and
+  // the contact endpoint; everything else is served straight from the edge.
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/", "/api/*"]
+  },
+
+  // 5 submissions per minute per IP, per Cloudflare location.
+  "ratelimits": [
+    {
+      "name": "CONTACT_RATE_LIMIT",
+      "namespace_id": "1001",
+      "simple": { "limit": 5, "period": 60 }
+    }
+  ],
+
+  "vars": {
+    "CONTACT_TO": "info@systemformation.com",
+    "CONTACT_FROM": "System Formation <website@systemformation.com>"
+  },
+
+  "observability": { "enabled": true },
+
+  // Custom domains are deliberately NOT declared here yet: attaching them
+  // rewrites DNS on the zone. Check the existing records first, then uncomment
+  // and redeploy (see README, "Custom domains").
+  //
+  // "routes": [
+  //   { "pattern": "systemformation.com", "custom_domain": true },
+  //   { "pattern": "www.systemformation.com", "custom_domain": true }
+  // ],
+
+  // Secrets are set with `wrangler secret put` and never committed:
+  //   TURNSTILE_SECRET_KEY   Turnstile server-side key
+  //   RESEND_API_KEY         email delivery (see README for the alternatives)
+  "keep_vars": true
+}

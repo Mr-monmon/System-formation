@@ -1,0 +1,186 @@
+---
+import { t, type Locale } from '../i18n';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const copy = t(lang);
+const f = copy.contact.form;
+/** Client-side messages travel as data, so no copy is hard-coded in the script. */
+const messages = JSON.stringify({ ...f.errors, success: f.success });
+---
+
+<form class="cform" method="post" action="/api/contact" novalidate data-contact-form data-messages={messages}>
+  <h2 class="cform__title">{f.title}</h2>
+
+  <div class="cform__grid">
+    <div class="cform__field">
+      <label for="cf-name">{f.name} <span class="cform__req">{f.required}</span></label>
+      <input id="cf-name" name="name" type="text" required maxlength="120" autocomplete="name" aria-describedby="cf-name-err" />
+      <p class="cform__err" id="cf-name-err" data-err-for="name" hidden></p>
+    </div>
+
+    <div class="cform__field">
+      <label for="cf-company">{f.company} <span class="cform__opt">{f.optional}</span></label>
+      <input id="cf-company" name="company" type="text" maxlength="160" autocomplete="organization" />
+    </div>
+
+    <div class="cform__field">
+      <label for="cf-email">{f.email} <span class="cform__req">{f.required}</span></label>
+      <input id="cf-email" name="email" type="email" required maxlength="180" autocomplete="email" dir="ltr" aria-describedby="cf-email-err" />
+      <p class="cform__err" id="cf-email-err" data-err-for="email" hidden></p>
+    </div>
+
+    <div class="cform__field">
+      <label for="cf-phone">{f.phone} <span class="cform__opt">{f.optional}</span></label>
+      <input id="cf-phone" name="phone" type="tel" maxlength="40" autocomplete="tel" dir="ltr" />
+    </div>
+
+    <div class="cform__field">
+      <label for="cf-role">{f.role}</label>
+      <select id="cf-role" name="role">
+        {f.roleOptions.map((o) => <option value={o}>{o}</option>)}
+      </select>
+    </div>
+
+    <div class="cform__field">
+      <label for="cf-interest">{f.interest}</label>
+      <select id="cf-interest" name="interest">
+        {f.interestOptions.map((o) => <option value={o}>{o}</option>)}
+      </select>
+    </div>
+
+    <div class="cform__field cform__field--wide">
+      <label for="cf-message">{f.message} <span class="cform__req">{f.required}</span></label>
+      <textarea id="cf-message" name="message" rows="5" required maxlength="4000" aria-describedby="cf-message-err"></textarea>
+      <p class="cform__err" id="cf-message-err" data-err-for="message" hidden></p>
+    </div>
+  </div>
+
+  <!-- Honeypot: a real person never fills this in. -->
+  <div class="cform__trap" aria-hidden="true">
+    <label for="cf-website">Website</label>
+    <input id="cf-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <!-- Cloudflare Turnstile mounts here once a site key is configured. -->
+  <div class="cf-turnstile" data-turnstile data-size="flexible"></div>
+
+  <button class="btn btn--primary cform__submit" type="submit" data-submit data-idle={f.submit} data-busy={f.sending}>
+    {f.submit}
+  </button>
+
+  <p class="cform__status" role="status" aria-live="polite" data-status></p>
+  <p class="cform__fallback" data-fallback hidden>
+    {f.fallback}
+  </p>
+</form>
+
+<script>
+  import { initContactForm } from '../scripts/contact';
+  document.addEventListener('astro:page-load', () => initContactForm());
+</script>
+
+<style>
+  .cform {
+    padding: clamp(var(--sp-5), 3vw, var(--sp-7));
+    border: 1px solid var(--sf-line);
+    border-radius: var(--radius-lg);
+    background: var(--sf-paper);
+    box-shadow: var(--shadow-key);
+  }
+  .cform__title {
+    font-size: var(--fs-h3);
+    margin-block-end: var(--sp-5);
+  }
+  .cform__grid {
+    display: grid;
+    gap: var(--sp-5);
+  }
+  @media (min-width: 680px) {
+    .cform__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .cform__field--wide {
+      grid-column: 1 / -1;
+    }
+  }
+  .cform__field label {
+    display: block;
+    font-size: var(--fs-small);
+    font-weight: var(--fw-semibold);
+    margin-block-end: var(--sp-2);
+  }
+  .cform__req,
+  .cform__opt {
+    font-weight: var(--fw-regular);
+    font-size: var(--fs-meta);
+    color: var(--sf-grey-600);
+  }
+  .cform input,
+  .cform select,
+  .cform textarea {
+    inline-size: 100%;
+    font: inherit;
+    font-size: var(--fs-small);
+    padding: 0.7rem 0.85rem;
+    color: var(--sf-ink);
+    background: var(--sf-paper);
+    border: 1px solid var(--sf-line-strong);
+    border-radius: var(--radius-sm);
+    transition: border-color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+  }
+  .cform textarea {
+    resize: vertical;
+    min-block-size: 8rem;
+  }
+  .cform input:focus,
+  .cform select:focus,
+  .cform textarea:focus {
+    border-color: var(--sf-blue-500);
+  }
+  .cform [aria-invalid='true'] {
+    border-color: var(--sf-error);
+    box-shadow: 0 0 0 1px var(--sf-error);
+  }
+  .cform__err {
+    margin-block-start: var(--sp-2);
+    font-size: var(--fs-meta);
+    color: var(--sf-error);
+    font-weight: var(--fw-medium);
+  }
+  .cform__trap {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .cform__submit {
+    margin-block-start: var(--sp-6);
+  }
+  .cform__submit[aria-disabled='true'] {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  .cform__status {
+    margin-block-start: var(--sp-4);
+    font-size: var(--fs-small);
+    font-weight: var(--fw-medium);
+  }
+  .cform__status[data-tone='ok'] {
+    color: var(--sf-success);
+  }
+  .cform__status[data-tone='error'] {
+    color: var(--sf-error);
+  }
+  .cform__fallback {
+    margin-block-start: var(--sp-2);
+    font-size: var(--fs-small);
+    color: var(--sf-grey-600);
+  }
+  .cf-turnstile:not(:empty) {
+    margin-block-start: var(--sp-5);
+  }
+</style>

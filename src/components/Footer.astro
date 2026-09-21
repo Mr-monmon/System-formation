@@ -1,0 +1,155 @@
+---
+import Logo from './ui/Logo.astro';
+import { t, path, navRoutes, type Locale } from '../i18n';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const copy = t(lang);
+const navLabels = copy.nav as Record<string, string>;
+const year = new Date().getFullYear();
+/** Deep links into the services page anchors. */
+const serviceLinks = copy.services.providers.items.slice(0, 4).map((s) => ({
+  name: s.name,
+  href: `${path(lang, 'services')}#${s.id}`,
+}));
+---
+
+<footer class="ftr sf-dark">
+  <div class="container container--wide">
+    <div class="ftr__top">
+      <div class="ftr__brand">
+        <Logo lang={lang} variant="footer" onDark />
+        <p class="ftr__desc">{copy.footer.description}</p>
+      </div>
+
+      <nav class="ftr__col" aria-label={copy.footer.navTitle}>
+        <h2 class="ftr__h">{copy.footer.navTitle}</h2>
+        <ul>
+          {navRoutes.map((key) => (
+            <li><a href={path(lang, key)}>{navLabels[key]}</a></li>
+          ))}
+        </ul>
+      </nav>
+
+      <nav class="ftr__col" aria-label={copy.footer.servicesTitle}>
+        <h2 class="ftr__h">{copy.footer.servicesTitle}</h2>
+        <ul>
+          {serviceLinks.map((s) => (
+            <li><a href={s.href}>{s.name}</a></li>
+          ))}
+        </ul>
+      </nav>
+
+      <div class="ftr__col">
+        <h2 class="ftr__h">{copy.footer.contactTitle}</h2>
+        <ul>
+          <li><a href={`mailto:${copy.common.email}`}>{copy.common.email}</a></li>
+          <li>
+            <a href={`tel:${copy.common.phoneDial}`}>
+              <bdi dir="ltr">{copy.common.phoneDisplay}</bdi>
+            </a>
+          </li>
+          <li><a href={copy.common.whatsapp} rel="noopener noreferrer" target="_blank">{copy.common.whatsappLabel}</a></li>
+          <li class="ftr__muted">{copy.common.address}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ftr__bottom">
+      <p class="ftr__legalline">
+        <span>{copy.footer.cr}: <bdi dir="ltr">{copy.footer.crValue}</bdi></span>
+        <span aria-hidden="true">|</span>
+        <span>{copy.footer.vat}: <bdi dir="ltr">{copy.footer.vatValue}</bdi></span>
+      </p>
+      <ul class="ftr__legal">
+        <li><a href={path(lang, 'privacy')}>{copy.footer.privacy}</a></li>
+        <li><a href={path(lang, 'terms')}>{copy.footer.terms}</a></li>
+      </ul>
+      <p class="ftr__copy">© <span class="lat">{year}</span> {copy.footer.rights}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .ftr {
+    background: var(--sf-navy-900);
+    color: var(--sf-on-dark-muted);
+    padding-block: var(--sp-8) var(--sp-6);
+    margin-block-start: auto;
+  }
+  .ftr__top {
+    display: grid;
+    gap: var(--sp-7);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  }
+  .ftr__brand {
+    grid-column: span 1;
+    max-inline-size: 26rem;
+  }
+  @media (min-width: 900px) {
+    .ftr__top {
+      grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
+    }
+  }
+  .ftr__desc {
+    margin-block-start: var(--sp-5);
+    font-size: var(--fs-small);
+    color: var(--sf-on-dark-faint);
+  }
+  .ftr__h {
+    font-size: var(--fs-meta);
+    font-weight: var(--fw-semibold);
+    letter-spacing: 0.02em;
+    color: var(--sf-on-dark);
+    margin-block-end: var(--sp-4);
+  }
+  .ftr ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--sp-3);
+  }
+  .ftr a {
+    color: var(--sf-on-dark-muted);
+    font-size: var(--fs-small);
+    text-decoration: none;
+  }
+  .ftr a:hover {
+    color: var(--sf-blue-300);
+    text-decoration: underline;
+  }
+  .ftr__muted {
+    font-size: var(--fs-small);
+    color: var(--sf-on-dark-faint);
+  }
+  .ftr__bottom {
+    margin-block-start: var(--sp-8);
+    padding-block-start: var(--sp-5);
+    border-block-start: 1px solid var(--sf-line-on-dark);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-4);
+    font-size: var(--fs-meta);
+  }
+  .ftr__legalline {
+    display: flex;
+    gap: var(--sp-3);
+    margin: 0;
+    color: var(--sf-on-dark-faint);
+  }
+  .ftr .ftr__legal {
+    display: flex;
+    flex-direction: row;
+    gap: var(--sp-5);
+  }
+  .ftr__copy {
+    margin: 0;
+    color: var(--sf-on-dark-faint);
+    max-inline-size: none;
+  }
+</style>

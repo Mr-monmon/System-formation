@@ -1,0 +1,71 @@
+---
+/**
+ * The System Formation S-mark, rebuilt as two paths — one per band — so the
+ * hero can animate them independently. Geometry is derived from the supplied
+ * raster logo and regularised (see scripts/build-mark.py).
+ */
+interface Props {
+  /** Blank for decorative use; the parent supplies the accessible name. */
+  title?: string;
+  variant?: 'colour' | 'on-dark' | 'mono-light' | 'mono-dark';
+  class?: string;
+  id?: string;
+}
+
+const { title, variant = 'colour', class: className = '', id } = Astro.props;
+const uid = id ?? `mk${Math.random().toString(36).slice(2, 8)}`;
+
+const BLUE =
+  'M132.4 4.9Q141.5 0.7 141.5 10.7L141.5 34.7Q141.5 44.7 132.4 48.9L57.4 83.8Q48.3 88 57.4 92.2L174.9 146.9Q184 151.1 184 161.1L184 185.1Q184 195.1 174.9 190.9L10.1 114.2Q1 110 1 100L1 76Q1 66 10.1 61.8Z';
+const NAVY =
+  'M1 157Q1 147 10.1 151.2L84.5 185.9Q93.6 190.1 102.7 185.9L174.9 152.2Q184 148 174.9 143.8L102.1 109.9Q93 105.7 101.5 100.5L125.5 85.9Q134 80.8 143.1 85L174.9 99.8Q184 104 184 114L184 182Q184 192 174.9 196.2L102.7 229.9Q93.6 234.1 84.5 229.9L10.1 195.2Q1 191 1 181Z';
+
+const fills = {
+  colour: { blue: `url(#${uid}b)`, navy: `url(#${uid}n)` },
+  'on-dark': { blue: `url(#${uid}b)`, navy: `url(#${uid}n)` },
+  'mono-light': { blue: 'currentColor', navy: 'currentColor' },
+  'mono-dark': { blue: 'currentColor', navy: 'currentColor' },
+} as const;
+const fill = fills[variant];
+---
+
+<svg
+  class={`sf-mark ${className}`}
+  viewBox="0 0 184 234"
+  role={title ? 'img' : 'presentation'}
+  aria-hidden={title ? undefined : 'true'}
+  aria-label={title || undefined}
+  focusable="false"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  {title && <title>{title}</title>}
+  {
+    (variant === 'colour' || variant === 'on-dark') && (
+      <defs>
+        <linearGradient id={`${uid}b`} x1="0.9" y1="0" x2="0.15" y2="0.9">
+          <stop offset="0" stop-color={variant === 'on-dark' ? '#3FB6FE' : '#16A6FE'} />
+          <stop offset="0.45" stop-color={variant === 'on-dark' ? '#0A7CF0' : '#0060EA'} />
+          <stop offset="1" stop-color={variant === 'on-dark' ? '#0B63D6' : '#0B4EB8'} />
+        </linearGradient>
+        <linearGradient id={`${uid}n`} x1="0.85" y1="0" x2="0.2" y2="1">
+          <stop offset="0" stop-color={variant === 'on-dark' ? '#4A628F' : '#22355A'} />
+          <stop offset="0.5" stop-color={variant === 'on-dark' ? '#33486E' : '#16263F'} />
+          <stop offset="1" stop-color={variant === 'on-dark' ? '#22355A' : '#0B1727'} />
+        </linearGradient>
+      </defs>
+    )
+  }
+  <path class="sf-mark__navy" data-band="navy" d={NAVY} fill={fill.navy} opacity={variant === 'mono-light' || variant === 'mono-dark' ? 0.55 : 1}></path>
+  <path class="sf-mark__blue" data-band="blue" d={BLUE} fill={fill.blue}></path>
+</svg>
+
+<style>
+  /* Astro scopes styles per component, so a parent's `.hero__mark { block-size }`
+     never reaches this element. Size is taken from inherited custom properties
+     instead: the parent sets --mark-block / --mark-inline on its wrapper. */
+  :where(.sf-mark) {
+    inline-size: var(--mark-inline, auto);
+    block-size: var(--mark-block, 1em);
+    overflow: visible;
+  }
+</style>
