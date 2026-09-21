@@ -104,10 +104,15 @@ complaint route). **A qualified Saudi lawyer must review both before launch.**
 
 The compliance page cites ECC-2:2024, CCC-2:2024, DCC-1:2022, CSCC-1:2019,
 OTCC-1:2022, SAMA CSF and BCM, PDPL and its Implementing Regulations, and CST's
-CCRF and CRF (RT08). These were checked against a current reference set, but
-regulators reissue documents — **verify each version on the regulator's own
-site before launch**, since a stale version number on a compliance page is the
-kind of detail your clients will notice.
+CCRF and CRF (RT08).
+
+These were checked against a current reference set, and ECC-2:2024 was
+confirmed as the live version (there is no ECC-3). The regulators' own sites —
+nca.gov.sa, sama.gov.sa, sdaia.gov.sa, cst.gov.sa — are unreachable from the
+environment this was built in, so the confirmation is second-hand.
+**Have someone open each regulator's page and tick the version numbers off
+before launch.** A stale version on a compliance page is exactly the detail
+your clients will notice.
 
 The page states plainly that System Formation is not certified, accredited or
 endorsed by any authority named on it.
