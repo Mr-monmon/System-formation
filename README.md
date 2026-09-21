@@ -35,9 +35,30 @@ Other scripts:
 |---|---|
 | `npm run build` | Astro build, then generates `dist/_headers` with fresh CSP hashes |
 | `npm run og` | Regenerates favicons, OG cards and the raster lockup from the SVG mark |
+| `npm run serve` | Serves `dist/` on :4322 **with gzip**, the way Cloudflare does |
 | `npm run shots` | Screenshots every page × both languages × 4 widths into `.review/` |
+| `npm run lh` | Lighthouse for `/ar/` and `/en/`, mobile and desktop |
 | `npm run check` | Astro type check |
 | `npm run cf:deploy` | Build and deploy to Cloudflare |
+
+Measure performance against `npm run serve`, not `astro preview` or a plain
+static server: without compression the HTML is ~145 KB instead of ~26 KB and
+every paint metric is meaningless.
+
+### Measured results
+
+Lighthouse, against the compressing server, at the last commit:
+
+| Page | Mobile | Desktop |
+|---|---|---|
+| `/ar/` | 97 | 100 |
+| `/en/` | 99 | 100 |
+| `/ar/contact/` | 100 | 100 |
+| `/en/services/` | 100 | 100 |
+
+Accessibility, best practices and SEO are 100 on every page. First-load JS is
+8.4 KB gzipped; GSAP, ScrollTrigger and Lenis load after paint, and not at all
+under `prefers-reduced-motion`.
 
 ---
 

@@ -24,6 +24,7 @@ export async function initMotion(): Promise<void> {
     initSlideNav();
     initEstimator();
     initServiceTabs();
+    goToHashTarget();
     return;
   }
 
@@ -39,6 +40,7 @@ export async function initMotion(): Promise<void> {
     initSlideNav();
     initEstimator();
     initServiceTabs();
+    goToHashTarget();
     return;
   }
   gsap.registerPlugin(ScrollTrigger);
@@ -59,6 +61,7 @@ export async function initMotion(): Promise<void> {
   initEstimator();
   initServiceTabs();
   ScrollTrigger.refresh();
+  goToHashTarget();
 }
 
 /* ------------------------------------------------------------------ */
@@ -329,6 +332,29 @@ function revealEverything() {
     el.style.opacity = '1';
     el.style.transform = 'none';
   });
+}
+
+/**
+ * A deep link like /services/#vciso lands on a page whose target may be inside
+ * a tab panel that was hidden at parse time, and Lenis resets the scroll it
+ * takes over. So once the panels are set, take the visitor there ourselves.
+ */
+function goToHashTarget(): void {
+  const id = location.hash.slice(1);
+  if (!id) return;
+  const target = document.getElementById(id);
+  if (!target) return;
+
+  // Two frames: one for the panel to be shown, one for layout to settle.
+  requestAnimationFrame(() =>
+    requestAnimationFrame(() => {
+      const top = target.getBoundingClientRect().top + window.scrollY - 88;
+      if (lenis) lenis.scrollTo(top, { immediate: true });
+      else window.scrollTo({ top, behavior: 'auto' });
+      target.setAttribute('tabindex', '-1');
+      target.focus({ preventScroll: true });
+    }),
+  );
 }
 
 /** Slide dots: highlight the section in view, and stay keyboard operable. */
