@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "System Formation Co. Ltd \u2014 bilingual (AR/EN) marketing site on Cloudflare Workers",
+  "description": "System Formation Co. Ltd — bilingual (AR/EN) marketing site on Cloudflare Workers",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build && node scripts/build-headers.mjs",
@@ -17,15 +17,18 @@
     "lh": "node scripts/lighthouse.mjs"
   },
   "dependencies": {
-    "astro": "^7.3.3",
     "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.3.3",
     "gsap": "^3.15.0",
     "lenis": "^1.3.26"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@cloudflare/workers-types": "^5.20260921.1",
     "@fontsource-variable/plus-jakarta-sans": "^5.3.0",
     "@fontsource/ibm-plex-sans-arabic": "^5.3.0",
-    "wrangler": "^4.135.0",
-    "playwright": "^1.50.0"
+    "playwright": "^1.50.0",
+    "typescript": "^6.0.3",
+    "wrangler": "^4.135.0"
   }
 }

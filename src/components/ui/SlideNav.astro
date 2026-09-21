@@ -11,7 +11,7 @@ const { items, navLabel, goLabel } = Astro.props;
 <nav class="slidenav" aria-label={navLabel} data-slidenav>
   <ul>
     {
-      items.map((item, i) => (
+      items.map((item) => (
         <li>
           <a href={`#${item.id}`} aria-current="false">
             <span class="slidenav__dot" aria-hidden="true" />

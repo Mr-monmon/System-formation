@@ -12,7 +12,7 @@ interface Props {
   id?: string;
 }
 
-const { title, variant = 'colour', class: className = '', animate = false, id } = Astro.props;
+const { title, variant = 'colour', class: className = '', id } = Astro.props;
 const uid = id ?? `mk${Math.random().toString(36).slice(2, 8)}`;
 
 const BLUE =

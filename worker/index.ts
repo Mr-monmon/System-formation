@@ -41,11 +41,11 @@ const SECURITY_HEADERS: Record<string, string> = {
 };
 
 export default {
-  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+  async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
 
     if (url.pathname === '/api/contact') {
-      return withSecurity(await handleContact(request, env, ctx));
+      return withSecurity(await handleContact(request, env));
     }
 
     if (url.pathname === '/' || url.pathname === '') {
@@ -144,7 +144,7 @@ interface ContactPayload {
   'cf-turnstile-response'?: string;
 }
 
-async function handleContact(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+async function handleContact(request: Request, env: Env): Promise<Response> {
   if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: { allow: 'POST' } });
   if (request.method !== 'POST') return json({ ok: false, error: 'server' }, 405, { allow: 'POST' });
 
