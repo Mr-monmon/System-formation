@@ -87,11 +87,11 @@ const loop = [...items, ...items];
   }
   .strip__item {
     padding: 0.5rem 1rem;
-    border: 1px solid var(--sf-line-on-dark);
+    border: 1px solid var(--line-strong);
     border-radius: 999px;
     font-size: var(--fs-small);
-    font-weight: var(--fw-medium);
-    color: var(--sf-on-dark-muted);
+    font-weight: var(--fw-semibold);
+    color: var(--text-muted);
     white-space: nowrap;
   }
   .strip__toggle {
@@ -99,15 +99,15 @@ const loop = [...items, ...items];
     padding: 0.35rem 0.9rem;
     font: inherit;
     font-size: var(--fs-meta);
-    color: var(--sf-on-dark-muted);
+    color: var(--text-muted);
     background: transparent;
-    border: 1px solid var(--sf-line-on-dark);
+    border: 1px solid var(--line-strong);
     border-radius: 999px;
     cursor: pointer;
   }
   .strip__toggle:hover {
-    color: var(--sf-blue-300);
-    border-color: var(--sf-blue-300);
+    color: var(--link);
+    border-color: var(--link);
   }
   @media (prefers-reduced-motion: reduce) {
     .strip__track {

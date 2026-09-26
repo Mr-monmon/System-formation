@@ -1,7 +1,8 @@
-# System Formation — systemformation.com
+# tashkeel tech — tashkeeltech.com
 
-Bilingual (Arabic RTL / English LTR) marketing site for **System Formation Co. Ltd**
-(شركة تشكيل النظم المحدودة), built with Astro and deployed to **Cloudflare Pages**.
+Bilingual (Arabic RTL / English LTR) marketing site for **tashkeel tech** (تشكيل),
+the cybersecurity brand of **System Formation Co. Ltd** (شركة تشكيل النظم المحدودة),
+built with Astro and deployed to **Cloudflare Pages**.
 
 **Deploying or configuring it? See [DEPLOY.md](./DEPLOY.md).**
 
@@ -34,7 +35,6 @@ Other scripts:
 | Command | What it does |
 |---|---|
 | `npm run build` | Astro build, then generates `dist/_headers` with fresh CSP hashes |
-| `npm run og` | Regenerates favicons, OG cards and the raster lockup from the SVG mark |
 | `npm run serve` | Serves `dist/` on :4322 **with gzip**, the way Cloudflare does |
 | `npm run shots` | Screenshots every page × both languages × 4 widths into `.review/` |
 | `npm run lh` | Lighthouse for `/ar/` and `/en/`, mobile and desktop |
@@ -52,14 +52,16 @@ Lighthouse, against the compressing server, at the last commit:
 
 | Page | Mobile | Desktop |
 |---|---|---|
-| `/ar/` | 97 | 100 |
+| `/ar/` | 97–99 | 100 |
 | `/en/` | 99 | 100 |
 | `/ar/contact/` | 100 | 100 |
 | `/en/services/` | 100 | 100 |
 
-Accessibility, best practices and SEO are 100 on every page. First-load JS is
-8.4 KB gzipped; GSAP, ScrollTrigger and Lenis load after paint, and not at all
-under `prefers-reduced-motion`.
+Accessibility, best practices and SEO are 100 on every page, and CLS is 0 on
+all four. `/ar/` mobile varies by a couple of points between runs on the same
+build; the range above is from repeated runs. First-load JS is about 9 KB
+gzipped; GSAP, ScrollTrigger and Lenis load after paint, and not at all under
+`prefers-reduced-motion`.
 
 ---
 
@@ -91,26 +93,55 @@ once in `src/i18n/index.ts` under `routes`.
 
 ## Brand
 
+**The brand kit in `brand/tashkeel/` is the source of truth.** Its `BRAND.md`
+says so explicitly: where anything here disagrees with it, the kit wins.
+
 | What | Where |
 |---|---|
+| Brand kit, untouched (logos, icons, OG card, tokens, rules) | `brand/tashkeel/` |
+| Files the site serves from it, unmodified | `public/brand/`, `public/og/` |
 | Colour, type, spacing and motion tokens | `src/styles/tokens.css` |
 | Base styles, fonts, focus, reduced motion | `src/styles/global.css` |
-| The S-mark as two animatable paths | `src/components/ui/Mark.astro` |
-| Mark geometry (source of truth) | `scripts/build-mark.py` → `scripts/mark-paths.json` |
-| Supplied raster original | `brand/source/` |
-| Generated SVG/PNG brand assets | `public/brand/`, `public/og/`, `public/favicon*` |
+| The mark, inlined for the hero animation | `src/components/ui/Mark.astro` |
+| Lockups, as `<img>` of the official files | `src/components/ui/Logo.astro` |
+| The previous System Formation identity, archived | `brand/archive/` |
 
-Every colour token was sampled from the supplied logo rather than guessed, and
-each one carries its WCAG contrast ratio as a comment. The Arabic type scale is
-defined separately in `tokens.css` (larger size, ~1.8 line-height, never
-letter-spaced) — change it there, not with per-component overrides.
+**Tokens come in two layers.** `--tk-*` are the kit's colours copied verbatim.
+Components never use them directly; they use semantic tokens (`--bg`, `--text`,
+`--accent`, `--btn-bg` …) that default to the navy canvas and are re-pointed by
+`.tone-raised` and `.tone-light`. That is how the kit's rule — *navy is the
+default, light sections are the exception* — holds without any component
+knowing which section it sits in, and how neon never ends up as text or a line
+on a light surface: on `.tone-light`, `--accent` is navy.
 
-The S-mark was rebuilt from the raster by measuring the artwork scanline by
-scanline and then regularising it: every arm now runs on the same ±25° slope
-with a consistent band width. If you get a vector original from the designer,
-replace the two path strings in `Mark.astro` and rerun `npm run og`.
+Sections alternate `base` (navy) and `raised` (navy-2), working back from the
+last section, which is always `base` so it meets the raised footer with a
+visible edge. The light exception is used for the savings estimator and the
+legal pages.
 
----
+**Type** is Cairo for both scripts, self-hosted as two variable files (Arabic
+and Latin subsets), weights 400 body / 600 labels / 700 headings / 900 display.
+Arabic keeps its own scale — a touch larger, ~1.8 line-height, never
+letter-spaced. Until Cairo arrives, Latin text is drawn in local Arial or Roboto
+scaled to Cairo's width (the `Cairo Fallback` faces in `global.css`), so the
+swap does not re-wrap lines or move the page. If the Cairo files are ever
+replaced, re-measure those `size-adjust` values.
+
+**Logo rules the code enforces:**
+
+- The SVGs are used as shipped. `Mark.astro` inlines the official geometry
+  verbatim; its `tone` prop picks between the three official files, which differ
+  only in colour.
+- The hero animates the mark's seven parts (four bars, three ش dots) into
+  place with **translate and opacity only**, ending on the exact official
+  artwork. No rotation, no stretching, no gradient, shadow or glow — all
+  forbidden by the kit. Directions are physical, because a logo is never
+  mirrored for Arabic.
+- The header lockup is sized so the artwork stays above the kit's 120px
+  minimum, and the hero mark keeps the kit's clear space (≥ the central stem,
+  ~12% of the mark) on every side.
+- Below 32px the kit requires the favicon construction without dots:
+  `<Mark simplified />`.
 
 ## Deploying
 
@@ -142,7 +173,8 @@ on the critical path of every page, font and image.
 - **`_headers` only covers static asset responses.** On both Pages and Workers
   it is explicitly not applied to responses generated by Functions or Worker
   code, so those set their own headers in `shared/security.ts`.
-- `/.well-known/security.txt` points at info@systemformation.com. Its `Expires`
+- `/.well-known/security.txt` points at info@systemformation.com, the mailbox
+  that exists today (see HANDOVER.md). Its `Expires`
   date needs bumping annually.
 - The contact endpoint enforces: a same-origin check, a honeypot field,
   server-side length and format validation, and Turnstile. Rate limiting is a
@@ -166,7 +198,8 @@ on the critical path of every page, font and image.
 ## Project layout
 
 ```
-brand/source/        supplied logo files (the colour source of truth)
+brand/tashkeel/      the brand kit — source of truth for logos, colours, type
+brand/archive/       the previous System Formation identity
 functions/           Cloudflare Pages Functions: "/" and /api/contact
 shared/              runtime logic both deployment targets import
 public/              static assets served as-is: fonts, icons, OG cards, robots, security.txt

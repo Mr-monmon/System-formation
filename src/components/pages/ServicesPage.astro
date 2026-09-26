@@ -12,12 +12,12 @@ const groups = [
 ] as const;
 ---
 
-<Slide tone="dark" labelledBy="services-title">
+<Slide labelledBy="services-title">
   <h1 id="services-title" data-animate>{s.hero.h1}</h1>
   <p class="lead" data-animate data-animate-delay="0.06">{s.hero.sub}</p>
 </Slide>
 
-<Slide labelledBy="services-tabs-label">
+<Slide tone="raised" labelledBy="services-tabs-label">
   <h2 id="services-tabs-label" class="visually-hidden">{s.tabs.label}</h2>
   <div class="tabs" role="tablist" aria-label={s.tabs.label} data-tabs>
     {groups.map((group, i) => (
@@ -58,7 +58,7 @@ const groups = [
   ))}
 </Slide>
 
-<Slide tone="mist" labelledBy="scta-title">
+<Slide labelledBy="scta-title">
   <h2 id="scta-title" data-animate>{s.cta.title}</h2>
   <p class="lead" data-animate data-animate-delay="0.05">{s.cta.body}</p>
   <p data-animate data-animate-delay="0.1">
@@ -71,9 +71,9 @@ const groups = [
     display: inline-flex;
     gap: 0;
     padding: 4px;
-    border: 1px solid var(--sf-line);
+    border: 1px solid var(--line);
     border-radius: var(--radius);
-    background: var(--sf-mist);
+    background: var(--bg-raised);
     margin-block-end: var(--sp-7);
   }
   .tabs__tab {
@@ -84,13 +84,13 @@ const groups = [
     border: 0;
     border-radius: var(--radius-sm);
     background: transparent;
-    color: var(--sf-grey-700);
+    color: var(--text-muted);
     cursor: pointer;
     transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
   }
   .tabs__tab[aria-selected='true'] {
-    background: var(--sf-paper);
-    color: var(--sf-ink);
+    background: var(--btn-bg);
+    color: var(--btn-fg);
     box-shadow: var(--shadow-key);
   }
   .panel:focus { outline: none; }
@@ -106,12 +106,12 @@ const groups = [
   }
   .svc__item {
     padding-block-start: var(--sp-4);
-    border-block-start: 2px solid var(--sf-navy-900);
+    border-block-start: 2px solid var(--line-strong);
     scroll-margin-block-start: 6rem;
   }
   .svc__item:target {
-    border-block-start-color: var(--sf-blue-500);
+    border-block-start-color: var(--accent);
   }
   .svc__name { font-size: var(--fs-h3); }
-  .svc__text { margin-block-start: var(--sp-3); color: var(--sf-grey-600); }
+  .svc__text { margin-block-start: var(--sp-3); color: var(--text-muted); }
 </style>

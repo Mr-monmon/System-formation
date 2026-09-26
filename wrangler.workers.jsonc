@@ -4,7 +4,7 @@
 // read it, and a Pages config needs different keys entirely.
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "systemformation",
+  "name": "tashkeel-tech",
   "main": "worker/index.ts",
   "compatibility_date": "2026-09-21",
 
@@ -29,7 +29,7 @@
 
   "vars": {
     "CONTACT_TO": "info@systemformation.com",
-    "CONTACT_FROM": "System Formation <website@systemformation.com>"
+    "CONTACT_FROM": "tashkeel tech <website@tashkeeltech.com>"
   },
 
   "observability": { "enabled": true },
@@ -39,8 +39,8 @@
   // and redeploy (see README, "Custom domains").
   //
   // "routes": [
-  //   { "pattern": "systemformation.com", "custom_domain": true },
-  //   { "pattern": "www.systemformation.com", "custom_domain": true }
+  //   { "pattern": "tashkeeltech.com", "custom_domain": true },
+  //   { "pattern": "www.tashkeeltech.com", "custom_domain": true }
   // ],
 
   // Secrets are set with `wrangler secret put` and never committed:

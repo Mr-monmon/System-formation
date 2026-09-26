@@ -42,7 +42,7 @@ const steps = copy.partner.steps.items;
     inset-inline-start: 1.05rem;
     inset-block: 0.6rem 2rem;
     inline-size: 2px;
-    background: linear-gradient(to bottom, var(--sf-blue-500), var(--sf-blue-800));
+    background: var(--accent);
     transform-origin: top;
     z-index: 0;
   }
@@ -60,8 +60,9 @@ const steps = copy.partner.steps.items;
     display: grid;
     place-items: center;
     border-radius: 50%;
-    background: var(--sf-blue-500);
-    color: #fff;
+    /* A neon fill with a navy numeral on dark; navy with neon on light. */
+    background: var(--btn-bg);
+    color: var(--btn-fg);
     font-size: var(--fs-meta);
     font-weight: var(--fw-bold);
     font-variant-numeric: tabular-nums;
@@ -71,7 +72,7 @@ const steps = copy.partner.steps.items;
     margin-block-end: var(--sp-2);
   }
   .fpath__text {
-    color: var(--sf-grey-600);
+    color: var(--text-muted);
   }
 
   /* Desktop: the path runs horizontally and the line draws inline-wise. */
@@ -87,7 +88,7 @@ const steps = copy.partner.steps.items;
       inset-inline: 1rem 1rem;
       inline-size: auto;
       block-size: 2px;
-      background: linear-gradient(to right, var(--sf-blue-500), var(--sf-blue-800));
+      background: var(--accent);
       transform-origin: inline-start;
     }
     .fpath__step {

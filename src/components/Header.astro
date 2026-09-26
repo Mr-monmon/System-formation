@@ -104,20 +104,22 @@ const navLabels = copy.nav as Record<string, string>;
 </script>
 
 <style>
+  /* Navy by default; navy-2 once the page scrolls, as the brand kit specifies
+     for the header on scroll. */
   .hdr {
     position: sticky;
     inset-block-start: 0;
     z-index: 50;
-    background: rgba(255, 255, 255, 0.86);
-    backdrop-filter: saturate(150%) blur(12px);
+    background: rgba(8, 21, 34, 0.82);
+    backdrop-filter: saturate(140%) blur(12px);
     border-block-end: 1px solid transparent;
     transition:
       border-color var(--dur) var(--ease-out),
       background-color var(--dur) var(--ease-out);
   }
   .hdr--scrolled {
-    border-block-end-color: var(--sf-line);
-    background: rgba(255, 255, 255, 0.94);
+    border-block-end-color: var(--line);
+    background: rgba(20, 38, 58, 0.94);
   }
   .hdr__inner {
     display: flex;
@@ -130,6 +132,8 @@ const navLabels = copy.nav as Record<string, string>;
     text-decoration: none;
     color: inherit;
     flex: none;
+    /* The kit's clear space is built into the lockup file; no extra padding. */
+    display: block;
   }
   .hdr__nav {
     display: flex;
@@ -151,8 +155,8 @@ const navLabels = copy.nav as Record<string, string>;
     display: inline-block;
     padding-block: var(--sp-2);
     font-size: var(--fs-small);
-    font-weight: var(--fw-medium);
-    color: var(--sf-grey-700);
+    font-weight: var(--fw-semibold);
+    color: var(--tk-mist);
     text-decoration: none;
     white-space: nowrap;
   }
@@ -164,21 +168,21 @@ const navLabels = copy.nav as Record<string, string>;
     inset-inline-start: 0;
     inline-size: 100%;
     block-size: 2px;
-    background: var(--sf-blue-500);
+    background: var(--tk-neon);
     transform: scaleX(0);
     transform-origin: inline-start;
     transition: transform var(--dur) var(--ease-out);
   }
   .hdr__link:hover {
-    color: var(--sf-ink);
+    color: var(--tk-white);
   }
   .hdr__link:hover::after,
   .hdr__link[aria-current='page']::after {
     transform: scaleX(1);
   }
   .hdr__link[aria-current='page'] {
-    color: var(--sf-ink);
-    font-weight: var(--fw-semibold);
+    color: var(--tk-white);
+    font-weight: var(--fw-bold);
   }
   .hdr__actions {
     display: flex;
@@ -188,15 +192,17 @@ const navLabels = copy.nav as Record<string, string>;
   .hdr__lang {
     font-size: var(--fs-small);
     font-weight: var(--fw-semibold);
-    color: var(--sf-grey-700);
+    color: var(--tk-mist);
     text-decoration: none;
     padding: var(--sp-2) var(--sp-3);
     border-radius: var(--radius-sm);
-    transition: background-color var(--dur-fast) var(--ease-out);
+    transition:
+      background-color var(--dur-fast) var(--ease-out),
+      color var(--dur-fast) var(--ease-out);
   }
   .hdr__lang:hover {
-    background: var(--sf-blue-050);
-    color: var(--sf-blue-600);
+    background: var(--accent-tint);
+    color: var(--tk-neon);
   }
   .hdr__toggle {
     display: none;
@@ -206,7 +212,7 @@ const navLabels = copy.nav as Record<string, string>;
     block-size: 2.75rem;
     padding: 0;
     background: none;
-    border: 1px solid var(--sf-line);
+    border: 1px solid var(--line-strong);
     border-radius: var(--radius-sm);
     cursor: pointer;
   }
@@ -218,7 +224,7 @@ const navLabels = copy.nav as Record<string, string>;
     display: block;
     inline-size: 20px;
     block-size: 2px;
-    background: var(--sf-ink);
+    background: var(--tk-white);
     transition: transform var(--dur) var(--ease-out);
   }
 
@@ -236,7 +242,7 @@ const navLabels = copy.nav as Record<string, string>;
       align-items: stretch;
       gap: var(--sp-5);
       padding: var(--sp-6) var(--gutter) var(--sp-8);
-      background: var(--sf-paper);
+      background: var(--tk-navy);
       overflow-y: auto;
       visibility: hidden;
       opacity: 0;
@@ -260,7 +266,7 @@ const navLabels = copy.nav as Record<string, string>;
       gap: 0;
     }
     .hdr__list li + li {
-      border-block-start: 1px solid var(--sf-line);
+      border-block-start: 1px solid var(--line);
     }
     .hdr__link {
       display: block;
@@ -270,6 +276,9 @@ const navLabels = copy.nav as Record<string, string>;
     .hdr__link::after {
       display: none;
     }
+    .hdr__link[aria-current='page'] {
+      color: var(--tk-neon);
+    }
     .hdr__actions {
       flex-direction: column;
       align-items: stretch;
@@ -277,7 +286,7 @@ const navLabels = copy.nav as Record<string, string>;
     }
     .hdr__lang {
       text-align: center;
-      border: 1px solid var(--sf-line);
+      border: 1px solid var(--line-strong);
       padding-block: var(--sp-3);
     }
     .hdr__cta {

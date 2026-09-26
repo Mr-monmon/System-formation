@@ -89,22 +89,24 @@ const assumption = e.assumption.replace(
 </form>
 
 <style>
+  /* Reads the section's semantic tokens, so it works on the light exception
+     it sits in on the home page and on a dark surface alike. */
   .est {
     margin-block-start: var(--sp-6);
     padding: clamp(var(--sp-5), 3vw, var(--sp-7));
-    border: 1px solid var(--sf-line);
+    border: 1px solid var(--line);
     border-radius: var(--radius-lg);
-    background: var(--sf-paper);
+    background: var(--bg-raised);
     box-shadow: var(--shadow-key);
   }
   .est__badge {
     display: inline-block;
     margin: 0 0 var(--sp-5);
-    padding: 0.2rem 0.6rem;
+    padding: 0.2rem 0.7rem;
     font-size: var(--fs-meta);
-    font-weight: var(--fw-semibold);
-    color: var(--sf-blue-700);
-    background: var(--sf-blue-050);
+    font-weight: var(--fw-bold);
+    color: var(--text);
+    background: var(--accent-tint);
     border-radius: 999px;
   }
   .est__grid {
@@ -129,7 +131,8 @@ const assumption = e.assumption.replace(
   .est__field legend {
     display: block;
     font-size: var(--fs-small);
-    font-weight: var(--fw-semibold);
+    font-weight: var(--fw-bold);
+    color: var(--text);
     margin-block-end: var(--sp-3);
     padding: 0;
   }
@@ -141,18 +144,19 @@ const assumption = e.assumption.replace(
   .est__row input[type='range'] {
     flex: 1;
     min-inline-size: 0;
-    accent-color: var(--sf-blue-500);
+    accent-color: var(--accent);
   }
   .est__value {
     min-inline-size: 5.5ch;
     text-align: end;
     font-weight: var(--fw-bold);
+    color: var(--text);
     font-variant-numeric: tabular-nums;
   }
   .est__hint {
     margin-block-start: var(--sp-2);
     font-size: var(--fs-meta);
-    color: var(--sf-grey-600);
+    color: var(--text-faint);
   }
   .est__choices {
     display: flex;
@@ -164,58 +168,58 @@ const assumption = e.assumption.replace(
     align-items: center;
     gap: var(--sp-2);
     padding: 0.55rem 1rem;
-    border: 1px solid var(--sf-line-strong);
+    border: 1px solid var(--line-strong);
     border-radius: var(--radius);
     cursor: pointer;
-    font-weight: var(--fw-medium);
+    font-weight: var(--fw-semibold);
+    color: var(--text);
     margin: 0;
   }
   .est__choice:has(input:checked) {
-    border-color: var(--sf-blue-500);
-    background: var(--sf-blue-050);
-    color: var(--sf-blue-800);
+    border-color: var(--accent);
+    background: var(--accent-tint);
   }
   .est__choice input {
-    accent-color: var(--sf-blue-500);
+    accent-color: var(--accent);
   }
   .est__result {
     margin-block-start: var(--sp-6);
     padding-block-start: var(--sp-5);
-    border-block-start: 1px solid var(--sf-line);
+    border-block-start: 1px solid var(--line);
   }
   .est__resultlabel {
     margin: 0;
     font-size: var(--fs-small);
-    color: var(--sf-grey-600);
+    color: var(--text-muted);
   }
   .est__figure {
     margin: var(--sp-2) 0 0;
     font-size: clamp(1.75rem, 1.1rem + 2.4vw, 2.6rem);
     font-weight: var(--fw-black);
-    letter-spacing: -0.02em;
-    color: var(--sf-ink);
+    letter-spacing: var(--ls-heading);
+    color: var(--text);
     font-variant-numeric: tabular-nums;
   }
   .est__unit {
     margin-inline-start: 0.35em;
     font-size: 0.45em;
     font-weight: var(--fw-semibold);
-    color: var(--sf-grey-600);
+    color: var(--text-muted);
   }
   .est__meta {
     margin: var(--sp-2) 0 0;
     font-size: var(--fs-small);
-    color: var(--sf-grey-600);
+    color: var(--text-muted);
   }
   .est__assumption,
   .est__disclaimer {
     font-size: var(--fs-meta);
-    color: var(--sf-grey-600);
+    color: var(--text-faint);
     margin-block-start: var(--sp-4);
   }
   .est__disclaimer {
-    font-weight: var(--fw-semibold);
-    color: var(--sf-grey-700);
+    font-weight: var(--fw-bold);
+    color: var(--text-muted);
   }
   .est__cta {
     margin-block-start: var(--sp-5);

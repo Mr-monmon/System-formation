@@ -1,0 +1,16 @@
+/* tashkeel tech — brand tokens */
+:root {
+  --tk-neon:   #CCFF00;  /* primary accent — marks, CTAs on dark, highlights */
+  --tk-navy:   #081522;  /* primary dark — backgrounds, text on light */
+  --tk-navy-2: #14263A;  /* raised dark surface */
+  --tk-slate:  #33485E;  /* secondary text on light */
+  --tk-gray:   #64748B;  /* captions on light (passes AA on white) */
+  --tk-mist:   #DCE6F0;  /* secondary text on dark */
+  --tk-light:  #F8FAFC;  /* light background */
+  --tk-white:  #FFFFFF;
+
+  --tk-font: "Cairo", "Segoe UI", Tahoma, sans-serif;
+  --tk-weight-body: 400;
+  --tk-weight-heading: 700;
+  --tk-weight-display: 900;
+}

@@ -1,86 +1,62 @@
 ---
-import Mark from './Mark.astro';
+/**
+ * Official tashkeel tech lockups, served as-is from public/brand/logo/.
+ *
+ * <img> rather than inline: the lockups carry their wordmarks as outlined
+ * paths (17–73 KB each), so referencing them lets the browser cache one file
+ * instead of every page repeating the markup.
+ *
+ * Placement follows the brand kit:
+ *   header — the primary English lockup on both languages, as the kit's own
+ *            website mockup shows;
+ *   footer — the Arabic lockup on /ar/, where the brand is shown in Arabic
+ *            beside the Arabic legal name, and the English lockup on /en/.
+ *
+ * The lockup files include their own clear space, and the header size keeps
+ * the artwork above the kit's 120px minimum width.
+ */
 import { t, type Locale } from '../../i18n';
 
 interface Props {
   lang: Locale;
   variant?: 'header' | 'footer';
-  onDark?: boolean;
+  /** Pick the on-light file when the logo sits on a light surface. */
+  surface?: 'dark' | 'light';
   class?: string;
 }
-const { lang, variant = 'header', onDark = false, class: className = '' } = Astro.props;
+
+const { lang, variant = 'header', surface = 'dark', class: className = '' } = Astro.props;
 const copy = t(lang);
-/** The accessible name is the company name in the reader's language. */
-const label = copy.meta.siteName;
+
+const arabicFooter = variant === 'footer' && lang === 'ar';
+const file = arabicFooter ? `lockup-ar-on-${surface}.svg` : `lockup-en-on-${surface}.svg`;
+const box = arabicFooter ? { width: 512, height: 198 } : { width: 668, height: 253 };
+const alt = arabicFooter ? copy.meta.logoAltAr : copy.meta.logoAlt;
 ---
 
-<span class={`logo logo--${variant} ${onDark ? 'logo--on-dark' : ''} ${className}`}>
-  <Mark variant={onDark ? "on-dark" : "colour"} class="logo__mark" />
-  <span class="logo__text">
-    <span class="logo__word">System<br />Formation</span>
-    {variant === 'footer' && <span class="logo__sub">Co.&nbsp;Ltd</span>}
-    {variant === 'footer' && <span class="logo__ar" lang="ar" dir="rtl">شركة تشكيل النظم المحدودة</span>}
-  </span>
-  <span class="visually-hidden">{label}</span>
-</span>
+<img
+  class={`logo logo--${variant} ${className}`}
+  src={`/brand/logo/${file}`}
+  width={box.width}
+  height={box.height}
+  alt={alt}
+  decoding="async"
+  fetchpriority={variant === 'header' ? 'high' : 'auto'}
+  loading={variant === 'header' ? 'eager' : 'lazy'}
+/>
 
 <style>
   .logo {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6em;
-    color: var(--sf-ink);
-    text-decoration: none;
-    line-height: 1;
+    display: block;
+    block-size: auto;
+    max-inline-size: none;
   }
-  .logo {
-    --mark-block: 2.35em;
-  }
-  .logo__mark {
-    flex: none;
-  }
-  .logo__text {
-    display: flex;
-    flex-direction: column;
-    gap: 0.15em;
-  }
-  /* The wordmark is always Latin — it is the mark, not translated copy. */
-  .logo__word {
-    font-family: var(--sf-font-latin);
-    font-weight: 800;
-    font-size: 0.95em;
-    line-height: 1.02;
-    letter-spacing: -0.03em;
-    text-transform: none;
-  }
-  .logo__sub {
-    font-family: var(--sf-font-latin);
-    font-weight: 600;
-    font-size: 0.62em;
-    letter-spacing: -0.01em;
-    color: var(--sf-grey-600);
-  }
-  .logo__ar {
-    font-family: var(--sf-font-arabic);
-    font-size: 0.6em;
-    line-height: 1.6;
-    color: var(--sf-grey-600);
-  }
-  .logo--on-dark {
-    color: var(--sf-on-dark);
-  }
-  .logo--on-dark .logo__sub,
-  .logo--on-dark .logo__ar {
-    color: var(--sf-on-dark-faint);
-  }
+  /* 150px keeps the artwork (the file carries ~7% padding a side) above the
+     kit's 120px minimum for the horizontal lockup. */
   .logo--header {
-    font-size: 1rem;
+    inline-size: 150px;
   }
   .logo--footer {
-    font-size: 1.15rem;
-    align-items: flex-start;
-  }
-  .logo--footer {
-    --mark-block: 3.4em;
+    inline-size: 190px;
   }
 </style>

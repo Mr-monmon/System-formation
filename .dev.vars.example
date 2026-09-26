@@ -1,0 +1,15 @@
+# Copy to .dev.vars for local `npm run pages:dev` / `npm run cf:dev`.
+# Never commit the real values — .dev.vars is git-ignored.
+
+# Resend: https://resend.com/api-keys (needs a verified sending domain)
+RESEND_API_KEY=
+
+# Turnstile server-side key. Cloudflare's always-passes test secret:
+TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
+
+CONTACT_TO=info@systemformation.com
+CONTACT_FROM=tashkeel tech <website@tashkeeltech.com>
+
+# Test seam only — points delivery at a local mock instead of Resend.
+# Leave unset in production.
+# RESEND_API_BASE=http://127.0.0.1:9911

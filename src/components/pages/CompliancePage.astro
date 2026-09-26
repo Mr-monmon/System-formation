@@ -8,12 +8,12 @@ const copy = t(lang);
 const c = copy.compliance;
 ---
 
-<Slide tone="dark" labelledBy="compliance-title">
+<Slide labelledBy="compliance-title">
   <h1 id="compliance-title" data-animate>{c.hero.h1}</h1>
   <p class="lead" data-animate data-animate-delay="0.06">{c.hero.sub}</p>
 </Slide>
 
-<Slide>
+<Slide tone="raised">
   <div class="cgroups">
     {c.groups.map((group) => (
       <section class="cgroup" data-animate>
@@ -37,7 +37,7 @@ const c = copy.compliance;
   <p class="cdisclaimer">{c.disclaimer}</p>
 </Slide>
 
-<Slide tone="mist" labelledBy="ccta-title">
+<Slide labelledBy="ccta-title">
   <h2 id="ccta-title" data-animate>{c.cta.title}</h2>
   <p class="lead" data-animate data-animate-delay="0.05">{c.cta.body}</p>
   <p data-animate data-animate-delay="0.1">
@@ -49,7 +49,7 @@ const c = copy.compliance;
   .cgroups { display: grid; gap: var(--sp-8); }
   .cgroup__head { max-inline-size: var(--measure); }
   .cgroup__reg { font-size: var(--fs-h3); font-weight: var(--fw-black); }
-  .cgroup__note { margin-block-start: var(--sp-2); color: var(--sf-grey-600); font-size: var(--fs-small); }
+  .cgroup__note { margin-block-start: var(--sp-2); color: var(--text-muted); font-size: var(--fs-small); }
   .cgroup__list {
     list-style: none;
     margin: var(--sp-5) 0 0;
@@ -62,8 +62,8 @@ const c = copy.compliance;
   }
   .citem {
     padding: var(--sp-5);
-    background: var(--sf-mist);
-    border-inline-start: 3px solid var(--sf-blue-500);
+    background: var(--bg-raised);
+    border-inline-start: 3px solid var(--accent);
     border-radius: 0 var(--radius) var(--radius) 0;
   }
   :global([dir='rtl']) .citem { border-radius: var(--radius) 0 0 var(--radius); }
@@ -71,18 +71,18 @@ const c = copy.compliance;
     margin: 0;
     font-size: var(--fs-meta);
     font-weight: var(--fw-bold);
-    color: var(--sf-blue-700);
+    color: var(--accent);
     letter-spacing: 0.01em;
   }
   .citem__name { margin-block-start: var(--sp-2); font-size: var(--fs-body); }
-  .citem__text { margin-block-start: var(--sp-2); font-size: var(--fs-small); color: var(--sf-grey-600); }
+  .citem__text { margin-block-start: var(--sp-2); font-size: var(--fs-small); color: var(--text-muted); }
   .cdisclaimer {
     margin-block-start: var(--sp-8);
     padding: var(--sp-5);
-    border: 1px solid var(--sf-line);
+    border: 1px solid var(--line-strong);
     border-radius: var(--radius);
     font-size: var(--fs-small);
-    color: var(--sf-grey-600);
+    color: var(--text-muted);
     max-inline-size: none;
   }
 </style>

@@ -143,7 +143,7 @@ function mountTurnstile(form: HTMLFormElement) {
     holder.dataset.rendered = 'true';
     window.turnstile.render(holder, {
       sitekey: SITE_KEY,
-      theme: 'light',
+      theme: 'dark',
       language: document.documentElement.lang === 'ar' ? 'ar' : 'en',
     });
   };

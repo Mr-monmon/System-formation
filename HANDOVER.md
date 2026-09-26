@@ -4,6 +4,30 @@ Everything below is either a value only you have, a decision only you can make,
 or a check that can only run against the live domain. Nothing here blocks the
 site from running locally.
 
+## 0. The tashkeel tech rebrand — decisions to confirm
+
+The site now carries the tashkeel tech identity from the brand kit (navy
+canvas, neon accent, Cairo, the official logo files) and the tashkeeltech.com
+domain. These are the calls made along the way; each is a one-line change if
+you want it the other way.
+
+| Decision | What the site does now | Why |
+|---|---|---|
+| **Where enquiries arrive** | Still **info@systemformation.com** — contact page, footer, form errors, security.txt, and the form's `CONTACT_TO` | It is the mailbox that exists. Sending leads to an address on tashkeeltech.com that is not set up yet would lose them silently. **Tell me when a tashkeeltech.com mailbox exists and I will switch everything.** |
+| **Where mail is sent from** | `website@tashkeeltech.com` | It is the site's own domain, so it is the one to verify in Resend. Sending and receiving domains can differ. |
+| **Legal entity** | **System Formation Co. Ltd — شركة تشكيل النظم المحدودة** stays in the footer, the legal pages, and as `legalName` in the structured data | The brand kit says so. The legal pages introduce the brand as a trading name ("System Formation Co. Ltd, trading as tashkeel tech"). |
+| **Name in running text** | Lowercase **tashkeel tech**, even at the start of a sentence (e.g. the About page) | The kit writes it lowercase throughout. |
+| **Logo placement** | Header: the English lockup, on both languages. Footer: the Arabic lockup on /ar/, the English lockup on /en/ | The kit's own website mockup puts the English lockup in the Arabic header; the kit reserves the Arabic lockup for where the brand is shown in Arabic. |
+| **Hero headline** | Unchanged value proposition; the brand taglines go into the metadata and structured data | The taglines name the brand; the headline sells the offer. The kit's hero illustration is a brand application, not a copy spec. |
+
+### The brand kit still names the old domain
+
+`brand/tashkeel/BRAND.md` says **Domain: systemformation.com**, its head-snippet
+points `og:image` at systemformation.com, and the business card in the PDF
+shows systemformation.com. The site follows your instruction — tashkeeltech.com
+— and leaves the kit files untouched, as the kit asks. **Ask the designer to
+update BRAND.md and the business card** so the kit and the site agree.
+
 ## 1. Placeholders in the copy
 
 Each one appears in **both** `src/i18n/ar.json` and `src/i18n/en.json`. Search
@@ -43,8 +67,8 @@ the enquiry came from the Arabic form. Replying to the notification replies to
 the enquirer.
 
 **What is left is account setup**, in [DEPLOY.md](./DEPLOY.md) §3: verify
-`systemformation.com` in Resend, add its DNS records to the Cloudflare zone,
-and set `RESEND_API_KEY`.
+**tashkeeltech.com** in Resend, add its DNS records to that zone, and set
+`RESEND_API_KEY`.
 
 > ⚠️ **One thing to watch.** If the domain already sends mail (Google
 > Workspace, Microsoft 365, anything), a domain may have only **one SPF
@@ -68,20 +92,26 @@ and Preview both. The build-time vs runtime distinction matters — see
 | `RESEND_API_KEY` | runtime, encrypted | Without it no email is sent |
 | `CONTACT_TO` / `CONTACT_FROM` | runtime, plaintext | `CONTACT_FROM` must be on the Resend-verified domain |
 
-## 5. Deployment — already most of the way there
+## 5. Deployment — the domain move
 
-`systemformation.com` is attached to the Pages project and Active with SSL, so
-there is no DNS work for the site itself.
+The Pages build settings are correct and systemformation.com is live. Moving to
+tashkeeltech.com is a Cloudflare-side job, step by step in
+[DEPLOY.md](./DEPLOY.md) §0:
 
-What remains: confirm the Pages **build settings** (build command `npm run
-build`, output directory `dist` — the project was created when this repository
-was still empty, so it may have been set up with neither), set the variables
-above, and merge this branch into `main`. Full runbook in
-[DEPLOY.md](./DEPLOY.md).
+1. Put tashkeeltech.com on Cloudflare (same account as the Pages project) —
+   an apex custom domain on Pages requires it.
+2. Attach `tashkeeltech.com` and `www.tashkeeltech.com` to the Pages project.
+3. Check the new domain works **before** redirecting the old one.
+4. One Redirect Rule on the systemformation.com zone sends every path, on
+   `http`/`https` and apex/`www`, to tashkeeltech.com with a 301.
+5. Add tashkeeltech.com to Turnstile's hostnames, verify it in Resend, and run
+   Search Console's Change of Address.
 
-Rate limiting needs a **WAF rate-limiting rule** on the zone, because Pages has
-no rate-limiting binding — DEPLOY.md §5 has the exact values, including what
-the Free plan allows.
+**Keep systemformation.com registered** for as long as it is on business cards,
+signatures or in search results.
+
+Rate limiting still needs the **WAF rate-limiting rule** from DEPLOY.md §5 — on
+the tashkeeltech.com zone now.
 
 ## 6. Checks that need the live domain
 
@@ -114,7 +144,7 @@ environment this was built in, so the confirmation is second-hand.
 before launch.** A stale version on a compliance page is exactly the detail
 your clients will notice.
 
-The page states plainly that System Formation is not certified, accredited or
+The page states plainly that tashkeel tech is not certified, accredited or
 endorsed by any authority named on it.
 
 ## 9. Optional / your call
@@ -124,7 +154,7 @@ endorsed by any authority named on it.
   will add it.
 - **Social profiles**: `sameAs` in the Organization JSON-LD is empty. Send me
   LinkedIn/X URLs and I will add them.
-- **A vector original of the logo**: the SVG mark was rebuilt by measuring the
-  supplied raster and regularising the geometry. If your designer has the
-  original vector, swapping it in is a two-path replacement in
-  `src/components/ui/Mark.astro` followed by `npm run og`.
+- **A story for the mark**: the brand book explains the symbol — the T of
+  Tashkeel, the three ش dots as hexagonal cubes, the two halves of a shield.
+  It would make a strong short section on the About page. Not added, since it
+  was not asked for; say the word.

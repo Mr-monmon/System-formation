@@ -64,8 +64,11 @@ const { items, navLabel, goLabel } = Astro.props;
       background-color var(--dur) var(--ease-out),
       transform var(--dur) var(--ease-out);
   }
+  /* The rail floats over navy and light sections alike: a neon fill with a
+     navy ring reads on both (neon alone vanishes on light). */
   .slidenav a[aria-current='true'] .slidenav__dot {
-    background: var(--sf-blue-500);
+    background: var(--tk-neon);
+    box-shadow: 0 0 0 1.5px var(--tk-navy);
     transform: scale(1.6);
   }
   /* Absolutely positioned: a hidden label must not push the dot around. */
@@ -78,9 +81,9 @@ const { items, navLabel, goLabel } = Astro.props;
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: var(--fs-meta);
-    color: var(--sf-grey-600);
-    background: rgba(255, 255, 255, 0.92);
-    border: 1px solid var(--sf-line);
+    color: var(--tk-mist);
+    background: rgba(20, 38, 58, 0.96);
+    border: 1px solid var(--tk-border-on-dark);
     border-radius: var(--radius-sm);
     padding: 0.2rem 0.5rem;
     opacity: 0;

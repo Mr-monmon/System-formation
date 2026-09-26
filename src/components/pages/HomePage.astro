@@ -47,7 +47,7 @@ const slideNav = [
 <Hero lang={lang} />
 
 <!-- 2 — the problem every provider carries -->
-<Slide id="problem" tall labelledBy="problem-title">
+<Slide id="problem" tone="raised" tall labelledBy="problem-title">
   <h2 id="problem-title" data-animate>{h.problem.title}</h2>
   <p class="lead" data-animate data-animate-delay="0.05">{h.problem.body}</p>
   <ul class="facts" data-stagger>
@@ -56,7 +56,7 @@ const slideNav = [
 </Slide>
 
 <!-- 3 — the model -->
-<Slide id="model" tone="mist" tall labelledBy="model-title">
+<Slide id="model" tall labelledBy="model-title">
   <h2 id="model-title" data-animate>{h.model.title}</h2>
   <p class="lead" data-animate data-animate-delay="0.05">{h.model.body}</p>
 
@@ -75,7 +75,7 @@ const slideNav = [
 </Slide>
 
 <!-- 4 — where the savings come from (the diagram is the animation) -->
-<Slide id="savings" tone="dark" tall labelledBy="savings-title" class="savings">
+<Slide id="savings" tone="raised" tall labelledBy="savings-title" class="savings">
   <StructureGrid rows={9} cols={16} />
   <div class="savings__inner">
     <h2 id="savings-title" data-animate>{h.savings.title}</h2>
@@ -98,7 +98,7 @@ const slideNav = [
 </Slide>
 
 <!-- 5 — indicative estimator -->
-<Slide id="estimator" labelledBy="estimator-title">
+<Slide id="estimator" tone="light" labelledBy="estimator-title">
   <h2 id="estimator-title" data-animate>{h.estimator.title}</h2>
   <p class="lead" data-animate data-animate-delay="0.05">{h.estimator.intro}</p>
   <div data-animate="up">
@@ -107,7 +107,7 @@ const slideNav = [
 </Slide>
 
 <!-- 6 — who we work with -->
-<Slide id="audience" tone="mist" labelledBy="audience-title">
+<Slide id="audience" tone="raised" labelledBy="audience-title">
   <h2 id="audience-title" data-animate>{h.audience.title}</h2>
   <ul class="audience" data-stagger>
     {
@@ -151,7 +151,7 @@ const slideNav = [
 </Slide>
 
 <!-- 8 — Saudi regulatory alignment -->
-<Slide id="compliance" tone="dark" labelledBy="compliance-title">
+<Slide id="compliance" tone="raised" labelledBy="compliance-title">
   <h2 id="compliance-title" data-animate>{h.compliance.title}</h2>
   <p class="lead" data-animate data-animate-delay="0.05">{h.compliance.body}</p>
   <FrameworkStrip
@@ -192,8 +192,9 @@ const slideNav = [
     position: relative;
     padding-inline-start: 1.6rem;
     padding-block: var(--sp-2);
-    border-block-end: 1px solid var(--sf-line);
+    border-block-end: 1px solid var(--line);
     font-size: var(--fs-lead);
+    color: var(--text);
     line-height: var(--lh-lead);
   }
   .facts__item::before {
@@ -203,7 +204,7 @@ const slideNav = [
     inset-block-start: 0.85em;
     inline-size: 0.55rem;
     block-size: 0.55rem;
-    background: var(--sf-blue-500);
+    background: var(--accent);
     transform: rotate(45deg);
   }
 
@@ -211,8 +212,8 @@ const slideNav = [
   .pillars__label {
     margin-block-start: var(--sp-8);
     font-size: var(--fs-meta);
-    font-weight: var(--fw-semibold);
-    color: var(--sf-grey-600);
+    font-weight: var(--fw-bold);
+    color: var(--text-faint);
   }
   .pillars {
     display: grid;
@@ -231,14 +232,14 @@ const slideNav = [
       padding-inline-start: 0;
     }
     .pillar + .pillar {
-      border-inline-start: 1px solid var(--sf-line-strong);
+      border-inline-start: 1px solid var(--line-strong);
     }
   }
   .pillar__rule {
     display: block;
     inline-size: 2.5rem;
     block-size: 3px;
-    background: linear-gradient(to right, var(--sf-blue-300), var(--sf-blue-700));
+    background: var(--accent);
     margin-block-end: var(--sp-4);
   }
   .pillar__name {
@@ -246,7 +247,7 @@ const slideNav = [
   }
   .pillar__text {
     margin-block-start: var(--sp-3);
-    color: var(--sf-grey-600);
+    color: var(--text-muted);
   }
 
   /* --- savings --- */
@@ -269,16 +270,16 @@ const slideNav = [
   }
   .savings__list h3 {
     font-size: var(--fs-h3);
-    color: var(--sf-on-dark);
+    color: var(--text);
   }
   .savings__list p {
     margin-block-start: var(--sp-2);
-    color: var(--sf-on-dark-muted);
+    color: var(--text-muted);
   }
   .savings__note {
     margin-block-start: var(--sp-7);
     font-size: var(--fs-meta);
-    color: var(--sf-on-dark-faint);
+    color: var(--text-faint);
     max-inline-size: 48rem;
   }
 
@@ -298,14 +299,14 @@ const slideNav = [
   }
   .audience__item {
     padding-block-start: var(--sp-4);
-    border-block-start: 2px solid var(--sf-navy-900);
+    border-block-start: 2px solid var(--line-strong);
   }
   .audience__item h3 {
     font-size: var(--fs-h3);
   }
   .audience__item p {
     margin-block-start: var(--sp-2);
-    color: var(--sf-grey-600);
+    color: var(--text-muted);
   }
 
   /* --- services overview --- */
@@ -327,18 +328,18 @@ const slideNav = [
     display: grid;
   }
   .svc-overview__list li {
-    border-block-end: 1px solid var(--sf-line);
+    border-block-end: 1px solid var(--line);
   }
   .svc-overview__list a {
     display: block;
     padding-block: var(--sp-4);
-    color: var(--sf-ink);
+    color: var(--text);
     text-decoration: none;
-    font-weight: var(--fw-medium);
+    font-weight: var(--fw-semibold);
     transition: padding-inline-start var(--dur) var(--ease-out), color var(--dur-fast) var(--ease-out);
   }
   .svc-overview__list a:hover {
-    color: var(--sf-blue-600);
+    color: var(--link);
     padding-inline-start: var(--sp-3);
   }
 
@@ -356,13 +357,13 @@ const slideNav = [
   }
   .closing__direct {
     font-weight: var(--fw-semibold);
-    color: var(--sf-ink);
+    color: var(--text);
     text-decoration: none;
-    border-block-end: 1px solid var(--sf-line-strong);
+    border-block-end: 1px solid var(--line-strong);
     padding-block-end: 2px;
   }
   .closing__direct:hover {
-    color: var(--sf-blue-600);
+    color: var(--link);
     border-color: currentColor;
   }
 </style>

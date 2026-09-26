@@ -10,7 +10,7 @@ const copy = t(lang);
 const p = copy.partner;
 ---
 
-<Slide tone="dark" labelledBy="partner-title" class="phero">
+<Slide tone="raised" labelledBy="partner-title" class="phero">
   <StructureGrid rows={9} cols={16} />
   <div class="phero__inner">
     <h1 id="partner-title" data-animate>{p.hero.h1}</h1>
@@ -30,7 +30,7 @@ const p = copy.partner;
   </ul>
 </Slide>
 
-<Slide tone="mist" labelledBy="steps-title">
+<Slide tone="raised" labelledBy="steps-title">
   <h2 id="steps-title" data-animate>{p.steps.title}</h2>
   <p class="lead" data-animate data-animate-delay="0.05">{p.steps.intro}</p>
   <FormationPath lang={lang} />
@@ -59,8 +59,8 @@ const p = copy.partner;
   }
   .benefit {
     padding-inline-start: var(--sp-5);
-    border-inline-start: 2px solid var(--sf-blue-500);
+    border-inline-start: 2px solid var(--accent);
   }
   .benefit h3 { font-size: var(--fs-h3); }
-  .benefit p { margin-block-start: var(--sp-2); color: var(--sf-grey-600); }
+  .benefit p { margin-block-start: var(--sp-2); color: var(--text-muted); }
 </style>

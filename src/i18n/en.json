@@ -3,9 +3,11 @@
     "locale": "en",
     "htmlLang": "en",
     "dir": "ltr",
-    "siteName": "System Formation Co. Ltd",
+    "siteName": "tashkeel tech",
     "siteNameLegal": "System Formation Co. Ltd",
-    "tagline": "The security operations backbone behind service providers."
+    "tagline": "Cybersecurity solutions",
+    "logoAlt": "tashkeel tech",
+    "logoAltAr": "تشكيل — للحلول السيبرانية"
   },
   "nav": {
     "home": "Home",
@@ -37,7 +39,7 @@
   },
   "home": {
     "seo": {
-      "title": "System Formation — the security operations backbone behind service providers",
+      "title": "tashkeel tech — the security operations backbone behind service providers",
       "description": "A Master Security Service Provider in Saudi Arabia. We supply the licences, certified analysts and platforms that managed security providers run on — delivered under your brand."
     },
     "hero": {
@@ -45,7 +47,7 @@
       "sub": "We supply the licences, certified analysts and platforms that managed security providers run on — so you deliver more, under your own brand, for up to 60% less operating cost.",
       "ctaPrimary": "Become a partner",
       "ctaSecondary": "See how the savings work",
-      "markAlt": "The System Formation mark: two interlocking bands forming an S"
+      "markAlt": "The tashkeel tech mark: a shield formed from the letter T and the three dots of the Arabic letter ش"
     },
     "problem": {
       "title": "Running a SOC is expensive before it earns anything.",
@@ -164,7 +166,7 @@
   },
   "partner": {
     "seo": {
-      "title": "Partner model — white-label security delivery | System Formation",
+      "title": "Partner model — white-label security delivery | tashkeel tech",
       "description": "You own the client, the contract and the brand. We provide the licences, the certified team and the platforms — white-labelled, under SLA, delivered from Saudi Arabia."
     },
     "hero": {
@@ -230,7 +232,7 @@
   },
   "services": {
     "seo": {
-      "title": "Services — licensing, talent, white-label SOC | System Formation",
+      "title": "Services — licensing, talent, white-label SOC | tashkeel tech",
       "description": "Licensing as a service, security talent on demand, white-label SOC, shared platforms, surge capacity and compliance delivery kits — plus managed security for organisations."
     },
     "hero": {
@@ -312,14 +314,14 @@
   },
   "compliance": {
     "seo": {
-      "title": "Compliance — NCA, SAMA, PDPL and CST | System Formation",
+      "title": "Compliance — NCA, SAMA, PDPL and CST | tashkeel tech",
       "description": "The Saudi and international frameworks our delivery is built around: NCA ECC, CCC, DCC, CSCC and OTCC, SAMA CSF, PDPL, CST requirements, ISO/IEC 27001, ISO 22301, PCI DSS and NIST CSF."
     },
     "hero": {
       "h1": "The frameworks your clients answer to.",
       "sub": "We build delivery around the control sets that Saudi regulators actually audit, so the evidence your client needs is a by-product of the service rather than a separate project."
     },
-    "disclaimer": "System Formation is not a regulator, and is not certified, accredited or endorsed by any authority named on this page. We deliver services designed to help our partners and clients meet these requirements.",
+    "disclaimer": "tashkeel tech is not a regulator, and is not certified, accredited or endorsed by any authority named on this page. We deliver services designed to help our partners and clients meet these requirements.",
     "groups": [
       {
         "regulator": "National Cybersecurity Authority (NCA)",
@@ -435,12 +437,12 @@
   },
   "about": {
     "seo": {
-      "title": "About — a Saudi cybersecurity company | System Formation",
-      "description": "System Formation Co. Ltd builds the shared security foundation that service providers deliver on: pooled licences, certified people and ready platforms, under clear SLAs."
+      "title": "About — a Saudi cybersecurity company | tashkeel tech",
+      "description": "tashkeel tech builds the shared security foundation that service providers deliver on: pooled licences, certified people and ready platforms, under clear SLAs."
     },
     "hero": {
       "h1": "We build the structure other providers run on.",
-      "sub": "System Formation Co. Ltd is a Saudi cybersecurity company built around one idea: the region needs more security delivered well, and the fixed cost of running security operations is what holds providers back. We carry that cost once, share it across partners, and let each provider focus on its clients."
+      "sub": "tashkeel tech is the cybersecurity brand of System Formation Co. Ltd, a Saudi company built around one idea: the region needs more security delivered well, and the fixed cost of running security operations is what holds providers back. We carry that cost once, share it across partners, and let each provider focus on its clients."
     },
     "visionTitle": "Vision",
     "vision": "To be the shared security foundation that the region's service providers build on.",
@@ -478,8 +480,8 @@
   },
   "contact": {
     "seo": {
-      "title": "Contact — talk to our team | System Formation",
-      "description": "Talk to System Formation about partner delivery, managed security or compliance. Email info@systemformation.com or call +966 56 788 8365."
+      "title": "Contact — talk to our team | tashkeel tech",
+      "description": "Talk to tashkeel tech about partner delivery, managed security or compliance. Email info@systemformation.com or call +966 56 788 8365."
     },
     "hero": {
       "h1": "Talk to our team.",
@@ -548,8 +550,8 @@
   },
   "privacy": {
     "seo": {
-      "title": "Privacy Policy | System Formation",
-      "description": "How System Formation Co. Ltd collects, uses and protects personal data submitted through this website, aligned to the Saudi Personal Data Protection Law."
+      "title": "Privacy Policy | tashkeel tech",
+      "description": "How System Formation Co. Ltd, trading as tashkeel tech, collects, uses and protects personal data submitted through this website, aligned to the Saudi Personal Data Protection Law."
     },
     "h1": "Privacy Policy",
     "draftNotice": "Draft for legal review. This policy has been prepared as a starting point and must be reviewed by qualified counsel before launch.",
@@ -558,7 +560,7 @@
       {
         "h": "Who we are",
         "p": [
-          "System Formation Co. Ltd (\"System Formation\", \"we\") is a company registered in the Kingdom of Saudi Arabia, commercial registration [CR NUMBER], with its registered address at [CITY / ADDRESS]. We are the controller of the personal data described in this policy."
+          "System Formation Co. Ltd, trading as tashkeel tech (\"tashkeel tech\", \"we\") is a company registered in the Kingdom of Saudi Arabia, commercial registration [CR NUMBER], with its registered address at [CITY / ADDRESS]. We are the controller of the personal data described in this policy."
         ]
       },
       {
@@ -590,7 +592,7 @@
       {
         "h": "Who else sees it",
         "p": [
-          "Personal data is available to System Formation staff who need it to answer you, and to the service providers that operate our website infrastructure and email under contract. We do not disclose it to anyone else except where the law requires it.",
+          "Personal data is available to tashkeel tech staff who need it to answer you, and to the service providers that operate our website infrastructure and email under contract. We do not disclose it to anyone else except where the law requires it.",
           "Where personal data is transferred outside the Kingdom, we apply the conditions set out in the Personal Data Protection Law and its implementing regulations."
         ]
       },
@@ -611,8 +613,8 @@
   },
   "terms": {
     "seo": {
-      "title": "Terms of Use | System Formation",
-      "description": "The terms that apply to your use of the System Formation Co. Ltd website."
+      "title": "Terms of Use | tashkeel tech",
+      "description": "The terms that apply to your use of the tashkeel tech website, operated by System Formation Co. Ltd."
     },
     "h1": "Terms of Use",
     "draftNotice": "Draft for legal review. These terms have been prepared as a starting point and must be reviewed by qualified counsel before launch.",
@@ -621,7 +623,7 @@
       {
         "h": "About these terms",
         "p": [
-          "These terms apply to your use of systemformation.com, operated by System Formation Co. Ltd. By using the site you accept them. If you do not accept them, please do not use the site."
+          "These terms apply to your use of tashkeeltech.com, operated by System Formation Co. Ltd, trading as tashkeel tech. By using the site you accept them. If you do not accept them, please do not use the site."
         ]
       },
       {
@@ -671,7 +673,7 @@
   },
   "notFound": {
     "seo": {
-      "title": "Page not found | System Formation",
+      "title": "Page not found | tashkeel tech",
       "description": "That page does not exist."
     },
     "code": "404",
