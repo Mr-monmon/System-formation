@@ -10,6 +10,7 @@ type Lenis = import('lenis').default;
 
 let lenis: Lenis | null = null;
 let started = false;
+let motionRun = 0;
 
 const prefersReducedMotion = () =>
   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -51,17 +52,38 @@ export async function initMotion(): Promise<void> {
   }
 
   ScrollTrigger.getAll().forEach((tr) => tr.kill());
+  const run = ++motionRun;
 
+  // The hero is in view, so it starts at once, and the page's controls are
+  // wired straight after it. Everything else is scroll-driven and below the
+  // fold: each step gets its own task, so the page never stops responding
+  // for the length of the whole setup.
   heroFormation(gsap);
-  revealOnScroll(gsap, ScrollTrigger);
-  structureGrid(gsap, ScrollTrigger);
-  costMerge(gsap, ScrollTrigger);
-  formationPath(gsap, ScrollTrigger);
   initSlideNav();
   initEstimator();
   initServiceTabs();
+
+  const steps = [
+    () => revealOnScroll(gsap, ScrollTrigger),
+    () => structureGrid(gsap, ScrollTrigger),
+    () => costMerge(gsap, ScrollTrigger),
+    () => formationPath(gsap, ScrollTrigger),
+  ];
+  for (const step of steps) {
+    await yieldToMain();
+    // A client-side navigation started a newer run; leave the page to it.
+    if (run !== motionRun) return;
+    step();
+  }
   ScrollTrigger.refresh();
   goToHashTarget();
+}
+
+/** Ends the current task so input and rendering can run before the next step. */
+function yieldToMain(): Promise<void> {
+  const scheduler = (globalThis as { scheduler?: { yield?: () => Promise<void> } }).scheduler;
+  if (scheduler?.yield) return scheduler.yield();
+  return new Promise((resolve) => setTimeout(resolve, 0));
 }
 
 /* ------------------------------------------------------------------ */
@@ -104,16 +126,19 @@ async function initSmoothScroll(ScrollTrigger: typeof import('gsap/ScrollTrigger
 }
 
 /* ------------------------------------------------------------------ */
-/* Hero: the two bands slide in from opposite sides and lock together  */
+/* Hero: the mark forms — تشكيل — out of its seven parts               */
 /* ------------------------------------------------------------------ */
+/**
+ * Brand rules allow none of: redraw, rotate, stretch, gradient, shadow, glow.
+ * So this only translates and fades the official polygons, and every tween
+ * ends at identity, i.e. on the exact official artwork.
+ *
+ * Directions are physical, not flow-relative: the logo is never mirrored in
+ * Arabic, so its left wing is on the left in both languages.
+ */
 function heroFormation(gsap: typeof import('gsap').gsap) {
-  const hero = document.querySelector('[data-hero]');
+  const hero = document.querySelector<HTMLElement>('[data-hero]');
   if (!hero) return;
-  const blue = hero.querySelector('[data-band="blue"]');
-  const navy = hero.querySelector('[data-band="navy"]');
-  const words = hero.querySelectorAll('[data-hero-line]');
-  const rest = hero.querySelectorAll('[data-hero-fade]');
-  const d = flow();
 
   // Astro fires astro:page-load on first paint as well as after navigation,
   // so guard: a second timeline over the same targets would leave them stuck
@@ -121,25 +146,38 @@ function heroFormation(gsap: typeof import('gsap').gsap) {
   if (hero.hasAttribute('data-hero-played')) return;
   hero.setAttribute('data-hero-played', '');
 
+  const bars = hero.querySelectorAll<SVGPolygonElement>('[data-mark-part="bar"]');
+  const dots = hero.querySelectorAll<SVGPolygonElement>('[data-mark-part="dot"]');
+  const words = hero.querySelectorAll('[data-hero-line]');
+  const rest = hero.querySelectorAll('[data-hero-fade]');
+
+  // Where each bar comes from, in the mark's own user units (viewBox 161x169):
+  // the T's crossbar drops in, the stem rises, the two shield wings close in.
+  const from = [
+    { x: 0, y: -46 }, // crossbar
+    { x: -46, y: 0 }, // left wing
+    { x: 0, y: 46 }, //  central stem
+    { x: 46, y: 0 }, //  right wing
+  ];
+
   const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
 
-  if (blue && navy) {
-    tl.from(blue, { xPercent: -140 * d, yPercent: -18, opacity: 0, duration: 1.1 }, 0)
-      .from(navy, { xPercent: 140 * d, yPercent: 18, opacity: 0, duration: 1.1 }, 0.08)
-      // the lock: a single settle once both bands are home
-      .fromTo(
-        hero.querySelector('[data-hero-mark]'),
-        { scale: 0.94 },
-        { scale: 1, duration: 0.7, ease: 'power3.out' },
-        0.75,
-      );
-  }
+  bars.forEach((bar, i) => {
+    tl.from(bar, { ...from[i], opacity: 0, duration: 1.05 }, 0.08 * i);
+  });
+
+  // The three ش dots arrive once the shield has closed, bottom-left to top-right.
+  tl.from(
+    dots,
+    { y: -10, opacity: 0, duration: 0.5, ease: 'power3.out', stagger: 0.11 },
+    0.78,
+  );
 
   tl.from(
     words,
     { yPercent: 108, opacity: 0, duration: 0.85, stagger: 0.07, ease: 'power3.out' },
-    0.55,
-  ).from(rest, { y: 18, opacity: 0, duration: 0.7, stagger: 0.09 }, 0.95);
+    0.62,
+  ).from(rest, { y: 18, opacity: 0, duration: 0.7, stagger: 0.09 }, 1.0);
 }
 
 /* ------------------------------------------------------------------ */
@@ -209,7 +247,7 @@ function revealOnScroll(
     });
   }
 
-  ScrollTrigger.refresh();
+  // No refresh here: initMotion refreshes once, after every trigger exists.
 
   // Safety net: copy must never stay invisible because a trigger did not fire.
   window.setTimeout(() => {

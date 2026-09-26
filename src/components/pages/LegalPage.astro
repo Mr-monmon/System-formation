@@ -18,7 +18,7 @@ const formatted = new Intl.DateTimeFormat(lang === 'ar' ? 'ar-SA-u-nu-latn-ca-gr
 }).format(new Date(updated));
 ---
 
-<Slide>
+<Slide tone="light">
   <article class="legal">
     <h1>{page.h1}</h1>
     <p class="legal__draft">{page.draftNotice}</p>
@@ -39,21 +39,21 @@ const formatted = new Intl.DateTimeFormat(lang === 'ar' ? 'ar-SA-u-nu-latn-ca-gr
   .legal__draft {
     margin-block-start: var(--sp-5);
     padding: var(--sp-4) var(--sp-5);
-    background: var(--sf-blue-050);
-    border-inline-start: 3px solid var(--sf-blue-500);
+    background: var(--accent-tint);
+    border-inline-start: 3px solid var(--accent);
     border-radius: 0 var(--radius) var(--radius) 0;
     font-size: var(--fs-small);
     font-weight: var(--fw-medium);
-    color: var(--sf-blue-800);
+    color: var(--text);
     max-inline-size: none;
   }
   :global([dir='rtl']) .legal__draft { border-radius: var(--radius) 0 0 var(--radius); }
   .legal__updated {
     margin-block-start: var(--sp-4);
     font-size: var(--fs-meta);
-    color: var(--sf-grey-600);
+    color: var(--text-faint);
   }
   .legal__section { margin-block-start: var(--sp-7); }
   .legal__section h2 { font-size: var(--fs-h3); }
-  .legal__section p { margin-block-start: var(--sp-4); color: var(--sf-grey-700); }
+  .legal__section p { margin-block-start: var(--sp-4); color: var(--text-muted); }
 </style>

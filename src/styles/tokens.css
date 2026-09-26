@@ -1,61 +1,76 @@
 /* ==========================================================================
-   System Formation — design tokens
-   Colours were sampled directly from brand/source/logo-full-transparent.png
-   (see scripts/trace-mark.py). Every text/background pair used in the UI is
-   checked against WCAG 2.2 AA; the ratio is noted beside each token.
+   tashkeel tech — design tokens
+
+   Two layers:
+     1. Brand tokens (--tk-*), copied verbatim from brand/tashkeel/tokens.css.
+        That kit is the source of truth: if anything here disagrees with it,
+        the kit wins.
+     2. Semantic tokens (--bg, --text, --accent ...) that components use.
+        They default to the navy canvas and are re-pointed by .tone-raised and
+        .tone-light, so a component never needs to know which section it is in.
+
+   Brand rules this file enforces:
+     - Navy is the default canvas; light sections are the exception.
+     - Neon is NEVER text or a thin line on a light surface (1.12:1 on
+       #F8FAFC). On light, the accent role falls back to navy. Neon may be a
+       fill with navy text on top.
+
+   Every text/background pair below is checked against WCAG 2.2 AA; ratios are
+   noted beside each token.
    ========================================================================== */
 
 :root {
-  /* --- Brand blue: the logo band runs #02A0FD (light end) -> #094BB4 (deep) --- */
-  --sf-blue-050: #EAF2FE;
-  --sf-blue-100: #D4E5FD;
-  --sf-blue-300: #12A3FD; /* light end of the band; 6.14:1 on navy-900 */
-  --sf-blue-400: #0A7CF0;
-  --sf-blue-500: #0054DE; /* primary; 6.32:1 on white */
-  --sf-blue-600: #0047BE; /* hover; 7.94:1 on white */
-  --sf-blue-700: #094BB4; /* deep end of the band */
-  --sf-blue-800: #073A8C;
+  /* --- 1. Brand tokens (verbatim) --- */
+  --tk-neon: #ccff00;   /* accent — marks, CTAs on dark, highlights */
+  --tk-navy: #081522;   /* primary dark — backgrounds, text on light */
+  --tk-navy-2: #14263a; /* raised dark surface */
+  --tk-slate: #33485e;  /* secondary text on light */
+  --tk-gray: #64748b;   /* captions on light (never text on dark: 3.87:1) */
+  --tk-mist: #dce6f0;   /* secondary text on dark */
+  --tk-light: #f8fafc;  /* light background */
+  --tk-white: #ffffff;
 
-  /* --- Navy: the logo's dark band has two facets --- */
-  --sf-navy-900: #0F1E32; /* deep facet */
-  --sf-navy-800: #142438;
-  --sf-navy-700: #192841; /* light facet */
-  --sf-navy-600: #22355A;
-  --sf-ink: #0B1B33;      /* wordmark ink; 17.2:1 on white */
+  /* --- Derived, each verified --- */
+  --tk-neon-hover: #dbff4d;        /* navy on it: 16.15:1 */
+  --tk-faint-on-dark: #9fb0c4;     /* 8.31 on navy, 6.93 on navy-2 */
+  --tk-border-on-dark: #5e7896;    /* UI 3:1 — 4.04 on navy, 3.36 on navy-2 */
+  --tk-border-on-light: #8595a8;   /* UI 3:1 — 3.06 on white */
+  --tk-error-on-dark: #ff8a80;     /* 8.06 on navy */
+  --tk-error-on-light: #b42318;    /* 6.57 on white */
+  --tk-success-on-dark: #7ee2a8;   /* 11.69 on navy */
+  --tk-success-on-light: #067647;  /* 5.69 on white */
 
-  /* --- Neutrals --- */
-  --sf-grey-700: #3A404B;
-  --sf-grey-600: #4E5561; /* body-secondary; 7.5:1 on white */
-  --sf-grey-500: #6A727E; /* meta only; 4.86:1 on white */
-  --sf-grey-300: #C6CBD4;
-  --sf-grey-200: #E2E6EC;
-  --sf-grey-100: #EDF0F5;
-  --sf-paper: #FFFFFF;
-  --sf-mist: #F2F6FC;     /* alternate section background */
+  /* --- 2. Semantic tokens: the navy canvas (default) --- */
+  --bg: var(--tk-navy);
+  --bg-raised: var(--tk-navy-2);
+  --text: var(--tk-white);            /* 18.41 on navy */
+  --text-muted: var(--tk-mist);       /* 14.57 on navy */
+  --text-faint: var(--tk-faint-on-dark);
+  --line: rgba(220, 230, 240, 0.12);  /* decorative dividers only */
+  --line-strong: var(--tk-border-on-dark);
+  --accent: var(--tk-neon);           /* rules, markers, fills — 15.67 on navy */
+  --accent-tint: rgba(204, 255, 0, 0.1); /* selected / highlighted surfaces */
+  --link: var(--tk-neon);
+  --link-hover: var(--tk-white);
+  --focus: var(--tk-neon);
+  --error: var(--tk-error-on-dark);
+  --success: var(--tk-success-on-dark);
+  --btn-bg: var(--tk-neon);           /* navy label on neon: 15.67 */
+  --btn-fg: var(--tk-navy);
+  --btn-bg-hover: var(--tk-neon-hover);
+  --ghost-border: var(--tk-border-on-dark);
+  --ghost-fg: var(--tk-white);
+  --ghost-hover-bg: rgba(204, 255, 0, 0.08);
+  --field-bg: rgba(8, 21, 34, 0.55);
+  --lattice: var(--tk-neon);
 
-  /* --- On-dark text --- */
-  --sf-on-dark: #FFFFFF;
-  --sf-on-dark-muted: #A9BBD6; /* 8.6:1 on navy-900 */
-  --sf-on-dark-faint: #8FA3C0; /* 6.5:1 on navy-900 */
+  /* --- Type ---
+     Cairo for both scripts, per the brand kit. Weights: 400 body, 600 labels,
+     700 headings, 900 display. */
+  --font: 'Cairo', 'Cairo Fallback', 'Cairo Fallback Roboto', 'Segoe UI', Tahoma, system-ui,
+    sans-serif;
 
-  /* --- Semantic --- */
-  --sf-success: #0F7B4F;
-  --sf-error: #B3261E;
-  --sf-error-on-dark: #FF9E97;
-
-  /* --- Surfaces / lines --- */
-  --sf-line: #E2E6EC;
-  --sf-line-strong: #C6CBD4;
-  --sf-line-on-dark: rgba(169, 187, 214, 0.22);
-
-  /* --- Type --- */
-  --sf-font-latin: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --sf-font-arabic: 'IBM Plex Sans Arabic', 'Plus Jakarta Sans', system-ui, sans-serif;
-  --sf-font: var(--sf-font-latin);
-
-  /* Fluid scale. Arabic overrides below raise size and leading per the
-     brand rules: ~+9% size, ~1.8 body leading, never letter-spaced. */
-  --fs-display: clamp(2.25rem, 1.5rem + 3.4vw, 4.125rem);
+  --fs-display: clamp(2.25rem, 1.45rem + 3.5vw, 4.25rem);
   --fs-h1: clamp(2.125rem, 1.45rem + 3vw, 3.5rem);
   --fs-h2: clamp(1.75rem, 1.3rem + 2vw, 2.625rem);
   --fs-h3: clamp(1.25rem, 1.1rem + 0.8vw, 1.5rem);
@@ -64,20 +79,21 @@
   --fs-small: 0.9375rem;
   --fs-meta: 0.8125rem;
 
-  --lh-display: 1.05;
-  --lh-heading: 1.14;
-  --lh-lead: 1.55;
+  --lh-display: 1.08;
+  --lh-heading: 1.18;
+  --lh-lead: 1.6;
   --lh-body: 1.65;
 
-  --ls-display: -0.022em;
-  --ls-heading: -0.015em;
+  /* The kit sets the wordmark at -0.01em; headings follow it. */
+  --ls-display: -0.01em;
+  --ls-heading: -0.01em;
   --ls-body: 0;
 
   --fw-regular: 400;
-  --fw-medium: 500;
+  --fw-medium: 600;
   --fw-semibold: 600;
   --fw-bold: 700;
-  --fw-black: 800;
+  --fw-black: 900;
 
   /* --- Space --- */
   --sp-1: 0.25rem;
@@ -91,7 +107,7 @@
   --sp-9: 6rem;
   --sp-10: 8rem;
 
-  --measure: 68ch;       /* body line length stays under ~75 characters */
+  --measure: 68ch; /* body line length stays under ~75 characters */
   --container: 76rem;
   --container-wide: 88rem;
   --gutter: clamp(1rem, 4vw, 3rem);
@@ -106,33 +122,68 @@
   --dur: 320ms;
   --dur-slow: 620ms;
 
-  --shadow-key: 0 1px 2px rgba(15, 30, 50, 0.06), 0 8px 24px -12px rgba(15, 30, 50, 0.18);
-  --shadow-lift: 0 2px 4px rgba(15, 30, 50, 0.07), 0 18px 40px -20px rgba(15, 30, 50, 0.26);
+  --shadow-key: 0 1px 2px rgba(8, 21, 34, 0.06), 0 8px 24px -12px rgba(8, 21, 34, 0.2);
 }
 
-/* Arabic type scale: larger and more open than the Latin equivalent at the
-   same role, because Plex Arabic runs optically smaller than Jakarta. */
+/* Arabic runs on the same family but needs a touch more size and a lot more
+   leading at the same role, and is never letter-spaced. */
 :root:lang(ar),
 [lang='ar'] {
-  --sf-font: var(--sf-font-arabic);
-  --fs-display: clamp(2.125rem, 1.45rem + 3vw, 3.625rem);
+  --fs-display: clamp(2.125rem, 1.4rem + 3.2vw, 3.875rem);
   --fs-h1: clamp(2.125rem, 1.5rem + 2.9vw, 3.4rem);
   --fs-h2: clamp(1.8125rem, 1.4rem + 2vw, 2.75rem);
-  --fs-h3: clamp(1.375rem, 1.2rem + 0.85vw, 1.625rem);
-  --fs-lead: clamp(1.125rem, 1.05rem + 0.55vw, 1.4375rem);
-  --fs-body: clamp(1.0625rem, 1.02rem + 0.22vw, 1.1875rem);
+  --fs-h3: clamp(1.3125rem, 1.15rem + 0.85vw, 1.5625rem);
+  --fs-lead: clamp(1.125rem, 1.05rem + 0.55vw, 1.375rem);
+  --fs-body: clamp(1.0625rem, 1.02rem + 0.22vw, 1.125rem);
   --fs-small: 1rem;
   --fs-meta: 0.875rem;
 
-  --lh-display: 1.28;
-  --lh-heading: 1.4;
-  --lh-lead: 1.75;
+  --lh-display: 1.35;
+  --lh-heading: 1.45;
+  --lh-lead: 1.8;
   --lh-body: 1.8;
 
-  /* Arabic script is never letter-spaced. */
   --ls-display: 0;
   --ls-heading: 0;
   --ls-body: 0;
 
   --measure: 62ch;
+}
+
+/* ==========================================================================
+   Section tones. Components read the semantic tokens; these re-point them.
+   ========================================================================== */
+
+/* A raised dark section — rhythm between two navy sections. */
+.tone-raised {
+  --bg: var(--tk-navy-2);
+  --bg-raised: var(--tk-navy);
+  --text-faint: var(--tk-faint-on-dark); /* 6.93 on navy-2 */
+  --field-bg: rgba(8, 21, 34, 0.6);
+}
+
+/* The light exception. Neon leaves every text and line role here. */
+.tone-light {
+  --bg: var(--tk-light);
+  --bg-raised: var(--tk-white);
+  --text: var(--tk-navy);               /* 17.60 on light */
+  --text-muted: var(--tk-slate);        /* 9.00 on light */
+  --text-faint: var(--tk-gray);         /* 4.55 on light, 4.76 on white */
+  --line: #e2e8f0;
+  --line-strong: var(--tk-border-on-light);
+  --accent: var(--tk-navy);             /* never neon as a line on light */
+  --accent-tint: rgba(8, 21, 34, 0.06);
+  --link: var(--tk-navy);
+  --link-hover: var(--tk-slate);
+  --focus: var(--tk-navy);
+  --error: var(--tk-error-on-light);
+  --success: var(--tk-success-on-light);
+  --btn-bg: var(--tk-navy);             /* neon label on a navy fill: 15.67 */
+  --btn-fg: var(--tk-neon);
+  --btn-bg-hover: var(--tk-navy-2);
+  --ghost-border: var(--tk-border-on-light);
+  --ghost-fg: var(--tk-navy);
+  --ghost-hover-bg: rgba(8, 21, 34, 0.05);
+  --field-bg: var(--tk-white);
+  --lattice: var(--tk-navy);
 }

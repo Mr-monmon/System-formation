@@ -83,12 +83,13 @@ const messages = JSON.stringify({ ...f.errors, success: f.success });
 </script>
 
 <style>
+  /* A raised card on the navy page. Field borders use --line-strong, which
+     meets the 3:1 non-text contrast requirement on both dark surfaces. */
   .cform {
     padding: clamp(var(--sp-5), 3vw, var(--sp-7));
-    border: 1px solid var(--sf-line);
+    border: 1px solid var(--line);
     border-radius: var(--radius-lg);
-    background: var(--sf-paper);
-    box-shadow: var(--shadow-key);
+    background: var(--bg-raised);
   }
   .cform__title {
     font-size: var(--fs-h3);
@@ -109,14 +110,15 @@ const messages = JSON.stringify({ ...f.errors, success: f.success });
   .cform__field label {
     display: block;
     font-size: var(--fs-small);
-    font-weight: var(--fw-semibold);
+    font-weight: var(--fw-bold);
+    color: var(--text);
     margin-block-end: var(--sp-2);
   }
   .cform__req,
   .cform__opt {
     font-weight: var(--fw-regular);
     font-size: var(--fs-meta);
-    color: var(--sf-grey-600);
+    color: var(--text-faint);
   }
   .cform input,
   .cform select,
@@ -125,11 +127,17 @@ const messages = JSON.stringify({ ...f.errors, success: f.success });
     font: inherit;
     font-size: var(--fs-small);
     padding: 0.7rem 0.85rem;
-    color: var(--sf-ink);
-    background: var(--sf-paper);
-    border: 1px solid var(--sf-line-strong);
+    color: var(--text);
+    background: var(--field-bg);
+    border: 1px solid var(--line-strong);
     border-radius: var(--radius-sm);
-    transition: border-color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+    transition:
+      border-color var(--dur-fast) var(--ease-out),
+      box-shadow var(--dur-fast) var(--ease-out);
+  }
+  .cform select option {
+    color: var(--tk-navy);
+    background: var(--tk-white);
   }
   .cform textarea {
     resize: vertical;
@@ -138,17 +146,17 @@ const messages = JSON.stringify({ ...f.errors, success: f.success });
   .cform input:focus,
   .cform select:focus,
   .cform textarea:focus {
-    border-color: var(--sf-blue-500);
+    border-color: var(--accent);
   }
   .cform [aria-invalid='true'] {
-    border-color: var(--sf-error);
-    box-shadow: 0 0 0 1px var(--sf-error);
+    border-color: var(--error);
+    box-shadow: 0 0 0 1px var(--error);
   }
   .cform__err {
     margin-block-start: var(--sp-2);
     font-size: var(--fs-meta);
-    color: var(--sf-error);
-    font-weight: var(--fw-medium);
+    color: var(--error);
+    font-weight: var(--fw-semibold);
   }
   .cform__trap {
     position: absolute;
@@ -167,18 +175,18 @@ const messages = JSON.stringify({ ...f.errors, success: f.success });
   .cform__status {
     margin-block-start: var(--sp-4);
     font-size: var(--fs-small);
-    font-weight: var(--fw-medium);
+    font-weight: var(--fw-semibold);
   }
   .cform__status[data-tone='ok'] {
-    color: var(--sf-success);
+    color: var(--success);
   }
   .cform__status[data-tone='error'] {
-    color: var(--sf-error);
+    color: var(--error);
   }
   .cform__fallback {
     margin-block-start: var(--sp-2);
     font-size: var(--fs-small);
-    color: var(--sf-grey-600);
+    color: var(--text-muted);
   }
   .cf-turnstile:not(:empty) {
     margin-block-start: var(--sp-5);

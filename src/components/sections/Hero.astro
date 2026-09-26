@@ -11,7 +11,7 @@ const copy = t(lang);
 const hero = copy.home.hero;
 ---
 
-<section class="hero slide--dark" data-hero aria-labelledby="hero-title">
+<section class="hero" data-hero aria-labelledby="hero-title">
   <StructureGrid class="hero__grid" rows={11} cols={19} />
   <div class="container hero__inner">
     <div class="hero__copy">
@@ -25,8 +25,10 @@ const hero = copy.home.hero;
       </div>
     </div>
 
+    <!-- The mark assembles here: four bars converge into the shield, then the
+         three ش dots arrive. Flat neon, no shadow or glow — brand rules. -->
     <div class="hero__markwrap" data-hero-mark>
-      <Mark variant="on-dark" class="hero__mark" title={hero.markAlt} />
+      <Mark tone="neon" class="hero__mark" title={hero.markAlt} />
     </div>
   </div>
 </section>
@@ -35,11 +37,11 @@ const hero = copy.home.hero;
   .hero {
     position: relative;
     overflow: hidden;
-    background: var(--sf-navy-900);
-    color: var(--sf-on-dark);
+    background: var(--bg);
+    color: var(--text);
     padding-block: clamp(var(--sp-8), 10vh, var(--sp-10));
     /* Reserved height, so swapping in the webfont cannot reflow the section
-       (and with it the glow behind the mark) once it arrives. */
+       once it arrives. */
     min-block-size: 78svh;
     display: grid;
     align-content: center;
@@ -49,22 +51,8 @@ const hero = copy.home.hero;
       min-block-size: min(92vh, 56rem);
     }
   }
-  .hero::after {
-    /* One restrained glow behind the mark, not a decorative blob field.
-       Sized in viewport units rather than percentages of the hero: as a
-       percentage it resized whenever the hero reflowed, and being large it
-       then dominated the page's layout-shift score. */
-    content: '';
-    position: absolute;
-    inset-inline-end: -14vw;
-    inset-block-start: -18vh;
-    inline-size: 68vw;
-    block-size: 76vh;
-    background: radial-gradient(circle at 60% 40%, rgba(18, 163, 253, 0.16), transparent 62%);
-    pointer-events: none;
-  }
   .hero__grid {
-    opacity: 0.85;
+    opacity: 0.9;
   }
   .hero__inner {
     position: relative;
@@ -88,7 +76,7 @@ const hero = copy.home.hero;
     font-size: var(--fs-display);
     line-height: var(--lh-display);
     letter-spacing: var(--ls-display);
-    color: var(--sf-on-dark);
+    color: var(--text);
     max-inline-size: 16ch;
   }
   :global([lang='ar']) .hero h1 {
@@ -96,7 +84,7 @@ const hero = copy.home.hero;
   }
   .hero__sub {
     margin-block-start: var(--sp-5);
-    color: var(--sf-on-dark-muted);
+    color: var(--text-muted);
     max-inline-size: 54ch;
   }
   .hero__ctas {
@@ -105,18 +93,21 @@ const hero = copy.home.hero;
     gap: var(--sp-3);
     margin-block-start: var(--sp-6);
   }
+  /* The kit asks for clear space of at least the central stem's width
+     (~12% of the mark) on every side; the padding keeps it. */
   .hero__markwrap {
     --mark-inline: 100%;
     --mark-block: auto;
     justify-self: center;
-    inline-size: min(100%, 20rem);
-    filter: drop-shadow(0 30px 60px rgba(4, 12, 28, 0.55));
+    inline-size: min(100%, 17rem);
+    padding: 12%;
   }
   @media (max-width: 899px) {
     .hero__markwrap {
       order: -1;
-      inline-size: min(48%, 11rem);
+      inline-size: min(44%, 10rem);
       justify-self: start;
+      padding: 0;
     }
   }
 </style>

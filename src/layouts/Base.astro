@@ -15,18 +15,21 @@ interface Props {
 }
 const { lang, route, title, description, flush = false } = Astro.props;
 const copy = t(lang);
-const site = Astro.site ?? new URL('https://systemformation.com');
+const site = Astro.site ?? new URL('https://tashkeeltech.com');
 const canonical = new URL(path(lang, route), site).href;
-const ogImage = new URL(`/og/og-${lang}.png`, site).href;
+// The brand kit ships one bilingual card (EN wordmark, EN + AR taglines).
+const ogImage = new URL('/og/og-image.png', site).href;
 const direction = dir(lang);
 
 const organisation = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: 'System Formation Co. Ltd',
-  alternateName: 'شركة تشكيل النظم المحدودة',
+  name: 'tashkeel tech',
+  alternateName: ['تشكيل', 'شركة تشكيل النظم المحدودة'],
+  legalName: 'System Formation Co. Ltd',
+  slogan: copy.meta.tagline,
   url: site.href,
-  logo: new URL('/brand/logo-full.png', site).href,
+  logo: new URL('/brand/logo/lockup-en-on-light.png', site).href,
   email: copy.common.email,
   telephone: copy.common.phoneDial,
   description: copy.footer.description,
@@ -60,21 +63,18 @@ const organisation = {
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <meta name="theme-color" content="#0F1E32" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#081522" />
+    <link rel="icon" href="/brand/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/brand/icons/favicon.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/brand/icons/favicon-48.png" sizes="48x48" type="image/png" />
+    <link rel="apple-touch-icon" href="/brand/icons/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
-    {
-      lang === 'ar' && (
-        <>
-          <link rel="preload" as="font" type="font/woff2" href="/fonts/ibm-plex-sans-arabic-700.woff2" crossorigin />
-          <link rel="preload" as="font" type="font/woff2" href="/fonts/ibm-plex-sans-arabic-400.woff2" crossorigin />
-        </>
-      )
-    }
-    <link rel="preload" as="font" type="font/woff2" href="/fonts/plus-jakarta-sans-latin-var.woff2" crossorigin />
+    <!-- Cairo: one variable file per script. Arabic pages need both (Latin
+         carries figures and terms like SIEM); English pages only Latin above
+         the fold. -->
+    {lang === 'ar' && <link rel="preload" as="font" type="font/woff2" href="/fonts/cairo-arabic-var.woff2" crossorigin />}
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/cairo-latin-var.woff2" crossorigin />
 
     <script is:inline>
       // Set before first paint so entrance animations never flash their start state
@@ -102,7 +102,7 @@ const organisation = {
     </main>
     <Footer lang={lang} />
 
-    <!-- The band wipe that plays between routes, echoing the two logo bands. -->
+    <!-- The band wipe that plays between routes. -->
     <div class="route-wipe" aria-hidden="true" data-wipe>
       <span class="route-wipe__band route-wipe__band--navy"></span>
       <span class="route-wipe__band route-wipe__band--blue"></span>
@@ -142,11 +142,12 @@ const organisation = {
         transform: scaleX(0);
         transform-origin: inline-start;
       }
+      /* Flat, like the brand: a navy band trailed by a neon one. */
       .route-wipe__band--navy {
-        background: var(--sf-navy-900);
+        background: var(--tk-navy-2);
       }
       .route-wipe__band--blue {
-        background: linear-gradient(120deg, var(--sf-blue-300), var(--sf-blue-700));
+        background: var(--tk-neon);
       }
       html.is-wiping .route-wipe__band {
         animation: wipe-in 620ms var(--ease-expo) forwards;

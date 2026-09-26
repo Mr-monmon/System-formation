@@ -3,4 +3,4 @@
 Contact: mailto:info@systemformation.com
 Expires: 2027-09-21T00:00:00.000Z
 Preferred-Languages: ar, en
-Canonical: https://systemformation.com/.well-known/security.txt
+Canonical: https://tashkeeltech.com/.well-known/security.txt

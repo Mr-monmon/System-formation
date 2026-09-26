@@ -9,7 +9,7 @@ const copy = t(lang);
 const a = copy.about;
 ---
 
-<Slide tone="dark" labelledBy="about-title" class="ahero">
+<Slide tone="raised" labelledBy="about-title" class="ahero">
   <StructureGrid rows={9} cols={16} />
   <div class="ahero__inner">
     <h1 id="about-title" data-animate>{a.hero.h1}</h1>
@@ -30,7 +30,7 @@ const a = copy.about;
   </div>
 </Slide>
 
-<Slide tone="mist" labelledBy="values-title">
+<Slide tone="raised" labelledBy="values-title">
   <h2 id="values-title" data-animate>{a.valuesTitle}</h2>
   <ul class="values" data-stagger>
     {a.values.map((value) => (
@@ -54,8 +54,8 @@ const a = copy.about;
   .ahero__inner { position: relative; z-index: 1; }
   .vm { display: grid; gap: var(--sp-7); }
   @media (min-width: 820px) { .vm { grid-template-columns: 1fr 1fr; column-gap: var(--sp-9); } }
-  .vm__h { font-size: var(--fs-h3); color: var(--sf-blue-700); }
-  .vm__p { margin-block-start: var(--sp-3); font-size: var(--fs-lead); line-height: var(--lh-lead); }
+  .vm__h { font-size: var(--fs-h3); color: var(--accent); }
+  .vm__p { margin-block-start: var(--sp-3); font-size: var(--fs-lead); line-height: var(--lh-lead); color: var(--text); }
   .values {
     list-style: none;
     margin: var(--sp-7) 0 0;
@@ -66,7 +66,7 @@ const a = copy.about;
   @media (min-width: 760px) {
     .values { grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
   }
-  .value { padding-block-start: var(--sp-3); border-block-start: 2px solid var(--sf-navy-900); }
+  .value { padding-block-start: var(--sp-3); border-block-start: 2px solid var(--line-strong); }
   .value h3 { font-size: var(--fs-body); }
-  .value p { margin-block-start: var(--sp-2); font-size: var(--fs-small); color: var(--sf-grey-600); }
+  .value p { margin-block-start: var(--sp-2); font-size: var(--fs-small); color: var(--text-muted); }
 </style>

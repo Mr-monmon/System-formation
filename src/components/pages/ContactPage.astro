@@ -9,7 +9,7 @@ const copy = t(lang);
 const c = copy.contact;
 ---
 
-<Slide tone="dark" labelledBy="contact-title">
+<Slide tone="raised" labelledBy="contact-title">
   <h1 id="contact-title" data-animate>{c.hero.h1}</h1>
   <p class="lead" data-animate data-animate-delay="0.06">{c.hero.sub}</p>
 </Slide>
@@ -54,16 +54,16 @@ const c = copy.contact;
   .contact__list dt {
     font-size: var(--fs-meta);
     font-weight: var(--fw-semibold);
-    color: var(--sf-grey-600);
+    color: var(--text-faint);
   }
   .contact__list dd { margin: var(--sp-1) 0 0; font-size: var(--fs-lead); }
-  .contact__list a { color: var(--sf-ink); text-decoration: none; border-block-end: 1px solid var(--sf-line-strong); }
-  .contact__list a:hover { color: var(--sf-blue-600); border-color: currentColor; }
+  .contact__list a { color: var(--text); text-decoration: none; border-block-end: 1px solid var(--line-strong); }
+  .contact__list a:hover { color: var(--link); border-color: currentColor; }
   .contact__note {
     margin-block-start: var(--sp-6);
     padding-block-start: var(--sp-4);
-    border-block-start: 1px solid var(--sf-line);
+    border-block-start: 1px solid var(--line);
     font-size: var(--fs-small);
-    color: var(--sf-grey-600);
+    color: var(--text-muted);
   }
 </style>

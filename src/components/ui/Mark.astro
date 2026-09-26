@@ -1,69 +1,74 @@
 ---
 /**
- * The System Formation S-mark, rebuilt as two paths — one per band — so the
- * hero can animate them independently. Geometry is derived from the supplied
- * raster logo and regularised (see scripts/build-mark.py).
+ * The tashkeel tech mark, inlined from the official brand kit
+ * (brand/tashkeel/logo/svg/mark-*.svg).
+ *
+ * The geometry below is copied verbatim. The three official files differ only
+ * in colour, so `tone` picks one of exactly those three values — it is the
+ * official neon / navy / white variant, not a recolour. The brand rules forbid
+ * redrawing, rotating, stretching, gradients, shadows and glows; nothing here
+ * does any of those.
+ *
+ * Inline rather than <img> so the hero can animate the seven parts (four bars
+ * and the three hexagonal ش dots) into place. The animation only ever
+ * translates and fades them, and ends on the exact official artwork.
+ *
+ * `simplified` renders the favicon construction — no dots — which the kit
+ * requires below 32px.
  */
 interface Props {
-  /** Blank for decorative use; the parent supplies the accessible name. */
+  tone?: 'neon' | 'navy' | 'white';
+  /** Leave blank for decorative use; the parent supplies the accessible name. */
   title?: string;
-  variant?: 'colour' | 'on-dark' | 'mono-light' | 'mono-dark';
+  simplified?: boolean;
   class?: string;
-  id?: string;
 }
 
-const { title, variant = 'colour', class: className = '', id } = Astro.props;
-const uid = id ?? `mk${Math.random().toString(36).slice(2, 8)}`;
+const { tone = 'neon', title, simplified = false, class: className = '' } = Astro.props;
 
-const BLUE =
-  'M132.4 4.9Q141.5 0.7 141.5 10.7L141.5 34.7Q141.5 44.7 132.4 48.9L57.4 83.8Q48.3 88 57.4 92.2L174.9 146.9Q184 151.1 184 161.1L184 185.1Q184 195.1 174.9 190.9L10.1 114.2Q1 110 1 100L1 76Q1 66 10.1 61.8Z';
-const NAVY =
-  'M1 157Q1 147 10.1 151.2L84.5 185.9Q93.6 190.1 102.7 185.9L174.9 152.2Q184 148 174.9 143.8L102.1 109.9Q93 105.7 101.5 100.5L125.5 85.9Q134 80.8 143.1 85L174.9 99.8Q184 104 184 114L184 182Q184 192 174.9 196.2L102.7 229.9Q93.6 234.1 84.5 229.9L10.1 195.2Q1 191 1 181Z';
+const COLOURS = { neon: '#CCFF00', navy: '#081522', white: '#FFFFFF' } as const;
+const colour = COLOURS[tone];
 
-const fills = {
-  colour: { blue: `url(#${uid}b)`, navy: `url(#${uid}n)` },
-  'on-dark': { blue: `url(#${uid}b)`, navy: `url(#${uid}n)` },
-  'mono-light': { blue: 'currentColor', navy: 'currentColor' },
-  'mono-dark': { blue: 'currentColor', navy: 'currentColor' },
-} as const;
-const fill = fills[variant];
+const BARS = [
+  '24.0,54.0 128.0,28.0 128.0,50.0 24.0,76.0',
+  '24.0,94.0 46.0,88.5 46.0,115.6 70.0,135.1 70.0,163.5 24.0,126.0',
+  '88.0,78.0 112.0,72.0 112.0,177.3 100.0,188.0 88.0,178.2',
+  '154.0,84.0 176.0,78.5 176.0,120.0 130.0,161.2 130.0,131.6 154.0,110.2',
+];
+const DOTS = [
+  '138.0,63.0 142.3,65.5 142.3,70.5 138.0,73.0 133.7,70.5 133.7,65.5',
+  '154.0,54.0 158.3,56.5 158.3,61.5 154.0,64.0 149.7,61.5 149.7,56.5',
+  '170.0,45.0 174.3,47.5 174.3,52.5 170.0,55.0 165.7,52.5 165.7,47.5',
+];
 ---
 
 <svg
-  class={`sf-mark ${className}`}
-  viewBox="0 0 184 234"
+  class={`tk-mark ${className}`}
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 161 169"
+  width="161"
+  height="169"
   role={title ? 'img' : 'presentation'}
   aria-hidden={title ? undefined : 'true'}
   aria-label={title || undefined}
   focusable="false"
-  xmlns="http://www.w3.org/2000/svg"
 >
   {title && <title>{title}</title>}
-  {
-    (variant === 'colour' || variant === 'on-dark') && (
-      <defs>
-        <linearGradient id={`${uid}b`} x1="0.9" y1="0" x2="0.15" y2="0.9">
-          <stop offset="0" stop-color={variant === 'on-dark' ? '#3FB6FE' : '#16A6FE'} />
-          <stop offset="0.45" stop-color={variant === 'on-dark' ? '#0A7CF0' : '#0060EA'} />
-          <stop offset="1" stop-color={variant === 'on-dark' ? '#0B63D6' : '#0B4EB8'} />
-        </linearGradient>
-        <linearGradient id={`${uid}n`} x1="0.85" y1="0" x2="0.2" y2="1">
-          <stop offset="0" stop-color={variant === 'on-dark' ? '#4A628F' : '#22355A'} />
-          <stop offset="0.5" stop-color={variant === 'on-dark' ? '#33486E' : '#16263F'} />
-          <stop offset="1" stop-color={variant === 'on-dark' ? '#22355A' : '#0B1727'} />
-        </linearGradient>
-      </defs>
-    )
-  }
-  <path class="sf-mark__navy" data-band="navy" d={NAVY} fill={fill.navy} opacity={variant === 'mono-light' || variant === 'mono-dark' ? 0.55 : 1}></path>
-  <path class="sf-mark__blue" data-band="blue" d={BLUE} fill={fill.blue}></path>
+  <g transform="translate(-19.50,-15.50) scale(1.0000)">
+    <g transform="translate(0,-8)" fill={colour} stroke={colour} stroke-width="9" stroke-linejoin="round">
+      {BARS.map((points, i) => <polygon points={points} data-mark-part="bar" data-index={i} />)}
+      {!simplified && DOTS.map((points, i) => (
+        <polygon points={points} stroke-width="5" data-mark-part="dot" data-index={i} />
+      ))}
+    </g>
+  </g>
 </svg>
 
 <style>
-  /* Astro scopes styles per component, so a parent's `.hero__mark { block-size }`
-     never reaches this element. Size is taken from inherited custom properties
-     instead: the parent sets --mark-block / --mark-inline on its wrapper. */
-  :where(.sf-mark) {
+  /* :where() keeps specificity at zero; a parent sizes the mark through the
+     inherited --mark-block / --mark-inline properties, because Astro's style
+     scoping stops a parent's class rule reaching this element. */
+  :where(.tk-mark) {
     inline-size: var(--mark-inline, auto);
     block-size: var(--mark-block, 1em);
     overflow: visible;

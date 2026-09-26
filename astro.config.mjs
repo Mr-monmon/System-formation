@@ -7,7 +7,7 @@ import sitemap from '@astrojs/sitemap';
  * owns only "/" (language negotiation) and "/api/*". See wrangler.jsonc.
  */
 export default defineConfig({
-  site: 'https://systemformation.com',
+  site: 'https://tashkeeltech.com',
   output: 'static',
   i18n: {
     locales: ['ar', 'en'],

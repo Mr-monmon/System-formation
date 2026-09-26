@@ -178,7 +178,7 @@ async function deliver(submission: Submission, env: Env): Promise<{ ok: boolean;
   }
 
   const to = env.CONTACT_TO ?? 'info@systemformation.com';
-  const from = env.CONTACT_FROM ?? 'System Formation <website@systemformation.com>';
+  const from = env.CONTACT_FROM ?? 'tashkeel tech <website@tashkeeltech.com>';
   const label = (en: string, ar: string) => (submission.locale === 'ar' ? ar : en);
 
   const text = [
@@ -264,16 +264,17 @@ function htmlResult(ok: boolean, locale: string, status: number): Response {
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex"><title>${copy.title}</title>
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/brand/icons/favicon.svg" type="image/svg+xml">
 <style>
  body{margin:0;min-height:100svh;display:grid;place-items:center;padding:2rem;
-      background:#0F1E32;color:#fff;font:400 1rem/1.7 system-ui,sans-serif;text-align:center}
+      background:#081522;color:#fff;font:400 1rem/1.7 Cairo,'Segoe UI',Tahoma,sans-serif;text-align:center}
  main{max-width:34rem}
  h1{font-size:1.75rem;margin:0 0 .75rem}
- p{color:#A9BBD6;margin:0 0 2rem}
+ p{color:#DCE6F0;margin:0 0 2rem}
  a{display:inline-block;padding:.85rem 1.6rem;border-radius:10px;
-   background:#0054DE;color:#fff;text-decoration:none;font-weight:600}
- a:hover{background:#0047BE}
+   background:#CCFF00;color:#081522;text-decoration:none;font-weight:700}
+ a:hover{background:#DBFF4D}
+ a:focus-visible{outline:3px solid #fff;outline-offset:3px}
 </style>
 </head>
 <body><main>

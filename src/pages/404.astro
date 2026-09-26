@@ -21,11 +21,11 @@ const en = t('en');
     <meta name="description" content={en.notFound.seo.description} />
     <meta name="robots" content="noindex" />
     <meta name="theme-color" content="#0F1E32" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/brand/icons/favicon.svg" type="image/svg+xml" />
   </head>
   <body class="nf404">
     <main class="nf404__inner">
-      <Mark variant="on-dark" class="nf404__mark" />
+      <Mark tone="neon" class="nf404__mark" />
       <p class="nf404__code">404</p>
 
       <section lang="ar" dir="rtl" class="nf404__pane">
@@ -48,8 +48,8 @@ const en = t('en');
         min-block-size: 100svh;
         display: grid;
         place-items: center;
-        background: var(--sf-navy-900);
-        color: var(--sf-on-dark);
+        background: var(--tk-navy);
+        color: var(--tk-white);
         padding: var(--sp-6);
       }
       .nf404__inner {
@@ -63,28 +63,27 @@ const en = t('en');
       }
       .nf404__code {
         margin-block: var(--sp-5) 0;
-        font-family: var(--sf-font-latin);
+        font-family: var(--font);
         font-size: 3rem;
         font-weight: 800;
-        color: var(--sf-blue-300);
-        opacity: 0.4;
+        color: var(--tk-neon);
       }
       .nf404__pane {
         margin-block-start: var(--sp-6);
-        font-family: var(--sf-font);
+        font-family: var(--font);
       }
       .nf404__pane h1 {
         font-size: var(--fs-h2);
-        color: var(--sf-on-dark);
+        color: var(--tk-white);
       }
       .nf404__pane p {
         margin: var(--sp-3) auto var(--sp-5);
-        color: var(--sf-on-dark-muted);
+        color: var(--tk-mist);
       }
       .nf404__rule {
         margin-block-start: var(--sp-7);
         border: 0;
-        border-block-start: 1px solid var(--sf-line-on-dark);
+        border-block-start: 1px solid var(--line);
       }
     </style>
   </body>

@@ -1,13 +1,21 @@
 ---
+/**
+ * A full-width section. Navy is the brand's default canvas, so `base` is navy;
+ * `raised` is the navy-2 surface used for rhythm between two navy sections;
+ * `light` is the deliberate exception (long reading, tools).
+ *
+ * Pages alternate base/raised working back from the last section, which is
+ * always `base`, so it always meets the raised footer with a visible edge.
+ */
 interface Props {
   id?: string;
-  tone?: 'paper' | 'mist' | 'dark';
+  tone?: 'base' | 'raised' | 'light';
   tall?: boolean;
   class?: string;
   labelledBy?: string;
 }
-const { id, tone = 'paper', tall = false, class: className = '', labelledBy } = Astro.props;
-const toneClass = tone === 'dark' ? 'slide--dark' : tone === 'mist' ? 'slide--mist' : '';
+const { id, tone = 'base', tall = false, class: className = '', labelledBy } = Astro.props;
+const toneClass = tone === 'raised' ? 'tone-raised' : tone === 'light' ? 'tone-light' : '';
 ---
 
 <section
@@ -15,6 +23,7 @@ const toneClass = tone === 'dark' ? 'slide--dark' : tone === 'mist' ? 'slide--mi
   class={`slide ${toneClass} ${tall ? 'slide--tall' : ''} ${className}`}
   aria-labelledby={labelledBy}
   data-slide
+  data-tone={tone}
 >
   <div class="container">
     <slot />

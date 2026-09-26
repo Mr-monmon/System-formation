@@ -51,18 +51,17 @@ const hex = (cx: number, cy: number) =>
     z-index: 0;
   }
   /* The faint level lives on the group, because the assemble animation drives
-     each polygon's own opacity from 0 to 1 and would otherwise overwrite it. */
+     each polygon's own opacity from 0 to 1 and would otherwise overwrite it.
+     Hexagons echo the mark's own ش dots. Neon on dark, navy on light (neon is
+     never a line on a light surface). */
   .structure__cells {
-    opacity: 0.13;
+    opacity: 0.05;
   }
   /* non-scaling-stroke keeps these at a hairline however far the slice scales,
      which is what stops the motif shouting over the headline. */
   .structure polygon {
     fill: none;
-    stroke: var(--sf-blue-300);
+    stroke: var(--lattice);
     stroke-width: 1;
-  }
-  :global(.slide--dark) .structure polygon {
-    stroke: var(--sf-blue-300);
   }
 </style>
