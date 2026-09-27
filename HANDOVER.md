@@ -33,9 +33,9 @@ update BRAND.md and the business card** so the kit and the site agree.
 Each one appears in **both** `src/i18n/ar.json` and `src/i18n/en.json`. Search
 for the bracketed text and replace it in both files.
 
-| Placeholder (EN / AR) | Where it shows | Needed for |
-|---|---|---|
-| `[ANALYST COST]` / `[تكلفة المحلّل]` | Savings estimator, shown to the visitor | See §2 |
+None left. `[ANALYST COST]` / `[تكلفة المحلّل]` in the estimator's
+assumption line is not a placeholder: the page replaces it at build time with
+the figure from `src/scripts/estimator.ts` (§2).
 
 The commercial registration and VAT numbers are deliberately **not shown**
 anywhere on the site (owner's decision, 2026-09-27). The site sells nothing
@@ -43,9 +43,10 @@ online; add them back to the footer if that changes.
 
 ## 2. The savings estimator's one assumption
 
-`src/scripts/estimator.ts` assumes **SAR 25,000/month fully loaded per
-analyst**. The figure is displayed to the visitor rather than hidden in the
-maths, and the whole model is documented at the top of that file.
+`src/scripts/estimator.ts` assumes **SAR 18,000/month fully loaded per
+analyst** (confirmed by the owner, 2026-09-27). The figure is displayed to the
+visitor rather than hidden in the maths, and the whole model is documented at
+the top of that file. Change the number there and the text follows.
 
 The estimator is deliberately conservative: the result is a *range* whose lower
 bound is 65% of the modelled saving, and the whole thing is hard-capped at 60%
@@ -53,10 +54,9 @@ of the baseline, so it can never promise more than the claim the company makes
 in writing. It is labelled "Indicative" and carries "book an assessment for a
 real model" under the result.
 
-**Confirm the SAR 25,000 figure**, or tell me what to use. If you would rather
-not publish a cost-per-analyst assumption at all, the alternative is to drop
-the analyst input and ask only for current monthly spend — say the word and I
-will switch it.
+If you would rather not publish a cost-per-analyst assumption at all, the
+alternative is to drop the analyst input and ask only for current monthly
+spend — say the word and I will switch it.
 
 ## 3. Email delivery — Resend (decided)
 

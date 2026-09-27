@@ -9,8 +9,7 @@
  * Rules:
  *   - Everything here restates what the visible page already says. Nothing is
  *     added that a reader cannot see.
- *   - Placeholders ([ANALYST COST] ...) are never emitted. Add sameAs profiles
- *     once they exist.
+ *   - Add sameAs profiles (LinkedIn, X) once they exist.
  */
 import { t, path, type Locale, type RouteKey } from '../i18n';
 import { answerText } from './faq';

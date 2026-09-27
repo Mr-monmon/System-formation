@@ -12,12 +12,13 @@
  * figure, and the whole thing is hard-capped at 60% of baseline so the widget
  * can never promise more than the claim the company makes in writing.
  *
- * ANALYST_MONTHLY_COST is a placeholder: confirm it before launch. It is shown
- * to the visitor in the UI rather than hidden in the maths.
+ * ANALYST_MONTHLY_COST is the owner's figure (SAR 18,000, confirmed
+ * 2026-09-27). It is shown to the visitor in the UI rather than hidden in the
+ * maths.
  */
 export const ASSUMPTIONS = {
-  /** Fully loaded monthly cost of one analyst, in SAR. [ANALYST COST] — confirm. */
-  ANALYST_MONTHLY_COST: 25_000,
+  /** Fully loaded monthly cost of one analyst, in SAR. */
+  ANALYST_MONTHLY_COST: 18_000,
   LICENCE_RATE: 0.3,
   COVERAGE_RATE: { business: 0.3, '247': 0.4 } as const,
   OVERHEAD_RATE: 0.08,
