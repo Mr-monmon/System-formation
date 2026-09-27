@@ -35,11 +35,13 @@ for the bracketed text and replace it in both files.
 
 | Placeholder (EN / AR) | Where it shows | Needed for |
 |---|---|---|
-| `[CR NUMBER]` / `[رقم السجل التجاري]` | Footer, Privacy Policy §"Who we are" | Commercial registration number |
-| `[VAT NUMBER]` / `[الرقم الضريبي]` | Footer | VAT registration number |
 | `[CITY / ADDRESS]` / `[المدينة / العنوان]` | Contact page, footer, Privacy Policy | Registered address |
 | `[RETENTION PERIOD]` / `[مدة الاحتفاظ]` | Privacy Policy §"How long we keep it" | e.g. "24 months" — a lawyer should set this |
 | `[ANALYST COST]` / `[تكلفة المحلّل]` | Savings estimator, shown to the visitor | See §2 |
+
+The commercial registration and VAT numbers are deliberately **not shown**
+anywhere on the site (owner's decision, 2026-09-27). The site sells nothing
+online; add them back to the footer if that changes.
 
 ## 2. The savings estimator's one assumption
 

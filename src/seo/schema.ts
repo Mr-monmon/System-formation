@@ -9,7 +9,7 @@
  * Rules:
  *   - Everything here restates what the visible page already says. Nothing is
  *     added that a reader cannot see.
- *   - Placeholders ([CR NUMBER], [CITY / ADDRESS] ...) are never emitted; add
+ *   - Placeholders ([CITY / ADDRESS], [ANALYST COST] ...) are never emitted; add
  *     the street address and sameAs profiles once they exist.
  */
 import { t, path, type Locale, type RouteKey } from '../i18n';

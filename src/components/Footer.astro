@@ -58,11 +58,6 @@ const serviceLinks = copy.services.providers.items.slice(0, 4).map((s) => ({
     </div>
 
     <div class="ftr__bottom">
-      <p class="ftr__legalline">
-        <span>{copy.footer.cr}: <bdi dir="ltr">{copy.footer.crValue}</bdi></span>
-        <span aria-hidden="true">|</span>
-        <span>{copy.footer.vat}: <bdi dir="ltr">{copy.footer.vatValue}</bdi></span>
-      </p>
       <ul class="ftr__legal">
         <li><a href={path(lang, 'privacy')}>{copy.footer.privacy}</a></li>
         <li><a href={path(lang, 'terms')}>{copy.footer.terms}</a></li>
@@ -136,12 +131,6 @@ const serviceLinks = copy.services.providers.items.slice(0, 4).map((s) => ({
     justify-content: space-between;
     gap: var(--sp-4);
     font-size: var(--fs-meta);
-  }
-  .ftr__legalline {
-    display: flex;
-    gap: var(--sp-3);
-    margin: 0;
-    color: var(--text-faint);
   }
   .ftr .ftr__legal {
     display: flex;

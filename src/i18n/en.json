@@ -620,10 +620,6 @@
     "legalTitle": "Legal",
     "privacy": "Privacy Policy",
     "terms": "Terms of Use",
-    "cr": "CR No.",
-    "vat": "VAT No.",
-    "crValue": "[CR NUMBER]",
-    "vatValue": "[VAT NUMBER]",
     "rights": "System Formation Co. Ltd — شركة تشكيل النظم المحدودة"
   },
   "privacy": {
@@ -638,7 +634,7 @@
       {
         "h": "Who we are",
         "p": [
-          "System Formation Co. Ltd, trading as tashkeel tech (\"tashkeel tech\", \"we\") is a company registered in the Kingdom of Saudi Arabia, commercial registration [CR NUMBER], with its registered address at [CITY / ADDRESS]. We are the controller of the personal data described in this policy."
+          "System Formation Co. Ltd, trading as tashkeel tech (\"tashkeel tech\", \"we\") is a company registered in the Kingdom of Saudi Arabia, with its registered address at [CITY / ADDRESS]. We are the controller of the personal data described in this policy."
         ]
       },
       {
