@@ -1,0 +1,84 @@
+---
+import Slide from '../ui/Slide.astro';
+import { t, path, type Locale } from '../../i18n';
+import { answerParts } from '../../seo/faq';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const copy = t(lang);
+const f = copy.faq;
+
+// Regulatory codes (ECC-2:2024, ISO/IEC 27001, PCI DSS ...) are kept whole and
+// set left-to-right, so a line never breaks inside one and Arabic text around
+// them keeps its order. The split's capture group puts codes at odd indexes.
+const CODE = /((?:[A-Z]{2,})[A-Za-z0-9\-:/.\u00a0]*[A-Za-z0-9])/;
+const withCodes = (text: string) => text.split(CODE);
+---
+
+<Slide labelledBy="faq-title">
+  <h1 id="faq-title" data-animate>{f.hero.h1}</h1>
+  <p class="lead" data-animate data-animate-delay="0.06">{f.hero.sub}</p>
+</Slide>
+
+<!-- Each question is a heading with its answer directly under it, fully
+     visible: that is what readers scan, what search engines index, and what
+     the FAQPage structured data in Base.astro mirrors word for word. -->
+<Slide tone="raised">
+  <div class="faq">
+    {f.items.map((item) => (
+      <section class="faq__item" id={item.id} aria-labelledby={`q-${item.id}`} data-animate>
+        <h2 class="faq__q" id={`q-${item.id}`}>{item.q}</h2>
+        <p class="faq__a">
+          {answerParts(item.a).map((part) =>
+            part === '{email}' ? (
+              <a href={`mailto:${copy.common.email}`}>{copy.common.email}</a>
+            ) : part === '{phone}' ? (
+              <a href={`tel:${copy.common.phoneDial}`}><bdi dir="ltr">{copy.common.phoneDisplay}</bdi></a>
+            ) : (
+              withCodes(part).map((run, i) => (i % 2 ? <bdi dir="ltr" class="faq__code">{run}</bdi> : run))
+            ),
+          )}
+        </p>
+      </section>
+    ))}
+  </div>
+</Slide>
+
+<Slide labelledBy="faqcta-title">
+  <h2 id="faqcta-title" data-animate>{f.cta.title}</h2>
+  <p class="lead" data-animate data-animate-delay="0.05">{f.cta.body}</p>
+  <p data-animate data-animate-delay="0.1">
+    <a class="btn btn--primary" href={path(lang, 'contact')}>{f.cta.button}</a>
+  </p>
+</Slide>
+
+<style>
+  .faq {
+    max-inline-size: 52rem;
+  }
+  .faq__item {
+    padding-block: var(--sp-6);
+    border-block-end: 1px solid var(--line);
+    /* Deep links (/faq/#savings) land below the fixed header. */
+    scroll-margin-block-start: 6rem;
+  }
+  .faq__item:first-child {
+    padding-block-start: 0;
+  }
+  .faq__item:last-child {
+    border-block-end: 0;
+    padding-block-end: 0;
+  }
+  .faq__q {
+    font-size: var(--fs-h3);
+    font-weight: var(--fw-bold);
+  }
+  .faq__a {
+    margin-block-start: var(--sp-3);
+    max-inline-size: var(--measure);
+    color: var(--text-muted);
+  }
+  .faq__code {
+    white-space: nowrap;
+  }
+</style>

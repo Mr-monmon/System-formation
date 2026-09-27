@@ -10,7 +10,7 @@ const { lang, doc } = Astro.props;
 const copy = t(lang);
 const page = copy[doc];
 /** Bumped by hand whenever the text changes; shown so visitors can date it. */
-const updated = '2026-09-21';
+const updated = '2026-09-27';
 const formatted = new Intl.DateTimeFormat(lang === 'ar' ? 'ar-SA-u-nu-latn-ca-gregory' : 'en-GB', {
   year: 'numeric',
   month: 'long',

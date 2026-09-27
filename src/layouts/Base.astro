@@ -3,6 +3,7 @@ import { ClientRouter } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { t, dir, path, locales, defaultLocale, type Locale, type RouteKey } from '../i18n';
+import { buildGraph } from '../seo/schema';
 import '../styles/global.css';
 
 interface Props {
@@ -12,8 +13,10 @@ interface Props {
   description: string;
   /** Home uses a dark hero, so the page starts flush under the header. */
   flush?: boolean;
+  /** Error pages: kept out of the index, with no canonical or alternates. */
+  noindex?: boolean;
 }
-const { lang, route, title, description, flush = false } = Astro.props;
+const { lang, route, title, description, flush = false, noindex = false } = Astro.props;
 const copy = t(lang);
 const site = Astro.site ?? new URL('https://tashkeeltech.com');
 const canonical = new URL(path(lang, route), site).href;
@@ -21,21 +24,14 @@ const canonical = new URL(path(lang, route), site).href;
 const ogImage = new URL('/og/og-image.png', site).href;
 const direction = dir(lang);
 
-const organisation = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'tashkeel tech',
-  alternateName: ['تشكيل', 'شركة تشكيل النظم المحدودة'],
-  legalName: 'System Formation Co. Ltd',
-  slogan: copy.meta.tagline,
-  url: site.href,
-  logo: new URL('/brand/logo/lockup-en-on-light.png', site).href,
-  email: copy.common.email,
-  telephone: copy.common.phoneDial,
-  description: copy.footer.description,
-  address: { '@type': 'PostalAddress', addressCountry: 'SA' },
-  // Add social profiles here once they exist; an empty sameAs is just noise.
-};
+// Cloudflare Web Analytics: cookieless, no personal data, and only present when
+// the site token is set at build time (DEPLOY.md §2). The token is public by
+// design. `spa` counts ClientRouter navigations as page views.
+const analyticsToken = import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN as string | undefined;
+const analyticsBeacon = analyticsToken ? JSON.stringify({ token: analyticsToken, spa: true }) : null;
+
+const graph = buildGraph({ lang, route, title, description, site, noindex });
+
 ---
 
 <!doctype html>
@@ -45,22 +41,30 @@ const organisation = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
-
-    {locales.map((l) => (
-      <link rel="alternate" hreflang={l === 'ar' ? 'ar-SA' : 'en'} href={new URL(path(l, route), site).href} />
-    ))}
-    <link rel="alternate" hreflang="x-default" href={new URL(path(defaultLocale, route), site).href} />
+    {noindex ? (
+      <meta name="robots" content="noindex" />
+    ) : (
+      <>
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <link rel="canonical" href={canonical} />
+        {locales.map((l) => (
+          <link rel="alternate" hreflang={l === 'ar' ? 'ar-SA' : 'en'} href={new URL(path(l, route), site).href} />
+        ))}
+        <link rel="alternate" hreflang="x-default" href={new URL(path(defaultLocale, route), site).href} />
+      </>
+    )}
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={copy.meta.siteName} />
     <meta property="og:locale" content={lang === 'ar' ? 'ar_SA' : 'en_GB'} />
+    <meta property="og:locale:alternate" content={lang === 'ar' ? 'en_GB' : 'ar_SA'} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonical} />
+    {!noindex && <meta property="og:url" content={canonical} />}
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${copy.meta.siteName} — ${copy.meta.tagline}`} />
     <meta name="twitter:card" content="summary_large_image" />
 
     <meta name="theme-color" content="#081522" />
@@ -90,8 +94,16 @@ const organisation = {
       })();
     </script>
 
-    <script type="application/ld+json" set:html={JSON.stringify(organisation)} />
+    <script type="application/ld+json" set:html={JSON.stringify(graph)} />
     <ClientRouter />
+    {analyticsBeacon && (
+      <script
+        is:inline
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={analyticsBeacon}
+      ></script>
+    )}
   </head>
 
   <body class={flush ? 'is-flush' : ''}>

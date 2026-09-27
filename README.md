@@ -182,6 +182,34 @@ on the critical path of every page, font and image.
 
 ---
 
+## Search and AI assistants
+
+What the site gives search engines and AI answer engines (ChatGPT, Claude,
+Perplexity, Google AI Overviews, Copilot):
+
+| File | What it does |
+|---|---|
+| `public/robots.txt` | Welcomes search and AI crawlers by name; `Content-Signal` allows search, AI answers and training |
+| `src/pages/llms.txt.ts` | Builds `/llms.txt`, a plain-language map of the company, pages, services, frameworks and FAQ, from the same copy as the pages |
+| `src/seo/schema.ts` | One JSON-LD `@graph` per page: Organization, WebSite, the page (About/Contact/FAQ types), breadcrumbs, the services catalogue, and FAQ questions |
+| `src/components/pages/FaqPage.astro` | `/ar/faq/` and `/en/faq/`: twelve direct answers, each a heading plus a paragraph |
+| `astro.config.mjs` | Sitemap with `hreflang` alternates and `lastmod` |
+
+Rules:
+
+- **Structured data only restates the visible page.** FAQ answers render once
+  from `faq.items` in the copy files, for the page and the markup alike, so
+  they cannot disagree.
+- **No placeholders in structured data.** The street address and social
+  profiles (`sameAs`) are added to `src/seo/schema.ts` once they exist.
+- **A new page** needs its route in `src/i18n/index.ts`, its `seo` block in
+  both copy files, and its route in `PAGES` in `src/pages/llms.txt.ts`.
+
+The Cloudflare settings that decide whether AI crawlers actually get through
+are in DEPLOY.md §8.
+
+---
+
 ## Accessibility and motion
 
 - Semantic landmarks, a skip link, visible focus rings, keyboard-operable nav,
