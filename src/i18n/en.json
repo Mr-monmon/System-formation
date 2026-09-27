@@ -659,7 +659,7 @@
       {
         "h": "How long we keep it",
         "p": [
-          "Enquiries are retained for [RETENTION PERIOD] from the last contact, after which they are deleted or anonymised. Where an enquiry becomes a contract, the related records are retained under the retention period required by Saudi commercial and tax law."
+          "Enquiries are retained for 12 months from the last contact, after which they are deleted or anonymised. Where an enquiry becomes a contract, the related records are retained under the retention period required by Saudi commercial and tax law."
         ]
       },
       {

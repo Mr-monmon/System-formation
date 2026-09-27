@@ -35,7 +35,6 @@ for the bracketed text and replace it in both files.
 
 | Placeholder (EN / AR) | Where it shows | Needed for |
 |---|---|---|
-| `[RETENTION PERIOD]` / `[مدة الاحتفاظ]` | Privacy Policy §"How long we keep it" | e.g. "24 months" — a lawyer should set this |
 | `[ANALYST COST]` / `[تكلفة المحلّل]` | Savings estimator, shown to the visitor | See §2 |
 
 The commercial registration and VAT numbers are deliberately **not shown**
@@ -131,7 +130,8 @@ the tashkeeltech.com zone now.
 (owner's decision, 2026-09-27). The privacy policy is written around PDPL
 principles (what the form collects, why, retention, transfer conditions, data
 subject rights, SDAIA as the complaint route). A review by a qualified Saudi
-lawyer is still recommended, and `[RETENTION PERIOD]` still needs a value.
+lawyer is still recommended. Enquiries are kept for 12 months from the last
+contact (owner's decision, 2026-09-27).
 
 ## 8. Regulatory framework versions
 
