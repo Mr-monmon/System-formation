@@ -9,7 +9,8 @@
  * Rules:
  *   - Everything here restates what the visible page already says. Nothing is
  *     added that a reader cannot see.
- *   - Add sameAs profiles (LinkedIn, X) once they exist.
+ *   - sameAs lists the company's own profiles (LinkedIn today); add others
+ *     to common.* in the copy files as they are created.
  */
 import { t, path, type Locale, type RouteKey } from '../i18n';
 import { answerText } from './faq';
@@ -84,7 +85,8 @@ export function buildGraph({ lang, route, title, description, site, noindex = fa
       areaServed: 'SA',
       availableLanguage: ['Arabic', 'English'],
     },
-    // Add social profiles here once they exist; an empty sameAs is just noise.
+    // The company's own profiles elsewhere; add X and others as they are created.
+    sameAs: [copy.common.linkedin],
   };
 
   const website = {

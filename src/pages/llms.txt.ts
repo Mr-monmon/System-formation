@@ -49,6 +49,7 @@ export const GET: APIRoute = ({ site }) => {
     `- Email: ${en.common.email}`,
     `- Phone: ${en.common.phoneDisplay}`,
     `- Address: ${en.common.address} (${ar.common.address})`,
+    `- LinkedIn: ${en.common.linkedin}`,
     `- Savings claim: ${en.home.savings.cap} of operating cost for service providers. ${en.home.savings.footnote}`,
     `- ${en.compliance.disclaimer}`,
     '',
