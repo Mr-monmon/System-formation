@@ -154,9 +154,10 @@ endorsed by any authority named on it.
 
 - **Analytics**: Cloudflare Web Analytics is wired in and switches on with
   `PUBLIC_CF_ANALYTICS_TOKEN` (DEPLOY.md §8.1). The Privacy Policy now says so.
-- **Social profiles**: `sameAs` in the Organization JSON-LD is empty. Send me
-  the LinkedIn/X URLs; they are one of the strongest signals that tie the
-  brand together for search and AI engines.
+- **Social profiles**: LinkedIn (`linkedin.com/company/tashkeeltech`) is in
+  the footer, in `sameAs` in the Organization JSON-LD, and in `llms.txt`.
+  Send me any other official profiles (X and so on) and they go in the same
+  places — they tie the brand together for search and AI engines.
 - **AI training**: `robots.txt` allows search, AI answers *and* model
   training (`ai-train=yes`), which helps the brand appear in AI assistants'
   own knowledge. Say if you would rather opt out of training only.

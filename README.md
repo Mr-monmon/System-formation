@@ -199,8 +199,8 @@ Rules:
 - **Structured data only restates the visible page.** FAQ answers render once
   from `faq.items` in the copy files, for the page and the markup alike, so
   they cannot disagree.
-- **No placeholders in structured data.** The street address and social
-  profiles (`sameAs`) are added to `src/seo/schema.ts` once they exist.
+- **No placeholders in structured data.** Social profiles live in `common.*`
+  in the copy files and feed the footer, `sameAs` and `llms.txt` together.
 - **A new page** needs its route in `src/i18n/index.ts`, its `seo` block in
   both copy files, and its route in `PAGES` in `src/pages/llms.txt.ts`.
 
