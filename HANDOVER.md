@@ -35,7 +35,6 @@ for the bracketed text and replace it in both files.
 
 | Placeholder (EN / AR) | Where it shows | Needed for |
 |---|---|---|
-| `[CITY / ADDRESS]` / `[المدينة / العنوان]` | Contact page, footer, Privacy Policy | Registered address |
 | `[RETENTION PERIOD]` / `[مدة الاحتفاظ]` | Privacy Policy §"How long we keep it" | e.g. "24 months" — a lawyer should set this |
 | `[ANALYST COST]` / `[تكلفة المحلّل]` | Savings estimator, shown to the visitor | See §2 |
 
@@ -128,10 +127,11 @@ the tashkeeltech.com zone now.
 
 ## 7. Legal review
 
-`/privacy/` and `/terms/` are drafts and say so on the page, in both languages.
-The privacy policy is written around PDPL principles (what the form collects,
-why, retention, transfer conditions, data subject rights, SDAIA as the
-complaint route). **A qualified Saudi lawyer must review both before launch.**
+`/privacy/` and `/terms/` no longer carry the "draft for legal review" notice
+(owner's decision, 2026-09-27). The privacy policy is written around PDPL
+principles (what the form collects, why, retention, transfer conditions, data
+subject rights, SDAIA as the complaint route). A review by a qualified Saudi
+lawyer is still recommended, and `[RETENTION PERIOD]` still needs a value.
 
 ## 8. Regulatory framework versions
 
@@ -162,8 +162,9 @@ endorsed by any authority named on it.
   own knowledge. Say if you would rather opt out of training only.
 - **FAQ wording**: `/ar/faq/` and `/en/faq/` restate facts already on the
   site. Read them once as the company's official answers.
-- **Street address**: once `[CITY / ADDRESS]` is filled in, it also goes into
-  the structured data, and a Google Business Profile becomes worthwhile.
+- **Google Business Profile**: the address (Olaya Street, Riyadh) is now on
+  the site and in the structured data. A Business Profile with the same name,
+  address and phone strengthens local search and map results.
 - **A story for the mark**: the brand book explains the symbol — the T of
   Tashkeel, the three ش dots as hexagonal cubes, the two halves of a shield.
   It would make a strong short section on the About page. Not added, since it

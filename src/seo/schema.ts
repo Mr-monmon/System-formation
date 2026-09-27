@@ -9,8 +9,8 @@
  * Rules:
  *   - Everything here restates what the visible page already says. Nothing is
  *     added that a reader cannot see.
- *   - Placeholders ([CITY / ADDRESS], [ANALYST COST] ...) are never emitted; add
- *     the street address and sameAs profiles once they exist.
+ *   - Placeholders ([ANALYST COST] ...) are never emitted. Add sameAs profiles
+ *     once they exist.
  */
 import { t, path, type Locale, type RouteKey } from '../i18n';
 import { answerText } from './faq';
@@ -68,7 +68,13 @@ export function buildGraph({ lang, route, title, description, site, noindex = fa
     description: copy.footer.description,
     email: copy.common.email,
     telephone: copy.common.phoneDial,
-    address: { '@type': 'PostalAddress', addressCountry: 'SA' },
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: lang === 'ar' ? 'شارع العليا' : 'Olaya Street',
+      addressLocality: lang === 'ar' ? 'الرياض' : 'Riyadh',
+      addressRegion: lang === 'ar' ? 'منطقة الرياض' : 'Riyadh Region',
+      addressCountry: 'SA',
+    },
     areaServed: country,
     knowsAbout: [...services.map((s) => s.name), ...frameworks],
     contactPoint: {

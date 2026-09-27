@@ -21,7 +21,6 @@ const formatted = new Intl.DateTimeFormat(lang === 'ar' ? 'ar-SA-u-nu-latn-ca-gr
 <Slide tone="light">
   <article class="legal">
     <h1>{page.h1}</h1>
-    <p class="legal__draft">{page.draftNotice}</p>
     <p class="legal__updated">{page.updated}: <time datetime={updated}>{formatted}</time></p>
 
     {page.sections.map((section) => (
@@ -36,20 +35,8 @@ const formatted = new Intl.DateTimeFormat(lang === 'ar' ? 'ar-SA-u-nu-latn-ca-gr
 <style>
   .legal { max-inline-size: 46rem; }
   .legal h1 { font-size: var(--fs-h1); }
-  .legal__draft {
-    margin-block-start: var(--sp-5);
-    padding: var(--sp-4) var(--sp-5);
-    background: var(--accent-tint);
-    border-inline-start: 3px solid var(--accent);
-    border-radius: 0 var(--radius) var(--radius) 0;
-    font-size: var(--fs-small);
-    font-weight: var(--fw-medium);
-    color: var(--text);
-    max-inline-size: none;
-  }
-  :global([dir='rtl']) .legal__draft { border-radius: var(--radius) 0 0 var(--radius); }
   .legal__updated {
-    margin-block-start: var(--sp-4);
+    margin-block-start: var(--sp-5);
     font-size: var(--fs-meta);
     color: var(--text-faint);
   }
