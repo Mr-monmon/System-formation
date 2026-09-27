@@ -88,6 +88,7 @@ and Preview both. The build-time vs runtime distinction matters — see
 | Variable | Kind | Notes |
 |---|---|---|
 | `PUBLIC_TURNSTILE_SITE_KEY` | build-time, plaintext | Baked into the HTML; needs a redeploy to take effect |
+| `PUBLIC_CF_ANALYTICS_TOKEN` | build-time, plaintext | Web Analytics token, Production only — DEPLOY.md §8.1 |
 | `TURNSTILE_SECRET_KEY` | runtime, encrypted | Without it the bot check is skipped |
 | `RESEND_API_KEY` | runtime, encrypted | Without it no email is sent |
 | `CONTACT_TO` / `CONTACT_FROM` | runtime, plaintext | `CONTACT_FROM` must be on the Resend-verified domain |
@@ -149,11 +150,18 @@ endorsed by any authority named on it.
 
 ## 9. Optional / your call
 
-- **Analytics**: none installed, by design. If you want it, Cloudflare Web
-  Analytics is cookieless and needs one script tag plus a CSP entry. Ask and I
-  will add it.
+- **Analytics**: Cloudflare Web Analytics is wired in and switches on with
+  `PUBLIC_CF_ANALYTICS_TOKEN` (DEPLOY.md §8.1). The Privacy Policy now says so.
 - **Social profiles**: `sameAs` in the Organization JSON-LD is empty. Send me
-  LinkedIn/X URLs and I will add them.
+  the LinkedIn/X URLs; they are one of the strongest signals that tie the
+  brand together for search and AI engines.
+- **AI training**: `robots.txt` allows search, AI answers *and* model
+  training (`ai-train=yes`), which helps the brand appear in AI assistants'
+  own knowledge. Say if you would rather opt out of training only.
+- **FAQ wording**: `/ar/faq/` and `/en/faq/` restate facts already on the
+  site. Read them once as the company's official answers.
+- **Street address**: once `[CITY / ADDRESS]` is filled in, it also goes into
+  the structured data, and a Google Business Profile becomes worthwhile.
 - **A story for the mark**: the brand book explains the symbol — the T of
   Tashkeel, the three ش dots as hexagonal cubes, the two halves of a shield.
   It would make a strong short section on the About page. Not added, since it

@@ -117,9 +117,10 @@ Two kinds, and the difference matters:
 | Variable | Value |
 |---|---|
 | `PUBLIC_TURNSTILE_SITE_KEY` | Turnstile **site** key (see §4) |
+| `PUBLIC_CF_ANALYTICS_TOKEN` | Cloudflare Web Analytics site token (see §8.1). **Production only**, so previews do not count as visits |
 
-Astro bakes this into the HTML at build time. It is public by design. **A change
-only takes effect after a rebuild** — set it, then redeploy.
+Astro bakes these into the HTML at build time. They are public by design. **A
+change only takes effect after a rebuild** — set it, then redeploy.
 
 ### Runtime — encrypted (select "Encrypt")
 
@@ -239,6 +240,72 @@ its preview before merging:
   redirects now.
 - **Search Console**: covered in §0.5 — new property, sitemap, Change of
   Address.
+
+---
+
+## 8. Analytics, search engines and AI assistants
+
+### 8.1 Cloudflare Web Analytics
+
+Cookieless and stores nothing on the visitor's device. The beacon is in the
+code already and switches on when the token is set:
+
+1. **Analytics & Logs → Web Analytics → Add a site** → `tashkeeltech.com`.
+2. If Cloudflare offers to inject the script automatically, decline and take
+   the **JavaScript snippet** instead. The site adds the snippet itself, and
+   the CSP only allows the beacon when the build includes it — an injected
+   copy would be blocked, or counted twice.
+3. From the snippet, copy only the value after `"token":`.
+4. Pages → Settings → Environment variables → **Production** → add
+   `PUBLIC_CF_ANALYTICS_TOKEN` with that value → redeploy.
+
+Check: the page source now ends its `<head>` with
+`static.cloudflareinsights.com/beacon.min.js`, and visits appear in the Web
+Analytics dashboard within minutes. Client-side page changes are counted too.
+
+### 8.2 Let search and AI crawlers in
+
+The site's own `robots.txt` welcomes search engines and AI assistants
+(OpenAI, Anthropic, Perplexity, Google, Apple and others) and declares, with a
+`Content-Signal` line, that the content may be used for search, AI answers and
+model training. Cloudflare can override that at the edge, so on the
+**tashkeeltech.com** zone:
+
+- **AI crawler blocking** (Security settings / AI Crawl Control): since
+  15 September 2026 Cloudflare blocks AI training and agent crawlers by default
+  on new domains and free plans in some configurations. Set it to **allow**.
+  Blocking training traffic can also block Googlebot, Bingbot and Applebot,
+  because Cloudflare treats them as mixed-purpose crawlers.
+- **Managed robots.txt**: turn it **off**. The repository's `robots.txt` is the
+  source of truth; the managed one prepends its own rules to it.
+- **Bot Fight Mode**: leave verified bots allowed (the default).
+
+Check: `https://tashkeeltech.com/robots.txt` must match `public/robots.txt`
+exactly, with nothing added above it. The dashboard labels for these settings
+move often; they are described here by what they do.
+
+To keep search and AI answers but opt out of training, change
+`ai-train=yes` to `ai-train=no` in `public/robots.txt`.
+
+### 8.3 Search engines
+
+- **Google Search Console**: add a *Domain* property for `tashkeeltech.com`
+  (verify with the DNS TXT record — Cloudflare can add it for you), submit
+  `https://tashkeeltech.com/sitemap-index.xml`, then run **Change of Address**
+  from the systemformation.com property.
+- **Bing Webmaster Tools**: import the site from Search Console and submit the
+  same sitemap. Bing's index also feeds Microsoft Copilot and other AI search
+  products.
+- **Crawler Hints** (Caching → Configuration): turn on. Cloudflare then tells
+  IndexNow-compatible engines when a page changes, instead of waiting for a
+  recrawl.
+
+### 8.4 Check the markup
+
+- [Rich Results Test](https://search.google.com/test/rich-results) and the
+  [Schema Markup Validator](https://validator.schema.org/) on `/en/faq/`,
+  `/ar/faq/` and `/en/services/`.
+- `https://tashkeeltech.com/llms.txt` loads as plain text with readable Arabic.
 
 ---
 

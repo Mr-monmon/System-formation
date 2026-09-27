@@ -30,6 +30,7 @@ export const routes = {
   compliance: 'compliance',
   about: 'about',
   contact: 'contact',
+  faq: 'faq',
   privacy: 'privacy',
   terms: 'terms',
 } as const;
@@ -49,6 +50,9 @@ export function alternates(route: RouteKey) {
 
 /** Main navigation, in order. */
 export const navRoutes: RouteKey[] = ['home', 'partner', 'services', 'compliance', 'about', 'contact'];
+
+/** The footer's site list: the main navigation plus pages too small for the header. */
+export const footerRoutes: RouteKey[] = [...navRoutes, 'faq'];
 
 /** Formats an integer with Western Arabic digits and thin grouping, in both languages. */
 export function formatNumber(value: number, lang: Locale): string {

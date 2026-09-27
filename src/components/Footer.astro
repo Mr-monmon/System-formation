@@ -1,6 +1,6 @@
 ---
 import Logo from './ui/Logo.astro';
-import { t, path, navRoutes, type Locale } from '../i18n';
+import { t, path, footerRoutes, type Locale } from '../i18n';
 
 interface Props {
   lang: Locale;
@@ -27,7 +27,7 @@ const serviceLinks = copy.services.providers.items.slice(0, 4).map((s) => ({
       <nav class="ftr__col" aria-label={copy.footer.navTitle}>
         <h2 class="ftr__h">{copy.footer.navTitle}</h2>
         <ul>
-          {navRoutes.map((key) => (
+          {footerRoutes.map((key) => (
             <li><a href={path(lang, key)}>{navLabels[key]}</a></li>
           ))}
         </ul>

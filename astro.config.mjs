@@ -21,6 +21,8 @@ export default defineConfig({
       // redirect that the Worker owns, not a page to be indexed.
       filter: (page) =>
         !page.includes('/404') && new URL(page).pathname !== '/',
+      // The build date: every page is rebuilt from the same copy on each deploy.
+      lastmod: new Date(),
     }),
   ],
   // One stylesheet for the whole site, inlined into the document: on a slow

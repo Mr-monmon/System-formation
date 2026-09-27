@@ -16,6 +16,7 @@
     "compliance": "Compliance",
     "about": "About",
     "contact": "Contact",
+    "faq": "FAQ",
     "cta": "Talk to our team",
     "switchTo": "العربية",
     "switchLabel": "Switch the site to Arabic",
@@ -39,8 +40,8 @@
   },
   "home": {
     "seo": {
-      "title": "tashkeel tech — the security operations backbone behind service providers",
-      "description": "A Master Security Service Provider in Saudi Arabia. We supply the licences, certified analysts and platforms that managed security providers run on — delivered under your brand."
+      "title": "tashkeel tech — Saudi Master Security Service Provider for MSSPs",
+      "description": "Saudi Master Security Service Provider: pooled licences, certified SOC analysts and ready platforms that managed security providers deliver under their own brand."
     },
     "hero": {
       "h1": "The security operations backbone behind service providers.",
@@ -167,7 +168,7 @@
   "partner": {
     "seo": {
       "title": "Partner model — white-label security delivery | tashkeel tech",
-      "description": "You own the client, the contract and the brand. We provide the licences, the certified team and the platforms — white-labelled, under SLA, delivered from Saudi Arabia."
+      "description": "You own the client, the contract and the brand. We provide the licences, the certified team and the platforms — white-labelled, under SLA, from Saudi Arabia."
     },
     "hero": {
       "h1": "Your brand in front. Our capacity behind.",
@@ -233,7 +234,7 @@
   "services": {
     "seo": {
       "title": "Services — licensing, talent, white-label SOC | tashkeel tech",
-      "description": "Licensing as a service, security talent on demand, white-label SOC, shared platforms, surge capacity and compliance delivery kits — plus managed security for organisations."
+      "description": "Licensing as a service, talent on demand, white-label SOC, shared platforms, surge capacity and compliance kits — plus managed security for organisations."
     },
     "hero": {
       "h1": "Capacity you can draw on.",
@@ -315,7 +316,7 @@
   "compliance": {
     "seo": {
       "title": "Compliance — NCA, SAMA, PDPL and CST | tashkeel tech",
-      "description": "The Saudi and international frameworks our delivery is built around: NCA ECC, CCC, DCC, CSCC and OTCC, SAMA CSF, PDPL, CST requirements, ISO/IEC 27001, ISO 22301, PCI DSS and NIST CSF."
+      "description": "Delivery built around NCA ECC, CCC, DCC, CSCC and OTCC, SAMA CSF, PDPL, CST frameworks, ISO/IEC 27001, ISO 22301, PCI DSS and NIST CSF."
     },
     "hero": {
       "h1": "The frameworks your clients answer to.",
@@ -534,6 +535,83 @@
       "fallback": "You can also email us directly at info@systemformation.com or message us on WhatsApp."
     }
   },
+  "faq": {
+    "seo": {
+      "title": "FAQ — white-label SOC, MSSP partnership and compliance | tashkeel tech",
+      "description": "What a Master Security Service Provider does, who it serves, savings of up to 60%, white-label delivery, 24/7 monitoring and the Saudi frameworks we work to."
+    },
+    "hero": {
+      "h1": "Questions we are asked most.",
+      "sub": "Short, direct answers about the partner model, our services and the frameworks we work to. For anything else, talk to the team."
+    },
+    "items": [
+      {
+        "id": "what-is-tashkeel-tech",
+        "q": "What is tashkeel tech?",
+        "a": "tashkeel tech is the cybersecurity brand of System Formation Co. Ltd, a Saudi company. It is a Master Security Service Provider: it supplies the licences, certified analysts and platforms that managed security providers run on, delivered under the provider's own brand. It also runs managed security and compliance directly for organisations."
+      },
+      {
+        "id": "master-security-service-provider",
+        "q": "What does a Master Security Service Provider do?",
+        "a": "It carries the fixed costs of a security practice once and shares them across partners. tashkeel tech aggregates licences, people and platforms, so each provider pays only for the capacity it actually uses. The provider keeps the client relationship and the brand, and tashkeel tech runs the operations behind it."
+      },
+      {
+        "id": "who-it-is-for",
+        "q": "Who are your services for?",
+        "a": "Managed security service providers that want to scale delivery without adding fixed cost ahead of their contracts, system integrators adding security services without building a SOC first, cybersecurity consultancies that need delivery capacity for engagements they have already won, and organisations that want managed security and compliance for their own environment."
+      },
+      {
+        "id": "savings",
+        "q": "How much can a service provider save?",
+        "a": "Up to 60% of operating cost. The saving comes from four fixed costs that stop being carried alone: pooled licensing, shared talent, no hiring overhead and ready platforms. Savings vary by scope, volumes and current setup, and we model your numbers during the assessment."
+      },
+      {
+        "id": "white-label",
+        "q": "Is the service delivered under my brand?",
+        "a": "Yes. Reports, portals and client communications carry your brand, not ours. You own the client, the contract and the brand, and you stay the single point of contact for your client. We do not compete with the partners we carry."
+      },
+      {
+        "id": "services",
+        "q": "Which services do you offer?",
+        "a": "For service providers: licensing as a service, security talent on demand, a white-label SOC, shared platforms and tooling, surge and overflow capacity, and compliance delivery kits. For organisations: managed security services, regulatory compliance, assessments and testing, and a virtual CISO."
+      },
+      {
+        "id": "monitoring",
+        "q": "Do you provide 24/7 monitoring?",
+        "a": "Yes. The white-label SOC provides monitoring, detection and response around the clock under your brand, with alerts triaged, escalated and closed against the SLA you have promised your client. Organisations can take a 24/7 security operations centre directly as a managed service."
+      },
+      {
+        "id": "frameworks",
+        "q": "Which regulatory frameworks do you work to?",
+        "a": "The National Cybersecurity Authority controls (ECC-2:2024, CCC-2:2024, DCC-1:2022, CSCC-1:2019 and OTCC-1:2022), the Saudi Central Bank Cyber Security and Business Continuity frameworks, the Personal Data Protection Law and its implementing regulations, and the CST CCRF and CRF (RT08), plus ISO/IEC 27001, ISO 22301, PCI DSS and NIST CSF. tashkeel tech is not a regulator, and is not certified, accredited or endorsed by any of these authorities."
+      },
+      {
+        "id": "local-delivery",
+        "q": "Where is delivery based, and in which languages?",
+        "a": "Operations are Saudi-based and delivered from inside the Kingdom, in Arabic and English. Compliance evidence and policy templates are available in both languages."
+      },
+      {
+        "id": "data-protection",
+        "q": "How is partner and client data protected?",
+        "a": "Data handling is aligned to the Personal Data Protection Law (PDPL) and the NCA Data Cybersecurity Controls. Partner and client information is segregated and stays that way."
+      },
+      {
+        "id": "onboarding",
+        "q": "How does onboarding work?",
+        "a": "In five stages. Discovery: we review your current stack, contracts and team. Model: we design the shared-capacity mix and show the cost difference in numbers. Onboard: licences, tenants, playbooks and people go live under your brand. Operate: we run operations under SLA. Optimise: quarterly reviews right-size capacity and cost. You can stop after the second stage if the numbers do not work."
+      },
+      {
+        "id": "getting-started",
+        "q": "How do I get started?",
+        "a": "Book a discovery call through the contact page, email {email} or call {phone}. Tell us what you run today and we will come back with a model. We reply within one business day."
+      }
+    ],
+    "cta": {
+      "title": "Still have a question?",
+      "body": "A short call is enough to answer it against your own setup.",
+      "button": "Talk to our team"
+    }
+  },
   "footer": {
     "description": "A Saudi Master Security Service Provider: pooled licences, certified people and ready platforms, delivered under your brand.",
     "navTitle": "Site",
@@ -551,7 +629,7 @@
   "privacy": {
     "seo": {
       "title": "Privacy Policy | tashkeel tech",
-      "description": "How System Formation Co. Ltd, trading as tashkeel tech, collects, uses and protects personal data submitted through this website, aligned to the Saudi Personal Data Protection Law."
+      "description": "How System Formation Co. Ltd (tashkeel tech) collects, uses and protects personal data submitted through this website, in line with the Saudi PDPL."
     },
     "h1": "Privacy Policy",
     "draftNotice": "Draft for legal review. This policy has been prepared as a starting point and must be reviewed by qualified counsel before launch.",
@@ -567,7 +645,7 @@
         "h": "What we collect",
         "p": [
           "When you submit the contact form we collect the name, company, email address, phone number, the audience and interest you select, and the content of your message.",
-          "Our hosting provider processes technical information needed to deliver the site securely, including IP address and request metadata. We do not use advertising or behavioural tracking cookies, and we do not embed third-party trackers."
+          "Our hosting provider processes technical information needed to deliver the site securely, including IP address and request metadata. We measure visits with Cloudflare Web Analytics, which counts page views without cookies and without storing any identifier on your device. We do not use advertising or behavioural tracking cookies, and we do not embed advertising or social media trackers."
         ]
       },
       {
@@ -635,7 +713,7 @@
       {
         "h": "Acceptable use",
         "p": [
-          "Do not use this site to attempt unauthorised access, disrupt its availability, submit unlawful or harmful content, or extract data by automated means beyond ordinary search engine indexing. We may restrict access where we reasonably believe this has happened.",
+          "Do not use this site to attempt unauthorised access, disrupt its availability, submit unlawful or harmful content, or extract data by automated means, other than indexing by search engines and AI search or assistant services that follow this site's robots.txt. We may restrict access where we reasonably believe this has happened.",
           "If you believe you have found a security issue in this website, please report it to info@systemformation.com rather than testing further."
         ]
       },

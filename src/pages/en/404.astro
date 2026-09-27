@@ -7,6 +7,6 @@ const lang = 'en' as const;
 const copy = t(lang);
 ---
 
-<Base lang={lang} route="home" title={copy.notFound.seo.title} description={copy.notFound.seo.description}>
+<Base lang={lang} route="home" title={copy.notFound.seo.title} description={copy.notFound.seo.description} noindex>
   <NotFoundPage lang={lang} />
 </Base>

@@ -24,7 +24,7 @@ const widths = [
   { name: '1280', width: 1280, height: 900 },
   { name: '1920', width: 1920, height: 1080 },
 ];
-const pages = ['', 'partner-model/', 'services/', 'compliance/', 'about/', 'contact/', 'privacy/', 'terms/', '404/'];
+const pages = ['', 'partner-model/', 'services/', 'compliance/', 'about/', 'faq/', 'contact/', 'privacy/', 'terms/', '404/'];
 const langs = ['ar', 'en'];
 const filter = process.argv.slice(2);
 const wanted = (lang, slug) => !filter.length || filter.some((f) => `${lang}/${slug}`.includes(f));
