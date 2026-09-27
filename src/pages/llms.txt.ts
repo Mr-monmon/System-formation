@@ -48,6 +48,7 @@ export const GET: APIRoute = ({ site }) => {
     `- Website: ${abs('/')} (Arabic at ${abs('/ar/')}, English at ${abs('/en/')})`,
     `- Email: ${en.common.email}`,
     `- Phone: ${en.common.phoneDisplay}`,
+    `- Address: ${en.common.address} (${ar.common.address})`,
     `- Savings claim: ${en.home.savings.cap} of operating cost for service providers. ${en.home.savings.footnote}`,
     `- ${en.compliance.disclaimer}`,
     '',

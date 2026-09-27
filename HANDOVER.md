@@ -33,11 +33,9 @@ update BRAND.md and the business card** so the kit and the site agree.
 Each one appears in **both** `src/i18n/ar.json` and `src/i18n/en.json`. Search
 for the bracketed text and replace it in both files.
 
-| Placeholder (EN / AR) | Where it shows | Needed for |
-|---|---|---|
-| `[CITY / ADDRESS]` / `[المدينة / العنوان]` | Contact page, footer, Privacy Policy | Registered address |
-| `[RETENTION PERIOD]` / `[مدة الاحتفاظ]` | Privacy Policy §"How long we keep it" | e.g. "24 months" — a lawyer should set this |
-| `[ANALYST COST]` / `[تكلفة المحلّل]` | Savings estimator, shown to the visitor | See §2 |
+None left. `[ANALYST COST]` / `[تكلفة المحلّل]` in the estimator's
+assumption line is not a placeholder: the page replaces it at build time with
+the figure from `src/scripts/estimator.ts` (§2).
 
 The commercial registration and VAT numbers are deliberately **not shown**
 anywhere on the site (owner's decision, 2026-09-27). The site sells nothing
@@ -45,9 +43,10 @@ online; add them back to the footer if that changes.
 
 ## 2. The savings estimator's one assumption
 
-`src/scripts/estimator.ts` assumes **SAR 25,000/month fully loaded per
-analyst**. The figure is displayed to the visitor rather than hidden in the
-maths, and the whole model is documented at the top of that file.
+`src/scripts/estimator.ts` assumes **SAR 18,000/month fully loaded per
+analyst** (confirmed by the owner, 2026-09-27). The figure is displayed to the
+visitor rather than hidden in the maths, and the whole model is documented at
+the top of that file. Change the number there and the text follows.
 
 The estimator is deliberately conservative: the result is a *range* whose lower
 bound is 65% of the modelled saving, and the whole thing is hard-capped at 60%
@@ -55,10 +54,9 @@ of the baseline, so it can never promise more than the claim the company makes
 in writing. It is labelled "Indicative" and carries "book an assessment for a
 real model" under the result.
 
-**Confirm the SAR 25,000 figure**, or tell me what to use. If you would rather
-not publish a cost-per-analyst assumption at all, the alternative is to drop
-the analyst input and ask only for current monthly spend — say the word and I
-will switch it.
+If you would rather not publish a cost-per-analyst assumption at all, the
+alternative is to drop the analyst input and ask only for current monthly
+spend — say the word and I will switch it.
 
 ## 3. Email delivery — Resend (decided)
 
@@ -128,10 +126,12 @@ the tashkeeltech.com zone now.
 
 ## 7. Legal review
 
-`/privacy/` and `/terms/` are drafts and say so on the page, in both languages.
-The privacy policy is written around PDPL principles (what the form collects,
-why, retention, transfer conditions, data subject rights, SDAIA as the
-complaint route). **A qualified Saudi lawyer must review both before launch.**
+`/privacy/` and `/terms/` no longer carry the "draft for legal review" notice
+(owner's decision, 2026-09-27). The privacy policy is written around PDPL
+principles (what the form collects, why, retention, transfer conditions, data
+subject rights, SDAIA as the complaint route). A review by a qualified Saudi
+lawyer is still recommended. Enquiries are kept for 12 months from the last
+contact (owner's decision, 2026-09-27).
 
 ## 8. Regulatory framework versions
 
@@ -162,8 +162,9 @@ endorsed by any authority named on it.
   own knowledge. Say if you would rather opt out of training only.
 - **FAQ wording**: `/ar/faq/` and `/en/faq/` restate facts already on the
   site. Read them once as the company's official answers.
-- **Street address**: once `[CITY / ADDRESS]` is filled in, it also goes into
-  the structured data, and a Google Business Profile becomes worthwhile.
+- **Google Business Profile**: the address (Olaya Street, Riyadh) is now on
+  the site and in the structured data. A Business Profile with the same name,
+  address and phone strengthens local search and map results.
 - **A story for the mark**: the brand book explains the symbol — the T of
   Tashkeel, the three ش dots as hexagonal cubes, the two halves of a shield.
   It would make a strong short section on the About page. Not added, since it

@@ -34,7 +34,7 @@
     "addressLabel": "Address",
     "emailLabel": "Email",
     "phoneLabel": "Phone",
-    "address": "[CITY / ADDRESS]",
+    "address": "Olaya Street, Riyadh, Saudi Arabia",
     "slideNavLabel": "Sections on this page",
     "goToSlide": "Go to section"
   },
@@ -628,13 +628,12 @@
       "description": "How System Formation Co. Ltd (tashkeel tech) collects, uses and protects personal data submitted through this website, in line with the Saudi PDPL."
     },
     "h1": "Privacy Policy",
-    "draftNotice": "Draft for legal review. This policy has been prepared as a starting point and must be reviewed by qualified counsel before launch.",
     "updated": "Last updated",
     "sections": [
       {
         "h": "Who we are",
         "p": [
-          "System Formation Co. Ltd, trading as tashkeel tech (\"tashkeel tech\", \"we\") is a company registered in the Kingdom of Saudi Arabia, with its registered address at [CITY / ADDRESS]. We are the controller of the personal data described in this policy."
+          "System Formation Co. Ltd, trading as tashkeel tech (\"tashkeel tech\", \"we\") is a company registered in the Kingdom of Saudi Arabia, with its registered address on Olaya Street, Riyadh. We are the controller of the personal data described in this policy."
         ]
       },
       {
@@ -660,7 +659,7 @@
       {
         "h": "How long we keep it",
         "p": [
-          "Enquiries are retained for [RETENTION PERIOD] from the last contact, after which they are deleted or anonymised. Where an enquiry becomes a contract, the related records are retained under the retention period required by Saudi commercial and tax law."
+          "Enquiries are retained for 12 months from the last contact, after which they are deleted or anonymised. Where an enquiry becomes a contract, the related records are retained under the retention period required by Saudi commercial and tax law."
         ]
       },
       {
@@ -691,7 +690,6 @@
       "description": "The terms that apply to your use of the tashkeel tech website, operated by System Formation Co. Ltd."
     },
     "h1": "Terms of Use",
-    "draftNotice": "Draft for legal review. These terms have been prepared as a starting point and must be reviewed by qualified counsel before launch.",
     "updated": "Last updated",
     "sections": [
       {
