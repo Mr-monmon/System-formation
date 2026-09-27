@@ -177,7 +177,7 @@ async function deliver(submission: Submission, env: Env): Promise<{ ok: boolean;
     return { ok: false, reason: 'RESEND_API_KEY is not set' };
   }
 
-  const to = env.CONTACT_TO ?? 'info@systemformation.com';
+  const to = env.CONTACT_TO ?? 'info@tashkeeltech.com';
   const from = env.CONTACT_FROM ?? 'tashkeel tech <website@tashkeeltech.com>';
   const label = (en: string, ar: string) => (submission.locale === 'ar' ? ar : en);
 
@@ -254,8 +254,8 @@ function htmlResult(ok: boolean, locale: string, status: number): Response {
     : {
         title: ar ? 'لم تُرسل الرسالة.' : 'The message did not send.',
         body: ar
-          ? 'راسلنا مباشرة على info@systemformation.com أو عبر واتساب، ولن تضيع رسالتك.'
-          : 'Email info@systemformation.com or message us on WhatsApp instead — your message is not lost.',
+          ? 'راسلنا مباشرة على info@tashkeeltech.com أو عبر واتساب، ولن تضيع رسالتك.'
+          : 'Email info@tashkeeltech.com or message us on WhatsApp instead — your message is not lost.',
       };
   const back = ar ? 'العودة إلى الموقع' : 'Back to the site';
 

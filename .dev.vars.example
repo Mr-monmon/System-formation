@@ -7,7 +7,7 @@ RESEND_API_KEY=
 # Turnstile server-side key. Cloudflare's always-passes test secret:
 TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
 
-CONTACT_TO=info@systemformation.com
+CONTACT_TO=info@tashkeeltech.com
 CONTACT_FROM=tashkeel tech <website@tashkeeltech.com>
 
 # Test seam only — points delivery at a local mock instead of Resend.
