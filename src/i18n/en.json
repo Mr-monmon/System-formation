@@ -26,7 +26,7 @@
   },
   "common": {
     "skipToContent": "Skip to content",
-    "email": "info@systemformation.com",
+    "email": "info@tashkeeltech.com",
     "phoneDial": "+966567888365",
     "phoneDisplay": "+966 56 788 8365",
     "whatsapp": "https://wa.me/966567888365",
@@ -482,7 +482,7 @@
   "contact": {
     "seo": {
       "title": "Contact — talk to our team | tashkeel tech",
-      "description": "Talk to tashkeel tech about partner delivery, managed security or compliance. Email info@systemformation.com or call +966 56 788 8365."
+      "description": "Talk to tashkeel tech about partner delivery, managed security or compliance. Email info@tashkeeltech.com or call +966 56 788 8365."
     },
     "hero": {
       "h1": "Talk to our team.",
@@ -529,10 +529,10 @@
         "tooLong": "This field is too long.",
         "captcha": "The security check did not complete. Reload the page and try again.",
         "rate": "Too many messages from this connection. Try again in a few minutes.",
-        "server": "Something went wrong at our end. Email info@systemformation.com and we will pick it up.",
-        "network": "The message could not be sent. Check your connection, or email info@systemformation.com."
+        "server": "Something went wrong at our end. Email info@tashkeeltech.com and we will pick it up.",
+        "network": "The message could not be sent. Check your connection, or email info@tashkeeltech.com."
       },
-      "fallback": "You can also email us directly at info@systemformation.com or message us on WhatsApp."
+      "fallback": "You can also email us directly at info@tashkeeltech.com or message us on WhatsApp."
     }
   },
   "faq": {
@@ -673,7 +673,7 @@
       {
         "h": "Your rights",
         "p": [
-          "Under the Personal Data Protection Law you may ask to access your personal data, correct it, request its destruction, withdraw consent, and be informed of how it is used. Write to info@systemformation.com and we will respond within the period the law allows.",
+          "Under the Personal Data Protection Law you may ask to access your personal data, correct it, request its destruction, withdraw consent, and be informed of how it is used. Write to info@tashkeeltech.com and we will respond within the period the law allows.",
           "If you believe we have not handled your data correctly, you may complain to the Saudi Data and AI Authority (SDAIA)."
         ]
       },
@@ -710,7 +710,7 @@
         "h": "Acceptable use",
         "p": [
           "Do not use this site to attempt unauthorised access, disrupt its availability, submit unlawful or harmful content, or extract data by automated means, other than indexing by search engines and AI search or assistant services that follow this site's robots.txt. We may restrict access where we reasonably believe this has happened.",
-          "If you believe you have found a security issue in this website, please report it to info@systemformation.com rather than testing further."
+          "If you believe you have found a security issue in this website, please report it to info@tashkeeltech.com rather than testing further."
         ]
       },
       {
@@ -740,7 +740,7 @@
       {
         "h": "Contact",
         "p": [
-          "Questions about these terms: info@systemformation.com."
+          "Questions about these terms: info@tashkeeltech.com."
         ]
       }
     ]

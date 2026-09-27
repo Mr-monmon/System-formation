@@ -13,7 +13,7 @@ you want it the other way.
 
 | Decision | What the site does now | Why |
 |---|---|---|
-| **Where enquiries arrive** | Still **info@systemformation.com** — contact page, footer, form errors, security.txt, and the form's `CONTACT_TO` | It is the mailbox that exists. Sending leads to an address on tashkeeltech.com that is not set up yet would lose them silently. **Tell me when a tashkeeltech.com mailbox exists and I will switch everything.** |
+| **Where enquiries arrive** | **info@tashkeeltech.com** — contact page, footer, FAQ, form errors, structured data, llms.txt, security.txt, and the form's `CONTACT_TO` default (switched 2026-09-27, on the owner's instruction) | The mailbox must exist and receive mail, or enquiries bounce — see DEPLOY.md §0.5. |
 | **Where mail is sent from** | `website@tashkeeltech.com` | It is the site's own domain, so it is the one to verify in Resend. Sending and receiving domains can differ. |
 | **Legal entity** | **System Formation Co. Ltd — شركة تشكيل النظم المحدودة** stays in the footer, the legal pages, and as `legalName` in the structured data | The brand kit says so. The legal pages introduce the brand as a trading name ("System Formation Co. Ltd, trading as tashkeel tech"). |
 | **Name in running text** | Lowercase **tashkeel tech**, even at the start of a sentence (e.g. the About page) | The kit writes it lowercase throughout. |

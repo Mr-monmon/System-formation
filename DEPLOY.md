@@ -74,9 +74,10 @@ origin, so nothing else changes.
   widget refuses to run on a hostname it does not list.
 - **Resend** — verify **tashkeeltech.com** as a sending domain (§3). The form
   now sends *from* `website@tashkeeltech.com` by default.
-- **Where enquiries arrive** — still **info@systemformation.com**, the mailbox
-  that exists today. When a mailbox exists on tashkeeltech.com, change
-  `CONTACT_TO` (§2) and the address in `src/i18n/ar.json` and `en.json`.
+- **Where enquiries arrive** — **info@tashkeeltech.com**. That mailbox must
+  exist and receive mail (MX records on tashkeeltech.com — your mail provider,
+  or Cloudflare Email Routing forwarding to an inbox you read). Send it a test
+  email before relying on the form: if it bounces, every enquiry bounces.
 - **Google Search Console** — add `tashkeeltech.com` as a property, submit
   `https://tashkeeltech.com/sitemap-index.xml`, then run **Change of Address**
   from the systemformation.com property. That tool needs the 301s from §0.4 to
@@ -133,7 +134,7 @@ change only takes effect after a rebuild** — set it, then redeploy.
 
 | Variable | Value |
 |---|---|
-| `CONTACT_TO` | `info@systemformation.com` (until a tashkeeltech.com mailbox exists) |
+| `CONTACT_TO` | Optional. Defaults to `info@tashkeeltech.com`; set it only to deliver elsewhere |
 | `CONTACT_FROM` | `tashkeel tech <website@tashkeeltech.com>` |
 
 If `RESEND_API_KEY` is missing the form does not fail silently: it returns an
@@ -167,6 +168,16 @@ skipped, so set it before launch.
 
 The endpoint sets `reply_to` to the enquirer's address, so replying to the
 notification replies to them directly.
+
+**If the form answers "Something went wrong at our end" / "حدث خلل لدينا"**,
+delivery failed. Open the latest deployment → **Functions** → **Real-time
+logs**, send the form again, and read the `contact delivery failed` line:
+
+| Reason in the log | Fix |
+|---|---|
+| `RESEND_API_KEY is not set` | Add the key (§2, encrypted), then redeploy — Pages applies variable changes to new deployments only |
+| `resend 403: ... domain is not verified` | Finish step 2–3 above; `CONTACT_FROM` must be on the verified domain |
+| `resend 401` / `resend 403` about the key | The key is wrong, revoked, or restricted to another domain — create a new one |
 
 ---
 
